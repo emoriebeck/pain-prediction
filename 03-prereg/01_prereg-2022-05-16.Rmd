@@ -1,0 +1,335 @@
+---
+title           : "Idiographic prediction of physical pain and loneliness"
+shorttitle      : "My preregistration"
+date            : "`r Sys.setlocale('LC_TIME', 'C'); format(Sys.time(), '%d\\\\. %B %Y')`"
+author: 
+  - name        : Emorie D Beck
+    affiliation :  Northwestern University Feinberg School of Medicine
+output: 
+  
+  html_document:
+    theme: united
+    highlight: tango
+    df_print: paged
+    code_folding: show
+    toc: true
+    toc_float: true
+  pdf_document:
+    toc: yes
+bibliography: r-references.bib
+biblio-style: "apalike"
+csl: "apa-6th-edition.csl"
+editor_options: 
+  chunk_output_type: console
+---
+
+# Study Information
+
+## Title
+<!-- Provide the working title of your study. It may be the same title that you submit for publication of your final manuscript, but it is not a requirement. The title should be a specific and informative description of a project. Vague titles such as 'Fruit fly preregistration plan' are not appropriate.
+
+Example: Effect of sugar on brownie tastiness. -->
+
+`r rmarkdown::metadata$title`
+
+
+## Description
+<!-- Please give a brief description of your study, including some background, the purpose of the of the study, or broad research questions. The description should be no longer than the length of an abstract. It can give some context for the proposed study, but great detail is not needed here for your preregistration.
+
+Example: Though there is strong evidence to suggest that sugar affects taste preferences, the effect has never been demonstrated in brownies. Therefore, we will measure taste preference for four different levels of sugar concentration in a standard brownie recipe to determine if the effect exists in this pastry. -->
+
+A longstanding goal of psychology is to describe [e.g., @titchener1898postulates], predict [e.g., @meehl1954clinical], and explain [e.g., @fodor1968psychological] the things people do and experience. Despite this persisting emphasis, accurately predicting future socioemotional behaviors and experiences remains elusive. Indeed, most of the existent research on prediction examines broad life outcomes [e.g., @beck2020mega; @joel2020machine]. While such broad life outcomes result from accumulating behaviors and experiences [e.g., @hampson2007mechanisms], how predictable those behaviors are is largely unknown.  
+
+However, one recent investigation [@beck2021personalized] found that personalized, machine-learning based prediction models of loneliness, procrastination, studying, interacting with others, arguing with others, feeling sick, and feeling tired performed well on hold-out test data. In other words, despite more than a century of difficulty in predicting momentary behaviors and experiences from trait personality measures or situation-based laboratory experiments, more recent research using ambulatory assessment and mobile sensing provides promise for overcoming such challenges. 
+
+The present study aims to replicate and extend the findings of @beck2021personalized in a sample of older adults in the domains of physical pain and loneliness. Physical pain and loneliness have been demonstrated to have a substantial monetary burden, with, for example, loneliness and social isolation accounting for \$6.7 billion in additional Medicare spending annually and that the annual cost of chronic pain in the United States is as high as \$635 billion a year. Thus, identifying the unique antecedents to these experiences is a critical first step in determining pathways for reducing loneliness and physical pain among older adults.  
+
+
+## Hypotheses
+<!-- List specific, concise, and testable hypotheses. Please state if the hypotheses are directional or non-directional. If directional, state the direction. A predicted effect is also appropriate here. If a specific interaction or moderation is important to your research, you can list that as a separate hypothesis.
+
+Example: If taste affects preference, then mean preference indices will be higher with higher concentrations of sugar. -->
+
+Rather than hypotheses, the present study addresses three key research questions. 
+
+1. To what extent can idiographic predictive models be built? In other words, what is the out-of-sample prediction error for each person?  
+2. Are there individual differences in out-of-sample prediction error across people?  
+2a. Are some people not able to be predicted while others can be predicted almost perfectly?  
+2b. Do these differences "cluster" according to the types of features used? In other words, for some people, are situations better predictors of physical pain and loneliness while for others psychological characteristics like personality and affect? Are still others best predicted by both?  
+3. How much heterogeneity is there in the top predictors of physical pain and loneliness across people?  
+
+
+# Design Plan
+<!-- In this section, you will be asked to describe the overall design of your study. Remember that this research plan is designed to register a single study, so if you have multiple experimental designs, please complete a separate preregistration. -->
+
+
+## Study type
+
+**Observational Study**. Data is collected from study subjects that are not randomly assigned to a treatment. This includes surveys, natural experiments, and regression discontinuity designs.
+
+## Blinding
+<!-- Blinding describes who is aware of the experimental manipulations within a study. Select all that apply. Is there any additional blinding in this study? -->
+
+Although the data from these study come from the first wave of a longitudinal study. There are no experimental conditions, so no blinding is involved. However, data are fully anonymyzed and deidentified prior to dissemination.  
+
+## Study design
+<!-- Describe your study design. Examples include two-group, factorial, randomized block, and repeated measures. Is it a between (unpaired), within-subject (paired), or mixed design? Describe any counterbalancing required. Typical study designs for observation studies include cohort, cross sectional, and case-control studies.
+
+This question has a variety of possible answers. The key is for a researcher to be as detailed as is necessary given the specifics of their design. Be careful to determine if every parameter has been specified in the description of the study design. There may be some overlap between this question and the following questions. That is OK, as long as sufficient detail is given in one of the areas to provide all of the requested information. For example, if the study design describes a complete factorial, 2 X 3 design and the treatments and levels are specified previously, you do not have to repeat that information.
+
+Example: We have a between subjects design with 1 factor (sugar by mass) with 4 levels. -->
+
+The present study is a sub-project of the broader Einstein Aging Study, which is an ongoing longitudinal study of the aging brain. The EAS began in 1980 and has enrolled more than 2,600 participants since then. Data are available through application at http://www.einstein.yu.edu/departments/neurology/clinical-research-program/eas/data-sharing.aspx.  
+
+The sub-project uses a subset of EAS participants as well as newly recruited participants. In addition to regular EAS follow-ups, these participants completed additional trait and ESM measures of personality and cognition using a measurement burst design. Essentially, this means that although participants are continuously recruited, follow-ups occur approximately one year after each completion.  At each burst, participants complete 14 days of ESM surveys, with 6 beeps a day (i.e. max assessments = 84).  
+
+## Randomization
+<!-- If you are doing a randomized study, how will you randomize, and at what level? Typical randomization techniques include: simple, block, stratified, and adaptive covariate randomization. If randomization is required for the study, the method should be specified here, not simply the source of random numbers.
+
+Example: We will use block randomization, where each participant will be randomly assigned to one of the four equally sized, predetermined blocks. The random number list used to create these four blocks will be created using the web applications available at https://random.org. -->
+
+No randomization was involved in this study.  
+
+
+# Sampling Plan
+<!-- In this section we’ll ask you to describe how you plan to collect samples, as well as the number of samples you plan to collect and your rationale for this decision. Please keep in mind that the data described in this section should be the actual data used for analysis, so if you are using a subset of a larger dataset, please describe the subset that will actually be used in your study. -->
+
+
+## Existing data
+<!-- Preregistration is designed to make clear the distinction between confirmatory tests, specified prior to seeing the data, and exploratory analyses conducted after observing the data. Therefore, creating a research plan in which existing data will be used presents unique challenges. Please select the description that best describes your situation. Please do not hesitate to contact us if you have questions about how to answer this question (prereg@cos.io). -->
+
+**Registration prior to accessing the data**. As of the date of submission, the data exist, but have not been accessed by you or your collaborators. Commonly, this includes data that has been collected by another researcher or institution.  
+
+## Explanation of existing data
+<!-- If you indicate that you will be using some data that already exist in this study, please describe the steps you have taken to assure that you are unaware of any patterns or summary statistics in the data. This may include an explanation of how access to the data has been limited, who has observed the data, or how you have avoided observing any analysis of the specific data you will use in your study.
+
+An appropriate instance of using existing data would be collecting a sample size much larger than is required for the study, using a small portion of it to conduct exploratory analysis, and then registering one particular analysis that showed promising results. After registration, conduct the specified analysis on that part of the dataset that had not been investigated by the researcher up to that point.
+
+Example: An appropriate instance of using existing data would be collecting a sample size much larger than is required for the study, using a small portion of it to conduct exploratory analysis, and then registering one particular analysis that showed promising results. After registration, conduct the specified analysis on that part of the dataset that had not been investigated by the researcher up to that point. -->
+
+These data were collected as a sub-project of the Einstein Study of Aging by individuals not directly involved in the development of and analysis of the proposed project who have allowed us access to their data. They have previously published on subsets of these data and are currently being used to examine general diurnal trends, but the authors of this proposal and study maintainers remind blind to those results and the questions proposed in this registration have been evaluated for overlap.  
+
+## Data collection procedures
+<!-- Please describe the process by which you will collect your data. If you are using human subjects, this should include the population from which you obtain subjects, recruitment efforts, payment for participation, how subjects will be selected for eligibility from the initial pool (e.g. inclusion and exclusion rules), and your study timeline. For studies that don't include human subjects, include information about how you will collect samples, duration of data gathering efforts, source or location of samples, or batch numbers you will use.
+
+The answer to this question requires a specific set of instructions so that another person could repeat the data collection procedures and recreate the study population. Alternatively, if the study population would be unable to be reproduced because it relies on a specific set of circumstances unlikely to be recreated (e.g., a community of people from a specific time and location), the criteria and methods for creating the group and the rationale for this unique set of subjects should be clear.
+
+Example: Participants will be recruited through advertisements at local pastry shops. Participants will be paid $10 for agreeing to participate (raised to $30 if our sample size is not reached within 15 days of beginning recruitment). Participants must be at least 18 years old and be able to eat the ingredients of the pastries. -->
+
+A total of 14,137 potential participants were contacted via phone. From these calls, 597 participants completed successful phone screens, 517 of which were deemed eligible for participation and had in-home visits scheduled. Of these, 52 participants dropped out of the study before meeting, leaving 465. Of these 465, 150 were EAS participants and 315 were newly recruited participants. Among these, 66 EAS participants and 258 new participants were included in the final sample of the study for a total of 324 participants.  
+
+## Sample size
+<!-- Describe the sample size of your study. How many units will be analyzed in the study? This could be the number of people, birds, classrooms, plots, interactions, or countries included. If the units are not individuals, then describe the size requirements for each unit. If you are using a clustered or multilevel design, how many units are you collecting at each level of the analysis? For some studies, this will simply be the number of samples or the number of clusters. For others, this could be an expected range, minimum, or maximum number.
+
+Example: Our target sample size is 280 participants. We will attempt to recruit up to 320, assuming that not all will complete the total task. -->
+
+Approximately 300 participants have completed Burst 1 and will be our target population.  
+
+## Sample size rationale
+<!-- This could include a power analysis or an arbitrary constraint such as time, money, or personnel. This gives you an opportunity to specifically state how the sample size will be determined. A wide range of possible answers is acceptable; remember that transparency is more important than principled justifications. If you state any reason for a sample size upfront, it is better than stating no reason and leaving the reader to "fill in the blanks." Acceptable rationales include: a power analysis, an arbitrary number of subjects, or a number based on time or monetary constraints.
+
+Example: We used the software program G*Power to conduct a power analysis. Our goal was to obtain .95 power to detect a medium effect size of .25 at the standard .05 alpha error probability. -->
+
+Between-person sample sizes are based on the number of individuals who have completed Burst 1 to date (beg. 2017) and limited by aims of the parent grant and project.  
+
+Within-person sample sizes are constrained by the 15 day x 5 beeps/day study design of the ESM study.  
+
+## Stopping rule
+<!-- If your data collection procedures do not give you full control over your exact sample size, specify how you will decide when to terminate your data collection. 
+
+You may specify a stopping rule based on p-values only in the specific case of sequential analyses with pre-specified checkpoints, alphas levels, and stopping rules. Unacceptable rationales include stopping based on p-values if checkpoints and stopping rules are not specified. If you have control over your sample size, then including a stopping rule is not necessary, though it must be clear in this question or a previous question how an exact sample size is attained.
+
+Example: We will post participant sign-up slots by week on the preceding Friday night, with 20 spots posted per week. We will post 20 new slots each week if, on that Friday night, we are below 320 participants. -->
+
+The stopping rule is determined by the last date of data cleaning by the research team who manages the data (last collection, January 2020).  
+
+# Variables
+<!-- In this section you can describe all variables (both manipulated and measured variables) that will later be used in your confirmatory analysis plan. In your analysis plan, you will have the opportunity to describe how each variable will be used. If you have variables which you are measuring for exploratory analyses, you are not required to list them, though you are permitted to do so. -->
+A list of all variables, both measured and created, are included in a codebook attached with this preregistration.  
+
+## Measured variables
+<!-- Describe each variable that you will measure. This will include outcome measures, as well as any predictors or covariates that you will measure. You do not need to include any variables that you plan on collecting if they are not going to be included in the confirmatory analyses of this study.
+
+Observational studies and meta-analyses will include only measured variables. As with the previous questions, the answers here must be precise. For example, 'intelligence,' 'accuracy,' 'aggression,' and 'color' are too vague. Acceptable alternatives could be 'IQ as measured by Wechsler Adult Intelligence Scale' 'percent correct,' 'number of threat displays,' and 'percent reflectance at 400 nm.'
+
+Example: The single outcome variable will be the perceived tastiness of the single brownie each participant will eat. We will measure this by asking participants ‘How much did you enjoy eating the brownie’ (on a scale of 1-7, 1 being 'not at all', 7 being 'a great deal') and 'How good did the brownie taste' (on a scale of 1-7, 1 being 'very bad', 7 being 'very good'). -->
+
+Measured variables include:  
+- 15 psychological indicators  
+- 19 binary situation indicators  
+- 12 behavior indicators
+- 2 outcome indicators 
+
+A full list of these is below (from the codebook attached with this preregistration).  
+
+```{r}
+library(knitr)
+library(kableExtra)
+library(plyr)
+library(tidyverse)
+res_path <- "/Volumes/Emorie/projects/eas ambulatory data/pain-prediction"
+
+eas_codebook <- sprintf("%s/01-codebooks/2022-02-18-master-codebook.xlsx", res_path) %>%
+  readxl::read_xlsx(., sheet = "codebook")
+
+outcomes <- eas_codebook %>% filter(category == "outcome") %>% select(name, long_name)
+
+# ftrs <- import(file = sprintf("%s/01-codebooks/codebook.xlsx", res_path), which = 3) %>%
+#   as_tibble()
+ftrs <- sprintf("%s/01-codebooks/2022-02-18-master-codebook.xlsx", res_path) %>%
+  readxl::read_xlsx(., sheet = "names")
+
+ftrs %>%
+  mutate(category = str_to_title(category)) %>%
+  select(-item) %>%
+  kable(.
+        , "html"
+        , escape = F
+        , col.names = c("Category", "Long Name", "Short Name", "Original Name")) %>%
+  kable_styling(full_width = F) %>%
+  collapse_rows(1, "top")
+```
+
+
+In addition, we have time stamps for all observations, which will be transformed into time indicators as detailed in the [Transformations](#transformations) section.  
+
+## Indices
+<!-- If any measurements are  going to be combined into an index (or even a mean), what measures will you use and how will they be combined? Include either a formula or a precise description of your method. If your are using a more complicated statistical method to combine measures (e.g. a factor analysis), you can note that here but describe the exact method in the analysis plan section.
+
+If you are using multiple pieces of data to construct a single variable, how will this occur? Both the data that are included and the formula or weights for each measure must be specified. Standard summary statistics, such as "means" do not require a formula, though more complicated indices require either the exact formula or, if it is an established index in the field, the index must be unambiguously defined. For example, "biodiversity index" is too broad, whereas "Shannon’s biodiversity index" is appropriate.
+
+Example: We will take the mean of the two questions above to create a single measure of 'brownie enjoyment.'  -->
+
+In addition, we will include a set of temporal variables, constructed from time stamps:  
+
+- linear trends (1 variable)  
+- quadratic trends (1 variable)  
+- cubic trends (1 variable)  
+- sinusoidal and cosinusoidal utradian and circadian cycles (4 total variables)  
+- time of day dummy codes (4: morning, midday, evening, night) (4 total variables)  
+- day of the week dummy codes (7 variables: Sunday - Saturday, yes/no)  
+
+Together, this results in a total of 70 indicators.  
+
+
+# Analysis Plan
+<!-- You may describe one or more confirmatory analysis in this preregistration. Please remember that all analyses specified below must be reported in the final article, and any additional analyses must be noted as exploratory or hypothesis generating.
+
+A confirmatory analysis plan must state up front which variables are predictors (independent) and which are the outcomes (dependent), otherwise it is an exploratory analysis. You are allowed to describe any exploratory work here, but a clear confirmatory analysis is required. -->
+
+The present study will test three methods of machine learning classification models, some of which have been used for idiographic prediction in other studies [@fisher2019generating; @kaiser2020time]:  
+1. Elastic Net Regression [@friedman2010regularization]  
+2. The Best Items Scale that is Cross-validated, Correlation-weighted, Informative and Transparent [BISCWIT;  @elleman2020takes]  
+
+In each of these methods, we will use 10-fold cross-validation on the training set, which will be comprised of the the first 75% of the time series, and hold out the remaining 25% of the data set for the test set.  
+
+Because we have a large number of indicators to test, each of the methods used have variable selection features and, in some instances, other methods for reducing overfitting, as detailed below. To both reduce the number of indicators used in each test and to test which group of indicators are the most predictive of physical pain and physical pain, we will also test these in several sets:  
+
+- Behavioral indicators (activities) (12)
+- Psychological indicators (personality + affect) (15)  
+- Situation indicators (binary, location and other people around) (19)  
+- Full set (psychological + behavioral + situations) (46)  
+
+We will additionally test each of these with and without the 18 timing indicators (detailed more below in the [Transformations](#transformations) section).  
+
+Each method will use rolling origin validation (initial set to n/3, assess = 5, skip = 1, cumulative = T).  
+
+### 1. Elastic Net Regression {#elanet}  
+Elastic Net Regression proceeds from the observation that typical OLS-based regression minimizes bias but may have great variance. Using L1 (Ridge) and L2 (LASSO) approaches, which apply penalties to model estimates, elastic net attempts to balance the trade-off between bias and variance by choosing the best penalties that minimize an information criterion or prediction error. Together, these both shrink coefficients and help with feature selection by forcing some of the coefficients to be zero. Because there are a large number of values the regularization parameter $\lambda$ can take on, the typical solution is to use a method like k-fold cross-validation to test a number of $\lambda$ values and choose the one with the one that matches a criterion like minimizing prediction error.  
+
+In the present study, we will use the `linear_reg()` function (`set_engine = "glmnet"` to call the `glmnet` package) from the `parsnip` package through the `tidymodels` package with rolling origin validation folds, and use root mean squared error (rmse) to tune the hyperparameters [@glmnet; @parsnip; @tidymodels].  
+
+### 2. BISCWIT {#biswit}  
+The Best Items Scale that is Cross-validated, Correlation-weighted, Informative and Transparent is a correlation-based machine learning technique. The technique proceeds as follows:  
+
+- pairwise correlations between predictors and outcome(s) using cross-validation with k-folds  
+- items with the highest cross-validated correlations are retained  
+- retained items are correlation-weighted in a sum score  
+
+In the present study, we will use the `bestScales()` function from the `psych` package to create the models and will use the `scoreWtd()` function to extract the correlation weighted scores [@psych].  
+
+### 3. Random Forest {#rfa}  
+Random forest models are a variant of decision tree classification algorithms that additionally draw on bagging (ensemble) methods. The name itself hints at how it different from classic decision trees; we have a forest instead of a tree. In so doing, random forest models draw upon a large number of decision trees of varying depth that are then aggregated. The random part comes from two sources. First, each tree in the forest in trained on a data set drawn with replacement from the training dataset (hence also: random) as part of the bagging procedure. Observations left out of each model are termed out-of-bag observations (and collectively, the out-of-bag dataset). These are used to evaluate the performance of the tree. Second, the features used in each tree are also randomly drawn from the full of features. Each of these trees, based on their data generates a prediction given new data. The final prediction is based off the ensemble of trees -- that is, the decision made by a majority of the trees. Importantly, because of the random feature selection part of the procedure, random forest can also provide estimates of variable importance, indicating which features are critical to making a less error-prone classification.  
+
+Because random forest using bagging (i.e. bootstrapping + aggregation), we will have to perform a series of steps that make bootstrapping appropriate with time series data: differencing, Box-Cox transformations, and time-delay embedding. Essentially, differencing and Box-Cox transformations stabilize the mean and variance, respectively, to make the time series stationary [@priestley1988non], and time-delay embedding quite literally embeds the sequence of the time series into the predictor variables, which in effect preserves the order of the times series [@von2010time]. We can easily back-transform forecasts to their original scale.  
+
+In the present study, we will use the `tidymodels` package in `R` to estimate the random forest models (`method = "rf"` from the `caret` package) using rolling origin validation. We will use the `varImp()` function to extract variable importance [@caret].  
+
+### 4. Summarizing Results  
+The results from each of these methods will be used to answer Questions 1-3. For each, we will test each combination of the features listed above, both with and without timing effects. Where possible, we will also attempt to use the `tidymodels` package in `R` as a wrapper for functions in the `glmnet` and `caret` packages in the hopes of making syntax more accessible.    
+
+Questions 1 and 2 are highly related. Question 1 is more concerned with the aggregated prediction error across people -- in other words, can we predict generally predict when participants are lonely or procrastinating above chance levels. Assuming there is some degree prediction achieved across people, Question 2 then asks about the range of individual differences in this. For example, are there some people we can't predict but others we can?  
+
+Both questions 1 and 2 will draw on two forms of predictive tests: root mean square error and area under the curve (AUC). See the [Inference Criteria](#inferences) for more details.  
+
+Finally, Question 3 will examine which variables contribute the most to the prediction models for each person separately. For each method, we will extract the top 10 variables for each person, and run a number of descriptive tests (plotting, percentages, etc.) to examine the range of individual differences in what indicators were contributing to prediction across people. To the extent that these indicators differ widely across people, this highlights the experiential heterogeneity in how loneliness and physical pain arise in these participants lives, which has implication for using nomothetic prediction of such experiences.   
+
+## Statistical models
+<!-- What statistical model will you use to test each hypothesis? Please include the type of model (e.g. ANOVA, multiple regression, SEM, etc) and the specification of the model (this includes each variable that will be included as predictors, outcomes, or covariates). Please specify any interactions, subgroup analyses, pairwise or complex contrasts, or follow-up tests from omnibus tests. If you plan on using any positive controls, negative controls, or manipulation checks you may mention that here. Remember that any test not included here must be noted as an exploratory test in your final article.
+
+This is perhaps the most important and most complicated question within the preregistration. As with all of the other questions, the key is to provide a specific recipe for analyzing the collected data. Ask yourself: is enough detail provided to run the same analysis again with the information provided by the user? Be aware for instances where the statistical models appear specific, but actually leave openings for the precise test. See the following examples:
+
+- If someone specifies a 2x3 ANOVA with both factors within subjects, there is still flexibility with the various types of ANOVAs that could be run. Either a repeated measures ANOVA (RMANOVA) or a multivariate ANOVA (MANOVA) could be used for that design, which are two different tests. 
+- If you are going to perform a sequential analysis and check after 50, 100, and 150 samples, you must also specify the p-values you’ll test against at those three points.
+
+Example:  We will use a one-way between subjects ANOVA to analyze our results. The manipulated, categorical independent variable is 'sugar' whereas the dependent variable is our taste index. -->
+
+The statistical models used in the present study represent three machine learning regression methods -- [elastic net regression](#elanet), [BISWIT](#biswit), and [Random Forest](#rfa) -- each of which were described in detail above.  
+
+
+## Transformations {#transformations}
+<!-- If you plan on transforming, centering, recoding the data, or will require a coding scheme for categorical variables, please describe that process. If any categorical predictors are included in a regression, indicate how those variables will be coded (e.g. dummy coding, summation coding, etc.) and what the reference category will be.
+
+Example: The "Effect of sugar on brownie tastiness" does not require any additional transformations. However, if it were using a regression analysis and each level of sweet had been categorically described (e.g. not sweet, somewhat sweet, sweet, and very sweet), 'sweet' could be dummy coded with 'not sweet' as the reference category. -->
+
+The main data transformations are of the date/time variable to a number of indicators. 
+
+Specifically, we will perform the following steps:  
+1. Create beep time of day dummy codes (morning, midday, evening, night) from time stamp data  
+2. Create day of the week dummy codes (7) from the date/time object using `lubridate::wday()`  
+3. Create a cumulative time variable (in hours) from first beep (not used in analyses)  
+4. Standardize the cumulative time variable to capture the linear trend  
+5. Use the linear trend variable to create quadratic and cubic trends  
+6. Use the cumulative time variable to create 1 and 2 period sine and cosine functions across each 24 period (e.g., 2 period sine = $sin(\frac{2\pi}{12}*cumtime)$ and 1 period sine = $sin(\frac{2\pi}{24}*cumtime)$)  
+
+We will also transform our outcome variables -- loneliness and physical pain (0/1) -- to lagged outcomes, such that the features will then be predicting next time point loneliness or physical pain (t + 1) from current time point features (t).  
+
+## Inference criteria {#inference}
+<!-- What criteria will you use to make inferences? Please describe the information you'll use (e.g. p-values, Bayes factors, specific model fit indices), as well as cut-off criterion, where appropriate. Will you be using one or two tailed tests for each of your analyses? If you are comparing multiple conditions or testing multiple hypotheses, will you account for this?
+
+p-values, confidence intervals, and effect sizes are standard means for making an inference, and any level is acceptable, though some criteria must be specified in this or previous fields. Bayesian analyses should specify a Bayes factor or a credible interval. If you are selecting models, then how will you determine the relative quality of each? In regards to multiple comparisons, this is a question with few "wrong" answers. In other words, transparency is more important than any specific method of controlling the false discovery rate or false error rate. One may state an intention to report all tests conducted or one may conduct a specific correction procedure; either strategy is acceptable.
+
+Example: We will use the standard p<.05 criteria for determining if the ANOVA and the post hoc test suggest that the results are significantly different from those expected if the null hypothesis were correct. The post-hoc Tukey-Kramer test adjusts for multiple comparisons. -->
+
+Out of sample prediction will tested based on root mean squared error (RMSE) and adjusted $R^2$. RMSE is a measurement of the difference between predicted and observed values. Unlike measures of absolute error and mean square error, root mean square error penalizes larger errors by squaring differences between predicted and observed values but brings it back to the same metric as the outcome by square rooting the result, which often results in better model out of sample performance. Adjusted $R^2$ is an indicator of the total amount of variance in the outcome that can be predicted by model features. Unlike traditional $R^2$ measures, adjusted $R^2$ penalizes the value as a function of both the sample size and number of predictors. Neither performance metric has established cut-offs. However, for ease of interpretation, we follow existing suggestions that “good” RMSE values are 1/10 of total variability in the outcome and that “good” adjusted $R^2$ are above 50%.  
+
+## Data exclusion
+<!-- How will you determine what data or samples, if any, to exclude from your analyses? How will outliers be handled? Will you use any awareness check? Any rule for excluding a particular set of data is acceptable. One may describe rules for excluding a participant or for identifying outlier data.
+
+Example: No checks will be performed to determine eligibility for inclusion besides verification that each subject answered each of the three tastiness indices. Outliers will be included in the analysis. -->
+
+Participants with too little data at an ESM wave (N < 40) will be excluded.  
+
+
+## Missing data
+<!-- How will you deal with incomplete or missing data? Any relevant explanation is acceptable. As a final reminder, remember that the final analysis must follow the specified plan, and deviations must be either strongly justified or included as a separate, exploratory analysis.
+
+Example: If a subject does not complete any of the three indices of tastiness, that subject will not be included in the analysis. -->
+
+Missing data will be treated at the observation level, using all available information for each participant.  
+
+
+## Exploratory analyses (optional)
+<!-- If you plan to explore your data set to look for unexpected differences or relationships, you may describe those tests here. An exploratory test is any test where a prediction is not made up front, or there are multiple possible tests that you are going to use. A statistically significant finding in an exploratory test is a great way to form a new confirmatory hypothesis, which could be registered at a later time.
+
+Example: We expect that certain demographic traits may be related to taste preferences. Therefore, we will look for relationships between demographic variables (age, gender, income, and marital status) and the primary outcome measures of taste preferences. -->
+
+Arguably, all analyses in the present study are exploratory as we make no formal directional hypotheses.  
+
+# References
+## 
+\vspace{-2pc}
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{-1in}
+\setlength{\parskip}{8pt}
+\noindent

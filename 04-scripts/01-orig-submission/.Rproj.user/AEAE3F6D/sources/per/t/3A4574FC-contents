@@ -1,0 +1,68 @@
+--- 
+title: "Idiographic prediction of loneliness and procrastination"
+author: "Emorie D Beck"
+institution: "Northwestern University Feinberg School of Medicine"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+
+# Workspace  
+## Packages  
+
+```{r, echo = F}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F, error = F)
+options(knitr.kable.NA = '')
+```
+
+
+```{r packages}
+library(knitr)              # creating tables
+library(kableExtra)         # formatting and exporting tables
+library(readxl)             # read excel codebooks and documentation
+library(psych)              # biscuit / biswit
+library(glmnet)             # elastic net regression
+library(glmnetUtils)        # extension of basic elastic net with CV
+library(caret)              # traint and test for random forest
+library(plyr)               # data wranging
+library(tidyverse)          # data wrangling
+library(furrr)              # mapping many models in parallel 
+```
+
+
+## Directory Path  
+```{r path}
+# res_path <- "https://github.com/emoriebeck/big-five-prediction/blob/master"
+res_path <- "~/Box/network/other projects/idio prediction"
+```
+
+## Codebook  
+Each study has a separate codebook indexing matching, covariate, personality, and outcome variables. Moreover, these codebooks contain information about the original scale of the variable, any recoding of the variable (including binarizing outcomes, changing the scale, and removing missing data), reverse coding of scale variables, categories, etc.  
+```{r codebook}
+# list of all codebook sheets
+sheets <- sprintf("%s/codebooks/codebook.xlsx", res_path) %>% excel_sheets()
+
+# function for reading in sheets
+read_fun <- function(x){
+  sprintf("%s/codebooks/master_codebook_01.24.20.xlsx", res_path) %>% read_xlsx(., sheet = x)
+}
+
+# read in sheets and index source
+codebook <- tibble(
+  study = sheets,
+  codebook = map(study, read_fun)
+)
+```
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

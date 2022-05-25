@@ -1,0 +1,855 @@
+SID,outcome,group,time
+10163,pain,full,no time
+10163,pain,full,time
+10277,lonely,full,no time
+10277,lonely,full,time
+10277,pain,full,no time
+10277,pain,full,time
+10297,pain,full,no time
+10297,pain,full,time
+10299,lonely,full,no time
+10299,lonely,full,time
+10299,pain,full,no time
+10299,pain,full,time
+10455,lonely,full,no time
+10455,lonely,full,time
+10455,pain,full,no time
+10455,pain,full,time
+10468,lonely,full,no time
+10468,lonely,full,time
+10468,pain,full,no time
+10468,pain,full,time
+10514,lonely,full,no time
+10514,lonely,full,time
+10514,pain,full,no time
+10514,pain,full,time
+10644,lonely,full,no time
+10644,lonely,full,time
+10644,pain,full,no time
+10644,pain,full,time
+10683,lonely,full,no time
+10683,lonely,full,time
+10683,pain,full,no time
+10683,pain,full,time
+10698,lonely,full,no time
+10698,lonely,full,time
+10698,pain,full,no time
+10698,pain,full,time
+10753,lonely,full,no time
+10753,lonely,full,time
+10753,pain,full,no time
+10753,pain,full,time
+10841,lonely,full,no time
+10841,lonely,full,time
+10841,pain,full,no time
+10841,pain,full,time
+10846,lonely,full,no time
+10846,lonely,full,time
+10846,pain,full,no time
+10846,pain,full,time
+10858,lonely,full,no time
+10858,lonely,full,time
+10858,pain,full,no time
+10858,pain,full,time
+10872,lonely,full,no time
+10872,lonely,full,time
+10872,pain,full,no time
+10872,pain,full,time
+10875,pain,full,no time
+10875,pain,full,time
+10883,lonely,full,no time
+10883,lonely,full,time
+10883,pain,full,no time
+10883,pain,full,time
+10927,lonely,full,no time
+10927,lonely,full,time
+10927,pain,full,no time
+10927,pain,full,time
+10943,lonely,full,no time
+10943,lonely,full,time
+10943,pain,full,no time
+10943,pain,full,time
+11007,lonely,full,no time
+11007,lonely,full,time
+11007,pain,full,no time
+11007,pain,full,time
+11017,lonely,full,no time
+11017,lonely,full,time
+11017,pain,full,no time
+11017,pain,full,time
+12009,lonely,full,no time
+12009,lonely,full,time
+12009,pain,full,no time
+12009,pain,full,time
+12011,lonely,full,no time
+12011,lonely,full,time
+12011,pain,full,no time
+12011,pain,full,time
+12012,pain,full,no time
+12012,pain,full,time
+12013,lonely,full,no time
+12013,lonely,full,time
+12013,pain,full,no time
+12013,pain,full,time
+12015,lonely,full,no time
+12015,lonely,full,time
+12015,pain,full,no time
+12015,pain,full,time
+12016,lonely,full,no time
+12016,lonely,full,time
+12016,pain,full,no time
+12016,pain,full,time
+12017,lonely,full,no time
+12017,lonely,full,time
+12017,pain,full,no time
+12017,pain,full,time
+12018,lonely,full,no time
+12018,lonely,full,time
+12018,pain,full,no time
+12018,pain,full,time
+12019,lonely,full,no time
+12019,lonely,full,time
+12019,pain,full,no time
+12019,pain,full,time
+12020,lonely,full,no time
+12020,lonely,full,time
+12020,pain,full,no time
+12020,pain,full,time
+12021,lonely,full,no time
+12021,lonely,full,time
+12021,pain,full,no time
+12021,pain,full,time
+12022,lonely,full,no time
+12022,lonely,full,time
+12022,pain,full,no time
+12022,pain,full,time
+12024,lonely,full,no time
+12024,lonely,full,time
+12024,pain,full,no time
+12024,pain,full,time
+12028,lonely,full,no time
+12028,lonely,full,time
+12028,pain,full,no time
+12028,pain,full,time
+12029,lonely,full,no time
+12029,lonely,full,time
+12029,pain,full,no time
+12029,pain,full,time
+12030,lonely,full,no time
+12030,lonely,full,time
+12030,pain,full,no time
+12030,pain,full,time
+12033,lonely,full,no time
+12033,lonely,full,time
+12033,pain,full,no time
+12033,pain,full,time
+12034,lonely,full,no time
+12034,lonely,full,time
+12034,pain,full,no time
+12034,pain,full,time
+12035,lonely,full,no time
+12035,lonely,full,time
+12035,pain,full,no time
+12035,pain,full,time
+12036,lonely,full,no time
+12036,lonely,full,time
+12036,pain,full,no time
+12036,pain,full,time
+12037,lonely,full,no time
+12037,lonely,full,time
+12037,pain,full,no time
+12037,pain,full,time
+12038,lonely,full,no time
+12038,lonely,full,time
+12038,pain,full,no time
+12038,pain,full,time
+12042,lonely,full,no time
+12042,lonely,full,time
+12042,pain,full,no time
+12042,pain,full,time
+12043,lonely,full,no time
+12043,lonely,full,time
+12045,lonely,full,no time
+12045,lonely,full,time
+12045,pain,full,no time
+12045,pain,full,time
+12046,lonely,full,no time
+12046,lonely,full,time
+12046,pain,full,no time
+12046,pain,full,time
+12048,lonely,full,no time
+12048,lonely,full,time
+12048,pain,full,no time
+12048,pain,full,time
+12051,lonely,full,no time
+12051,lonely,full,time
+12051,pain,full,no time
+12051,pain,full,time
+12053,lonely,full,no time
+12053,lonely,full,time
+12053,pain,full,no time
+12053,pain,full,time
+12054,lonely,full,no time
+12054,lonely,full,time
+12054,pain,full,no time
+12054,pain,full,time
+12056,lonely,full,no time
+12056,lonely,full,time
+12056,pain,full,no time
+12056,pain,full,time
+12059,lonely,full,no time
+12059,lonely,full,time
+12059,pain,full,no time
+12059,pain,full,time
+12060,lonely,full,no time
+12060,lonely,full,time
+12060,pain,full,no time
+12060,pain,full,time
+12061,lonely,full,no time
+12061,lonely,full,time
+12061,pain,full,no time
+12061,pain,full,time
+12063,lonely,full,no time
+12063,lonely,full,time
+12063,pain,full,no time
+12063,pain,full,time
+12065,lonely,full,no time
+12065,lonely,full,time
+12065,pain,full,no time
+12065,pain,full,time
+12066,lonely,full,no time
+12066,lonely,full,time
+12066,pain,full,no time
+12066,pain,full,time
+12067,lonely,full,no time
+12067,lonely,full,time
+12067,pain,full,no time
+12067,pain,full,time
+12071,lonely,full,no time
+12071,lonely,full,time
+12071,pain,full,no time
+12071,pain,full,time
+12072,lonely,full,no time
+12072,lonely,full,time
+12072,pain,full,no time
+12072,pain,full,time
+12073,lonely,full,no time
+12073,lonely,full,time
+12073,pain,full,no time
+12073,pain,full,time
+12076,lonely,full,no time
+12076,lonely,full,time
+12076,pain,full,no time
+12076,pain,full,time
+12079,lonely,full,no time
+12079,lonely,full,time
+12079,pain,full,no time
+12079,pain,full,time
+12081,lonely,full,no time
+12081,lonely,full,time
+12081,pain,full,no time
+12081,pain,full,time
+12083,lonely,full,no time
+12083,lonely,full,time
+12083,pain,full,no time
+12083,pain,full,time
+12084,lonely,full,no time
+12084,lonely,full,time
+12084,pain,full,no time
+12084,pain,full,time
+12087,pain,full,no time
+12087,pain,full,time
+12088,lonely,full,no time
+12088,lonely,full,time
+12088,pain,full,no time
+12088,pain,full,time
+12089,pain,full,no time
+12089,pain,full,time
+12090,pain,full,no time
+12090,pain,full,time
+12091,lonely,full,no time
+12091,lonely,full,time
+12091,pain,full,no time
+12091,pain,full,time
+12092,lonely,full,no time
+12092,lonely,full,time
+12092,pain,full,no time
+12092,pain,full,time
+12094,lonely,full,no time
+12094,lonely,full,time
+12095,lonely,full,no time
+12095,lonely,full,time
+12095,pain,full,no time
+12095,pain,full,time
+12096,lonely,full,no time
+12096,lonely,full,time
+12096,pain,full,no time
+12096,pain,full,time
+12099,lonely,full,no time
+12099,lonely,full,time
+12099,pain,full,no time
+12099,pain,full,time
+12100,lonely,full,no time
+12100,lonely,full,time
+12100,pain,full,no time
+12100,pain,full,time
+12102,lonely,full,no time
+12102,lonely,full,time
+12102,pain,full,no time
+12102,pain,full,time
+12103,lonely,full,no time
+12103,lonely,full,time
+12103,pain,full,no time
+12103,pain,full,time
+12105,pain,full,no time
+12105,pain,full,time
+12106,lonely,full,no time
+12106,lonely,full,time
+12106,pain,full,no time
+12106,pain,full,time
+12107,lonely,full,no time
+12107,lonely,full,time
+12107,pain,full,no time
+12107,pain,full,time
+12108,pain,full,no time
+12108,pain,full,time
+12111,lonely,full,no time
+12111,lonely,full,time
+12111,pain,full,no time
+12111,pain,full,time
+12114,lonely,full,no time
+12114,lonely,full,time
+12114,pain,full,no time
+12114,pain,full,time
+12115,lonely,full,no time
+12115,lonely,full,time
+12115,pain,full,no time
+12115,pain,full,time
+12116,lonely,full,no time
+12116,lonely,full,time
+12116,pain,full,no time
+12116,pain,full,time
+12119,lonely,full,no time
+12119,lonely,full,time
+12119,pain,full,no time
+12119,pain,full,time
+12120,lonely,full,no time
+12120,lonely,full,time
+12120,pain,full,no time
+12120,pain,full,time
+12121,lonely,full,no time
+12121,lonely,full,time
+12121,pain,full,no time
+12121,pain,full,time
+12122,lonely,full,no time
+12122,lonely,full,time
+12122,pain,full,no time
+12122,pain,full,time
+12123,lonely,full,no time
+12123,lonely,full,time
+12123,pain,full,no time
+12123,pain,full,time
+12125,lonely,full,no time
+12125,lonely,full,time
+12125,pain,full,no time
+12125,pain,full,time
+12126,lonely,full,no time
+12126,lonely,full,time
+12126,pain,full,no time
+12126,pain,full,time
+12128,lonely,full,no time
+12128,lonely,full,time
+12129,lonely,full,no time
+12129,lonely,full,time
+12129,pain,full,no time
+12129,pain,full,time
+12130,lonely,full,no time
+12130,lonely,full,time
+12130,pain,full,no time
+12130,pain,full,time
+12135,pain,full,no time
+12135,pain,full,time
+12136,lonely,full,no time
+12136,lonely,full,time
+12136,pain,full,no time
+12136,pain,full,time
+12137,lonely,full,no time
+12137,lonely,full,time
+12137,pain,full,no time
+12137,pain,full,time
+12139,lonely,full,no time
+12139,lonely,full,time
+12139,pain,full,no time
+12139,pain,full,time
+12140,lonely,full,no time
+12140,lonely,full,time
+12140,pain,full,no time
+12140,pain,full,time
+12141,lonely,full,no time
+12141,lonely,full,time
+12141,pain,full,no time
+12141,pain,full,time
+12142,lonely,full,no time
+12142,lonely,full,time
+12142,pain,full,no time
+12142,pain,full,time
+12145,lonely,full,no time
+12145,lonely,full,time
+12147,lonely,full,no time
+12147,lonely,full,time
+12147,pain,full,no time
+12147,pain,full,time
+12148,lonely,full,no time
+12148,lonely,full,time
+12148,pain,full,no time
+12148,pain,full,time
+12149,lonely,full,no time
+12149,lonely,full,time
+12149,pain,full,no time
+12149,pain,full,time
+12150,lonely,full,no time
+12150,lonely,full,time
+12150,pain,full,no time
+12150,pain,full,time
+12151,lonely,full,no time
+12151,lonely,full,time
+12151,pain,full,no time
+12151,pain,full,time
+12152,lonely,full,no time
+12152,lonely,full,time
+12152,pain,full,no time
+12152,pain,full,time
+12153,lonely,full,no time
+12153,lonely,full,time
+12153,pain,full,no time
+12153,pain,full,time
+12154,lonely,full,no time
+12154,lonely,full,time
+12154,pain,full,no time
+12154,pain,full,time
+12156,lonely,full,no time
+12156,lonely,full,time
+12156,pain,full,no time
+12156,pain,full,time
+12157,lonely,full,no time
+12157,lonely,full,time
+12157,pain,full,no time
+12157,pain,full,time
+12158,lonely,full,no time
+12158,lonely,full,time
+12158,pain,full,no time
+12158,pain,full,time
+12159,lonely,full,no time
+12159,lonely,full,time
+12159,pain,full,no time
+12159,pain,full,time
+12160,lonely,full,no time
+12160,lonely,full,time
+12160,pain,full,no time
+12160,pain,full,time
+12162,lonely,full,no time
+12162,lonely,full,time
+12162,pain,full,no time
+12162,pain,full,time
+12163,pain,full,no time
+12163,pain,full,time
+12164,pain,full,no time
+12164,pain,full,time
+12166,lonely,full,no time
+12166,lonely,full,time
+12166,pain,full,no time
+12166,pain,full,time
+12167,lonely,full,no time
+12167,lonely,full,time
+12167,pain,full,no time
+12167,pain,full,time
+12169,lonely,full,no time
+12169,lonely,full,time
+12169,pain,full,no time
+12169,pain,full,time
+12171,lonely,full,no time
+12171,lonely,full,time
+12171,pain,full,no time
+12171,pain,full,time
+12172,lonely,full,no time
+12172,lonely,full,time
+12172,pain,full,no time
+12172,pain,full,time
+12173,lonely,full,no time
+12173,lonely,full,time
+12173,pain,full,no time
+12173,pain,full,time
+12174,lonely,full,no time
+12174,lonely,full,time
+12174,pain,full,no time
+12174,pain,full,time
+12176,lonely,full,no time
+12176,lonely,full,time
+12176,pain,full,no time
+12176,pain,full,time
+12177,lonely,full,no time
+12177,lonely,full,time
+12177,pain,full,no time
+12177,pain,full,time
+12178,lonely,full,no time
+12178,lonely,full,time
+12178,pain,full,no time
+12178,pain,full,time
+12179,lonely,full,no time
+12179,lonely,full,time
+12180,lonely,full,no time
+12180,lonely,full,time
+12180,pain,full,no time
+12180,pain,full,time
+12181,lonely,full,no time
+12181,lonely,full,time
+12181,pain,full,no time
+12181,pain,full,time
+12182,lonely,full,no time
+12182,lonely,full,time
+12182,pain,full,no time
+12182,pain,full,time
+12183,lonely,full,no time
+12183,lonely,full,time
+12183,pain,full,no time
+12183,pain,full,time
+12184,lonely,full,no time
+12184,lonely,full,time
+12184,pain,full,no time
+12184,pain,full,time
+12185,lonely,full,no time
+12185,lonely,full,time
+12185,pain,full,no time
+12185,pain,full,time
+12186,lonely,full,no time
+12186,lonely,full,time
+12186,pain,full,no time
+12186,pain,full,time
+12187,lonely,full,no time
+12187,lonely,full,time
+12187,pain,full,no time
+12187,pain,full,time
+12188,lonely,full,no time
+12188,lonely,full,time
+12188,pain,full,no time
+12188,pain,full,time
+12189,lonely,full,no time
+12189,lonely,full,time
+12189,pain,full,no time
+12189,pain,full,time
+12192,lonely,full,no time
+12192,lonely,full,time
+12192,pain,full,no time
+12192,pain,full,time
+12193,lonely,full,no time
+12193,lonely,full,time
+12193,pain,full,no time
+12193,pain,full,time
+12194,lonely,full,no time
+12194,lonely,full,time
+12194,pain,full,no time
+12194,pain,full,time
+12195,pain,full,no time
+12195,pain,full,time
+12196,lonely,full,no time
+12196,lonely,full,time
+12196,pain,full,no time
+12196,pain,full,time
+12197,lonely,full,no time
+12197,lonely,full,time
+12197,pain,full,no time
+12197,pain,full,time
+12198,pain,full,no time
+12198,pain,full,time
+12200,lonely,full,no time
+12200,lonely,full,time
+12200,pain,full,no time
+12200,pain,full,time
+12201,lonely,full,no time
+12201,lonely,full,time
+12201,pain,full,no time
+12201,pain,full,time
+12202,lonely,full,no time
+12202,lonely,full,time
+12202,pain,full,no time
+12202,pain,full,time
+12203,lonely,full,no time
+12203,lonely,full,time
+12203,pain,full,no time
+12203,pain,full,time
+12208,lonely,full,no time
+12208,lonely,full,time
+12208,pain,full,no time
+12208,pain,full,time
+12210,lonely,full,no time
+12210,lonely,full,time
+12210,pain,full,no time
+12210,pain,full,time
+12211,lonely,full,no time
+12211,lonely,full,time
+12211,pain,full,no time
+12211,pain,full,time
+12213,lonely,full,no time
+12213,lonely,full,time
+12213,pain,full,no time
+12213,pain,full,time
+12214,lonely,full,no time
+12214,lonely,full,time
+12214,pain,full,no time
+12214,pain,full,time
+12215,lonely,full,no time
+12215,lonely,full,time
+12215,pain,full,no time
+12215,pain,full,time
+12217,lonely,full,no time
+12217,lonely,full,time
+12217,pain,full,no time
+12217,pain,full,time
+12218,lonely,full,no time
+12218,lonely,full,time
+12218,pain,full,no time
+12218,pain,full,time
+12219,lonely,full,no time
+12219,lonely,full,time
+12219,pain,full,no time
+12219,pain,full,time
+12220,lonely,full,no time
+12220,lonely,full,time
+12220,pain,full,no time
+12220,pain,full,time
+12222,lonely,full,no time
+12222,lonely,full,time
+12222,pain,full,no time
+12222,pain,full,time
+12223,lonely,full,no time
+12223,pain,full,no time
+12226,lonely,full,no time
+12226,lonely,full,time
+12226,pain,full,no time
+12226,pain,full,time
+12227,lonely,full,no time
+12227,lonely,full,time
+12227,pain,full,no time
+12227,pain,full,time
+12228,pain,full,no time
+12228,pain,full,time
+12229,lonely,full,no time
+12229,lonely,full,time
+12231,lonely,full,no time
+12231,lonely,full,time
+12231,pain,full,no time
+12231,pain,full,time
+12232,lonely,full,no time
+12232,lonely,full,time
+12232,pain,full,no time
+12232,pain,full,time
+12233,lonely,full,no time
+12233,lonely,full,time
+12233,pain,full,no time
+12233,pain,full,time
+12234,lonely,full,no time
+12234,lonely,full,time
+12234,pain,full,no time
+12234,pain,full,time
+12236,lonely,full,no time
+12236,lonely,full,time
+12236,pain,full,no time
+12236,pain,full,time
+12237,lonely,full,no time
+12237,lonely,full,time
+12237,pain,full,no time
+12237,pain,full,time
+12238,lonely,full,no time
+12238,lonely,full,time
+12238,pain,full,no time
+12238,pain,full,time
+12239,lonely,full,no time
+12239,lonely,full,time
+12239,pain,full,no time
+12239,pain,full,time
+12240,lonely,full,no time
+12240,lonely,full,time
+12240,pain,full,no time
+12240,pain,full,time
+12241,lonely,full,no time
+12241,lonely,full,time
+12241,pain,full,no time
+12241,pain,full,time
+12242,lonely,full,no time
+12242,lonely,full,time
+12242,pain,full,no time
+12242,pain,full,time
+12243,lonely,full,no time
+12243,lonely,full,time
+12243,pain,full,no time
+12243,pain,full,time
+12244,lonely,full,no time
+12244,lonely,full,time
+12244,pain,full,no time
+12244,pain,full,time
+12245,lonely,full,no time
+12245,lonely,full,time
+12245,pain,full,no time
+12245,pain,full,time
+12246,lonely,full,no time
+12246,lonely,full,time
+12246,pain,full,no time
+12246,pain,full,time
+12247,lonely,full,no time
+12247,lonely,full,time
+12247,pain,full,no time
+12247,pain,full,time
+12251,lonely,full,no time
+12251,lonely,full,time
+12251,pain,full,no time
+12251,pain,full,time
+12252,lonely,full,no time
+12252,lonely,full,time
+12252,pain,full,no time
+12252,pain,full,time
+12254,lonely,full,no time
+12254,lonely,full,time
+12254,pain,full,no time
+12254,pain,full,time
+12256,lonely,full,no time
+12256,lonely,full,time
+12256,pain,full,no time
+12256,pain,full,time
+12257,lonely,full,no time
+12257,lonely,full,time
+12257,pain,full,no time
+12257,pain,full,time
+12258,lonely,full,no time
+12258,lonely,full,time
+12258,pain,full,no time
+12258,pain,full,time
+12259,pain,full,no time
+12259,pain,full,time
+12260,lonely,full,no time
+12260,lonely,full,time
+12260,pain,full,no time
+12260,pain,full,time
+12264,lonely,full,no time
+12264,lonely,full,time
+12264,pain,full,no time
+12264,pain,full,time
+12267,pain,full,no time
+12267,pain,full,time
+12270,lonely,full,no time
+12270,lonely,full,time
+12270,pain,full,no time
+12270,pain,full,time
+12271,lonely,full,no time
+12271,lonely,full,time
+12271,pain,full,no time
+12271,pain,full,time
+12272,lonely,full,no time
+12272,lonely,full,time
+12272,pain,full,no time
+12272,pain,full,time
+12273,lonely,full,no time
+12273,lonely,full,time
+12273,pain,full,no time
+12273,pain,full,time
+12274,lonely,full,no time
+12274,lonely,full,time
+12274,pain,full,no time
+12274,pain,full,time
+12275,pain,full,no time
+12275,pain,full,time
+12276,lonely,full,no time
+12276,lonely,full,time
+12276,pain,full,no time
+12276,pain,full,time
+12277,lonely,full,no time
+12277,lonely,full,time
+12277,pain,full,no time
+12277,pain,full,time
+12278,lonely,full,no time
+12278,lonely,full,time
+12278,pain,full,no time
+12278,pain,full,time
+12281,lonely,full,no time
+12281,lonely,full,time
+12281,pain,full,no time
+12281,pain,full,time
+12282,lonely,full,no time
+12282,lonely,full,time
+12282,pain,full,no time
+12282,pain,full,time
+12283,lonely,full,no time
+12283,lonely,full,time
+12283,pain,full,no time
+12283,pain,full,time
+12284,lonely,full,no time
+12284,lonely,full,time
+12284,pain,full,no time
+12284,pain,full,time
+12285,lonely,full,no time
+12285,lonely,full,time
+12285,pain,full,no time
+12285,pain,full,time
+12286,lonely,full,no time
+12286,lonely,full,time
+12286,pain,full,no time
+12286,pain,full,time
+12287,pain,full,no time
+12287,pain,full,time
+12289,lonely,full,no time
+12289,lonely,full,time
+12289,pain,full,no time
+12289,pain,full,time
+12290,lonely,full,no time
+12290,lonely,full,time
+12290,pain,full,no time
+12290,pain,full,time
+12294,lonely,full,no time
+12294,lonely,full,time
+12294,pain,full,no time
+12294,pain,full,time
+12295,lonely,full,no time
+12295,lonely,full,time
+12295,pain,full,no time
+12295,pain,full,time
+12296,lonely,full,no time
+12296,lonely,full,time
+12296,pain,full,no time
+12296,pain,full,time
+12297,lonely,full,no time
+12297,lonely,full,time
+12297,pain,full,no time
+12297,pain,full,time
+12299,lonely,full,no time
+12299,lonely,full,time
+12300,lonely,full,no time
+12300,lonely,full,time
+12300,pain,full,no time
+12300,pain,full,time
+12303,lonely,full,no time
+12303,lonely,full,time
+12303,pain,full,no time
+12303,pain,full,time
+12305,lonely,full,no time
+12305,lonely,full,time
+12305,pain,full,no time
+12305,pain,full,time
+12306,lonely,full,no time
+12306,lonely,full,time
+12310,pain,full,no time
+12310,pain,full,time
+12313,lonely,full,no time
+12313,lonely,full,time
+12313,pain,full,no time
+12313,pain,full,time
+12315,lonely,full,no time
+12315,lonely,full,time
+12315,pain,full,no time
+12315,pain,full,time
+6075,lonely,full,no time
+6075,lonely,full,time
+6075,pain,full,no time
+6075,pain,full,time
+8779,lonely,full,no time
+8779,lonely,full,time
+8779,pain,full,no time
+8779,pain,full,time

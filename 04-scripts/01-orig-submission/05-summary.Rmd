@@ -1,0 +1,1660 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Summarizing Models  
+Now that all the models have been run, the next step is to take various metrics and results from the models and format them into tables and figures that are more understable than thousands of model objects. 
+
+## Question 1: Can we predict procrastination and loneliness?  
+
+### Performance Metrics  
+To begin, we'll pull the performance metrics -- classification accuracy and area under the receiver operating curve (AUC) -- to determine and display:  
+
+1. Overall Model Performance  
+2. Participant Specific Model Performance (e.g., did certain feature sets perform differently)  
+3. Participants best models (in terms of accuracy and AUC) along with summaries of such accuracy and AUC, the feature set, etc.  
+
+The first thing we need to do is load in the final model performance metrics -- that is, the accuracy and AUC of the model chosen via rolling-origin validation on the test / holdout set.  
+
+```{r, eval = F}
+loadRData <- function(fileName, type, model){
+#loads an RData file, and returns it
+    path <- sprintf("%s/05-results/%s/06-final-model-performance/%s", local_path, model, fileName)
+    load(path)
+    get(ls()[grepl(type, ls())])
+}
+
+sum_res <- tibble(
+  model = c("01-glmnet", "02-biscwit", "03-rf")
+) %>%
+  mutate(file = map(model, ~sprintf("%s/05-results/%s/06-final-model-performance", local_path, .) %>%
+                      list.files())) %>%
+  unnest(file) %>%
+  mutate(data = map2(file, model, ~loadRData(.x, "final_metrics", .y))) %>%
+  separate(file, c("SID", "outcome", "group",  "time"), sep = "_") %>%
+  # filter(group != "behavior") %>%
+  mutate(time = str_remove_all(time, ".RData")
+         , model = str_remove_all(model, "[0-9 -]"))
+save(sum_res, file = sprintf("%s/05-results/final-model-performance.RData", local_path))
+```
+
+Which looks something like this:  
+
+```{r}
+load(url(sprintf("%s/05-results/final-model-performance.RData", res_path)))
+sum_res %>%
+  unnest(data)
+```
+
+```{r, eval = F}
+loadRData <- function(fileName, type, model){
+#loads an RData file, and returns it
+    path <- sprintf("%s/05-results/%s/07-final-model-param/%s", local_path, model, fileName)
+    load(path)
+    get(ls()[grepl(type, ls())])
+}
+
+param_res <- tibble(
+  model = c("01-glmnet", "02-biscwit", "03-rf")
+) %>%
+  mutate(file = map(model, ~sprintf("%s/05-results/%s/07-final-model-param", local_path, .) %>%
+                      list.files())) %>%
+  unnest(file) %>%
+  mutate(params = map2(file, model, ~loadRData(.x, "best", .y))
+         , coefs = map2(file, model, ~loadRData(.x, "coef", .y))
+         , file = str_replace_all(file, "__", "_")) %>%
+  separate(file, c("SID", "outcome", "group", "time"), sep = "_") %>%
+  # filter(group != "behavior") %>%
+  mutate(time = str_remove_all(time, ".RData")
+         , model = str_remove_all(model, "[0-9 -]")) 
+save(param_res, file = sprintf("%s/05-results/final-model-param.RData", local_path))
+```
+
+Which looks like this:  
+
+```{r}
+load(url(sprintf("%s/05-results/final-model-param.RData", res_path)))
+param_res
+```
+
+```{r}
+loadRData <- function(fileName){
+#loads an RData file, and returns it
+    path <- sprintf("%s/02-data/02-model-data/%s", local_path, fileName)
+    load(path)
+    # get(ls()[grepl(type, ls())])
+    d %>% 
+      summarize(n = n()
+                , sd = sd(o_value, na.rm = T)
+                , m = mean(o_value, na.rm = T)
+                , med = median(o_value, na.rm = T)
+                , min = min(o_value, na.rm = T)
+                , max = max(o_value, na.rm = T)
+                , rsq_thresh = sd/10
+      )
+}
+
+sum_stats <- tibble(
+  file = sprintf("%s/02-data/02-model-data", local_path) %>% list.files()
+) %>%
+  separate(file, c("SID", "outcome", "group", "time"), sep = "_", remove = F)  %>%
+  mutate(desc = map(file, loadRData), 
+         time = str_remove_all(time, ".RData"))
+```
+
+
+### RMSE and $R^2$ for all Models   
+Now that we've loaded in the results, the first thing that we'll do is create tables on the performance of each model for *all* the tested feature sets. The goal here is less to make any specific argument with the results and more to just document them in a nice table format that is easier to read.  
+
+```{r}
+perf_tab_fun <- function(d, outcome, group, time){
+  # format groups, time, and outcomes to nice names
+  g <- str_to_title(group)
+  tm <- if(time == "time") "With Time" else "Without Time"
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  # create the caption
+  cap <- sprintf("<strong>Table SX</strong><br><em>Performance Metrics of the %s Feature Set %s Predicting %s", g,  tm, o)
+  # call kable to create the html table
+  tab <- d %>%
+    kable(.
+          , "html"
+          , col.names = c("ID", rep(c("RMSE", "R^2"), times = 3))
+          , align = c("r", rep("c", 6))
+          , digits = 2
+          , caption = cap
+    ) %>%
+    kable_styling(full_width = F) %>%
+    add_header_above(c(" " = 1, "Elastic Net" = 2, "BISCWIT" = 2, "Random Forest" = 2))
+  # save the table to files
+  save_kable(tab, file = sprintf("%s/05-results/04-tables/01-participant-metrics/%s_%s_%s.html", local_path, outcome, group, time))
+  # return the table object
+  return(tab)
+}
+
+sum_res_tab <- sum_res %>%
+  unnest(data) %>%
+  select(-.estimator, -.config) %>%
+  pivot_wider(names_from = c("model", ".metric")
+              , values_from = ".estimate") %>%
+  group_by(outcome, group, time) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(tab = pmap(list(data, outcome, group, time), perf_tab_fun))
+sum_res_tab
+```
+
+
+Now I'll print the tables in different tabs below. Here, I'm only showing the set with combined features for each category for parsimony. The full results are in the online materials under 05-results/04-tables/01-participant-metrics.  
+
+#### Physical Pain {.tabset}  
+As is clear in each of these tables, overall accuracy and AUC are quite high although there are quite stark individual differences in them across people. AUC tended to be lower than accuracy on average. However, at the individual level, there are some individuals who had AUC scores higher than accuracy.  
+
+```{r}
+tmp <- sum_res_tab %>% 
+  filter(outcome == "pain") %>%
+  mutate(group = sprintf("%s, %s", str_to_title(group), str_to_title(time)))
+
+for(i in 1:nrow(tmp)){
+  cat('  \n\n##### ', tmp$group[i], '\n\n  ', sep ="")
+  tmp$tab[[i]] %>%
+    scroll_box(height = "500px") %>%
+    print()
+}
+```
+
+#### Loneliness {.tabset}  
+As with procrastination, the loneliness tables indicate that overall accuracy and AUC are quite high although there are quite stark individual differences in them across people. AUC tended to be lower than accuracy on average. However, at the individual level, there are some individuals who had AUC scores higher than accuracy.  
+
+```{r, results='asis'}
+tmp <- sum_res_tab %>% 
+  filter(outcome == "lonely") %>%
+  mutate(group = sprintf("%s, %s", str_to_title(group), str_to_title(time)))
+
+for(i in 1:nrow(tmp)){
+  cat('  \n\n##### ', tmp$group[i], '\n\n  ', sep ="")
+  tmp$tab[[i]] %>%
+    scroll_box(height = "750px") %>%
+    print()
+}
+```
+
+### Best Models  
+Next, to get a more concise indication of how these models are performing, we will choose the best model in terms of accuracy and AUC for each participant, outcome, and model combination.  
+
+```{r}
+sort_slice_fun <- function(d, met){
+  if(met == "rmse"){
+    d %>% arrange(.estimate) %>% slice_head(n = 1)
+  } else {
+    d %>% arrange(desc(.estimate)) %>% slice_head(n = 1) 
+  }
+}
+
+best_mods <- sum_res %>% 
+  unnest(data) %>%
+  group_by(SID, outcome, .metric, model) %>%
+  filter(!is.na(.estimate)) %>%
+  mutate(group = factor(group, c("full", "psychological", "situation", "behavior"))) %>%
+  arrange(SID, .metric, model, group) %>%
+  nest() %>%
+  ungroup() %>% 
+  mutate(data = map2(data, .metric, sort_slice_fun)) %>%
+  unnest(data); best_mods
+```
+
+
+```{r}
+best_mods
+
+sum_res %>% 
+  unnest(data) %>% 
+  select(-.estimator, -.config) %>% 
+  pivot_wider(names_from = ".metric", values_from = ".estimate") %>%
+  right_join(best_mods %>% select(model, SID, outcome, group, time, .metric, .estimate)) %>%
+  mutate(rmse_thresh = ifelse(rmse < .5, T, F)
+         , rsq_thresh = ifelse(rsq >= .5, T, F))
+  # left_join(
+  #   sum_stats %>% 
+  #     unnest(desc) %>% 
+  #     group_by(outcome) %>% 
+  #     summarize(rmse_thresh = mean(rsq_thresh))
+  #   ) %>%
+  # left_join(
+  #   sum_stats %>% 
+  #     unnest(desc) %>% 
+  #     select(SID, outcome, group, time, rmse_thresh = rsq_thresh)
+  #   ) %>%
+  mutate(less = ifelse(rmse < rmse_thresh, T, F)) %>%
+  # filter(.metric == "rmse") %>% arrange(model, .estimate)
+  group_by(model, outcome, .metric, less) %>% 
+  tally() %>% 
+  pivot_wider(names_from = c("outcome", ".metric"), values_from = "n")
+```
+
+#### Participant Summaries (Table) {.tabset}  
+
+Now that we have participants best models, the first thing we'll do is create a summary of just how well participants' best models actually performed. These Supplementary Tables will be split by outcome (procrastination, loneliness) and metric (accuracy, AUC) with each row giving details on which feature set was chosen for each method and what the accuracy or AUC for that method was.  
+
+```{r}
+px_bm_fun <- function(d, outcome, metric){
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  m <- if(metric == "rmse") "RMSE" else "R^2"
+  cap <- sprintf("<strong>Table SX</strong><br><em>Feature Set and %s for Predicting %s for Each Participant's Best Model</em>", m, o)
+  tab <- d %>%
+    select(SID, contains("glmnet"), contains("biscwit"), contains("rf")) %>%
+    kable(.
+          , "html"
+          , digits = 2
+          , col.names = c("ID", rep(c("Feature Set", m), times = 3))
+          , align = c("r", rep(c("l", "c"), times = 3))
+          , cap = cap
+          ) %>%
+      kable_styling(full_width = F) %>%
+      add_header_above(c(" " = 1, "Elastic Net" = 2, "BISCWIT" = 2, "Random Forest" = 2))
+  save_kable(tab, file = sprintf("%s/05-results/04-tables/02-participant-best-models/%s_%s.html", local_path, outcome, metric))
+  return(tab)
+}
+
+px_best_mods <- best_mods %>% 
+  select(-.estimator, -.config) %>%
+  mutate_at(vars(group, time), str_to_title) %>%
+  unite(group, group, time, sep = ", ") %>%
+  pivot_wider(names_from = "model"
+              , values_from = c("group", ".estimate")
+              , names_glue = "{model}_{.value}") %>%
+  group_by(outcome, .metric) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(tab = pmap(list(data, outcome, .metric), px_bm_fun)); px_best_mods
+```
+
+Now, let's print each of these tables and see what they demonstrate.  
+
+##### Procrastination, Accuracy  
+Across people, accuracy was, on average (and median), very high. Accuracy estimates across models tended to be very similar for each person, which indicates that the models seemed to perform similarly.  
+
+```{r, results = 'asis'}
+px_best_mods$tab[[1]] %>%
+    scroll_box(height = "750px")
+```
+
+##### Procrastination, AUC  
+Like accuracy, AUC in predicting future procrastination was quite high across the full sample. However, unlike accuracy, AUC tended to vary within-person across models suggesting that the accuracy results may have been somewhat misleading in suggesting that the models seemed to perform similarly. To better understand how, however, we will have to examine the features in more detail, as we will later in Questions 4 and 5.  
+
+```{r, results = 'asis'}
+px_best_mods$tab[[2]] %>%
+    scroll_box(height = "750px")
+```
+
+##### Loneliness, Accuracy  
+Across people, accuracy in predicting future loneliness was, on average (and median), very high. Accuracy estimates across models tended to be very similar for each person, which indicates that the models seemed to perform similarly. There are some exceptions to this, but the magnitude of these differences remains relatively small (magnitude of about .1 at most).  
+
+```{r, results = 'asis'}
+px_best_mods$tab[[3]] %>%
+    scroll_box(height = "750px")
+```
+
+##### Loneliness, AUC  
+Like accuracy, AUC in predicting future loneliness was quite high across the full sample. However, unlike accuracy, AUC tended to vary within-person across models suggesting that the accuracy results may have been somewhat misleading in suggesting that the models seemed to perform similarly. To better understand how, however, we will have to examine the features in more detail, as we will later in Questions 4 and 5.  
+
+```{r, results = 'asis'}
+px_best_mods$tab[[4]] %>%
+    scroll_box(height = "750px")
+```
+
+#### RMSE and $R^2$  
+##### Table  
+
+Similar to how we created tables for each outcome, feature set, and metric in the first section, we will next create a single, similar table for participants best models, summarizing the mean, standard deviation, median, and range for each outcome, method, and metric. In the manuscript, this will be summarized in a figure, but I'm still creating the table for ease of access.  
+
+```{r}
+bm_tab <- best_mods %>%
+  group_by(model, outcome, .metric) %>%
+  summarize_at(vars(.estimate), lst(mean, sd, median, min, max, n=~sum(!is.na(.)))) %>%
+  ungroup() %>%
+  mutate(sd = ifelse(sd < .01, "<.01", sprintf("%.2f", sd)),
+         mean = sprintf("%.2f (%s)", mean, sd),
+         range = sprintf("%.2f-%.2f", min, max),
+         median = sprintf("%.2f", median),
+         model = factor(model, levels = c("glmnet", "biscwit", "rf")),
+         .metric = factor(.metric, c("rmse", "rsq"), c("RMSE", "R^2"))
+         ) %>%
+  select(-sd, -min, -max) %>%
+  pivot_wider(names_from = "outcome"
+              , values_from = c(mean, median, range, n)
+              , names_glue = "{outcome}_{.value}") %>%
+  arrange(model, .metric) %>%
+  select(.metric, contains("lonely"), contains("pain")) %>%
+  kable(.
+        , "html"
+        , escape = F
+        , col.names = c("Metric", rep(c("<em>M</em> (<em>SD</em>)", "Median", "Range", "<em>N</em>"), times = 2))
+        , align = c("r", rep("c",8))
+        , cap = "<strong>Table X</strong><br><em>Descriptive Statistics of Model Performance Across of the Best Performing Model for Each Participant</em>"
+        ) %>%
+  kable_styling(full_width = F) %>%
+  kableExtra::group_rows("Elastic Net", 1, 2) %>%
+  kableExtra::group_rows("BISCWIT", 3, 4) %>%
+  kableExtra::group_rows("Random Forest", 5, 6) %>%
+  add_header_above(c(" " = 1, "Loneliness" = 4, "Physical Pain" = 4)) %>%
+  footnote("RMSE = Root Mean Squared Error; R^2 = Adjusted Multiple R^2, or variance in the outcome accounted for by the features when applied to the test set.")
+save_kable(bm_tab, file = sprintf("%s/05-results/04-tables/01-best-summary.html", local_path))
+bm_tab
+```
+
+There are a few key takeaways from this table. First, accuracy across all models and outcomes was quite high, with mean accuracy of .87 (Median .91 to .92) for loneliness and between .82 and .83 (Median .88 to .89) for procrastination. Similarly, AUC was also well above the .5 threshold with means ranging from .70 to .76 (Median .75 to .80) for loneliness and .69 to .70 (Median .70 to .75) for procrastination.  
+
+##### Figure (Figure 1)  
+Now, we'll create distributions of the performance (accuracy, AUC) of participants' best models and plot those along with the descriptive statistics that were created for the Supplementary Table in the previous section. This figure will become Figure 1 in the manuscript.  
+
+```{r, fig.height=5, fig.width=12, fig.align='center', fig.cap="Histograms of classification accuracy and Area Under the Receiver Operator Curve (AUC) for participants’ best models."}
+p_dist_fun <- function(d, outcome) {
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  d %>% 
+    mutate(model = factor(model, c("glmnet", "biscwit", "rf")
+                            , c("Elastic Net", "BISCWIT", "Random Forest"))
+             , .metric = factor(.metric, c("rmse", "rsq"), c("RMSE", "rsq"))
+             , group = factor(str_to_title(group))) %>%
+      ggplot(aes(y = model, x = .estimate)) + 
+        scale_x_continuous(limits = c(0,1), breaks = seq(0,1,.5)) + 
+        geom_density_ridges(aes(fill = model), alpha = .5) +
+        stat_pointinterval() +
+        geom_vline(aes(xintercept = .5), linetype = "dashed") +
+        labs(x = NULL, y = NULL, title = o) + 
+        facet_wrap(~.metric, scales = "free", nrow = 2) +
+        theme_classic() + 
+        theme(legend.position = "none"
+              , axis.text = element_text(face = "bold")
+              , axis.title = element_text(face = "bold")
+              , strip.background = element_blank()
+              , strip.text.y = element_blank()
+              , plot.margin = margin(.1,.1,1,.1, unit = "cm")
+              , strip.text = element_text(face = "bold", size = rel(1.2))
+              , plot.title = element_text(face = "bold", size = rel(1.2), hjust = .5))
+}
+
+bm_dist <- best_mods %>% 
+  group_by(outcome) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(p = map2(data, outcome, p_dist_fun))
+
+tab_fun <- function(d){
+  tab <- d %>%
+    select(-model) %>%
+    setNames(c("M (SD)", "Median", "N", "Range")) %>%
+    tableGrob(rows = NULL
+              , theme = ttheme_minimal(base_family = "Times"))
+  tab <- gtable_add_grob(tab,
+        grobs = segmentsGrob( # line across the bottom
+            x0 = unit(0,"npc"),
+            y0 = unit(0,"npc"),
+            x1 = unit(1,"npc"),
+            y1 = unit(0,"npc"),
+            gp = gpar(lwd = 2.0)),
+        t = 1, b = 1, l = 1, ncol(tab))
+  tab$grobs[1:4] <- lapply(tab$grobs[1:4], function(x) {x$grobs[[1]]$gp$fontface = "bold"; return(x)}) 
+  return(tab)
+}
+
+bm_tbl <- best_mods %>%
+  group_by(model, outcome, .metric) %>%
+  summarize_at(vars(.estimate), lst(mean, sd, median, min, max, n=~sum(!is.na(.)))) %>%
+  ungroup() %>%
+  mutate(sd = ifelse(sd < .01, "<.01", sprintf("%.2f", sd)),
+         mean = sprintf("%.2f (%s)", mean, sd),
+         range = sprintf("%.2f-%.2f", min, max),
+         median = sprintf("%.2f", median),
+         model = factor(model, levels = rev(c("glmnet", "biscwit", "rf")),
+                        labels = rev(c("Elastic Net", "BISCWIT", "Random Forest"))),
+         .metric = factor(.metric, c("rmse", "rsq"), c("RMSE", "R^2"))
+         ) %>%
+  select(-sd, -min, -max) %>%
+  arrange(outcome, .metric, model) %>%
+  group_by(outcome, .metric) %>% 
+  nest() %>%
+  ungroup() %>%
+  mutate(tab = map(data, tab_fun))
+
+my_theme <- function(...) {
+  theme_classic() + 
+    theme(plot.title = element_text(face = "bold"))
+}
+
+title_theme <- calc_element("plot.title", my_theme())
+
+ttl <- ggdraw() + 
+    draw_label(
+        "Physical Pain",
+        fontfamily = title_theme$family,
+        fontface = title_theme$face,
+        size = title_theme$size
+    )
+
+bm_dist$p[[1]] <- bm_dist$p[[1]] + labs(title = NULL)
+
+bm_tab1 <- plot_grid(bm_tbl$tab[[3]], bm_tbl$tab[[4]], nrow = 2, rel_heights = c(.4, .4))
+bm_pain <- plot_grid(bm_dist$p[[1]], bm_tab1, ncol = 2)
+bm_pain <- plot_grid(ttl, bm_pain, nrow = 2, rel_heights = c(.05,.95))
+
+bm_dist$p[[2]] <- bm_dist$p[[2]] + labs(title = NULL) + theme(axis.text.y = element_blank())
+
+ttl <- ggdraw() + 
+    draw_label(
+        "Loneliness",
+        fontfamily = title_theme$family,
+        fontface = title_theme$face,
+        size = title_theme$size
+    )
+
+bm_tab2 <- plot_grid(bm_tbl$tab[[1]], bm_tbl$tab[[2]], nrow = 2)
+bm_lonely <- plot_grid(bm_dist$p[[2]], bm_tab2, ncol = 2, rel_widths = c(.4, .6))
+bm_lonely <- plot_grid(ttl, bm_lonely, nrow = 2, rel_heights = c(.05,.95))
+
+bm_plot <- plot_grid(bm_pain, bm_lonely, ncol = 2, rel_widths = c(.55, .45)); bm_plot
+ggsave(bm_plot, file = sprintf("%s/05-results/05-figures/fig-1-best-models.pdf", local_path)
+       , width = 12, height = 5)
+ggsave(bm_plot, file = sprintf("%s/05-results/05-figures/fig-1-best-models.png", local_path)
+       , width = 12, height = 5)
+```
+
+Figure 1 presents histograms and descriptive statistics of accuracy and AUC across the full sample for each outcome and model. As is clear in the figure, predictive accuracy was high overall, with mean accuracy of .87 (Median .91 to .92) for loneliness and between .82 and .83 (Median .88 to .89) for procrastination. Similarly, AUC was also well above the .5 threshold with means ranging from .70 to .76 (Median .75 to .80) for loneliness and .69 to .70 (Median .70 to .75) for procrastination.  
+
+
+### Tuning Parameters (Table)   
+Next, I'm going to create tables that include the tuning parameters, features, and accuracy for each participants best model for each machine learning method and outcome as well as which feature set was used in their best model.  
+```{r}
+px_tun_par_tab_fun <- function(d, model, outcome){
+  if(model == "glmnet"){
+    cn <- c("ID","Group", "Penalty", "Mixture", "# Features", "R^2")
+    al <- c(rep("r", 2), rep("c", 4))
+    tab <- d %>% 
+      mutate(group = str_to_title(paste(group, time, sep = ", "))) %>%
+      select(SID, group, penalty, mixture, nvars, .estimate) %>%
+      mutate(penalty = ifelse(penalty < .01, sprintf("%.1e", penalty), sprintf("%.2f", penalty))
+             , .estimate = sprintf("%.2f", .estimate)
+             , mixture = ifelse(mixture == 0, "0", sprintf("%.2f", mixture)))
+  } else if(model == "rf"){
+    cn <- c("ID","Group", "# Features Sampled", "Min N for Split", "# Features", "R^2")
+    al <- c(rep("r", 2), rep("c", 4))
+    tab <- d %>% 
+      mutate(group = str_to_title(paste(group, time, sep = ", "))) %>%
+      select(SID, group, mtry, min_n, nvars, .estimate) %>%
+      mutate(.estimate = sprintf("%.2f", .estimate))
+  } else {
+    cn <- c("ID","Group", "# Items", "# Features", "R^2")
+    al <- c(rep("r", 2), rep("c", 3))
+    tab <- d %>% 
+      mutate(group = str_to_title(paste(group, time, sep = ", "))) %>%
+      select(SID, group, nitem, nvars, .estimate) %>%
+      mutate(.estimate = sprintf("%.2f", .estimate))
+  }
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  m <- mapvalues(model, c("glmnet", "rf", "biscwit"), c("Elastic Net", "Random Forest", "BISCWIT"))
+  cap <- sprintf("<strong>Table X</strong><br><em>Tuning Parameters, Final Number of Non-Zero Features, and RMSE for Each Participants' Best Model of %s Using %s", o, m)
+  tab <- tab %>%
+    kable(.
+          , "html"
+          , escape = "F"
+          , col.names = cn
+          , align = al
+          , cap = cap
+          ) %>%
+    kable_styling(full_width = F)
+  save_kable(tab, file = sprintf("%s/05-results/04-tables/03-px-tuning-params/%s_%s.html", local_path, outcome, model))
+  return(tab)
+}
+
+tuning_param <- param_res %>%
+  right_join(best_mods %>% select(-.estimator, -.config)) %>%
+  select(-coefs) %>%
+  group_by(outcome, model) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(data = map(data, ~(.) %>% unnest(params) %>% filter(.metric == "rsq")),
+         tab = pmap(list(data, model, outcome), px_tun_par_tab_fun))
+```
+
+#### Elastic Net   
+Rather than splitting these by outcome and model, I'm going to do a broad discussion across outcomes. From the tables, a few things become clear -- penalties tended to be quite low (near 0) or quite high (near 1). Indeed, of the 10 tested values, only 3 appeared: 0.0000000001, 0.08, and 1.00. For mixture, the most frequent value was 0, but there was was a also more variability than for penalty, with almost all of the 10 possible values being represented. The number of features tended to vary quite widely and does not appear to be a function of stronger penalties or mixture values. The tuning parameters also appear to have little effect on model accuracy.  
+
+##### Procrastination  
+```{r}
+(tuning_param %>% filter(model == "biscwit" & outcome == "pain"))$tab[[1]]
+```
+
+##### Loneliness  
+```{r}
+(tuning_param %>% filter(model == "biscwit" & outcome == "lonely"))$tab[[1]]
+```
+
+#### BISCWIT  
+##### Procrastination  
+The only turning parameter for BISCWIT was the number of items selected through rolling origin validation. As is clear in the table, relative to ENR, BISCWIT tended to select fewer features (e.g., Participant 01 had the full feature set with 22 features for BISCWIT but 49 features for ENR). Divergences in feature numbers are due to ties. As with ENR, the number of features did not appear to be related to the accuracy of the model and the was a wide range in which feature set produced the best model.  
+
+```{r}
+(tuning_param %>% filter(model == "biscwit" & outcome == "pain"))$tab[[1]]
+```
+
+##### Loneliness  
+```{r}
+(tuning_param %>% filter(model == "biscwit" & outcome == "lonely"))$tab[[1]]
+```
+
+#### Random Forest  
+Random forest used two tuning parameters, the number of features sampled from the feature set to train the model and the minimum sample size in each group needed for a binary split.  The number of features sampled in each small tree tended to be smaller than the final number of features selected but varied widely across people. The minimum N for a split also varied quite widely. However, 10 was the most frequent number, which logically makes sense given the sample sizes in the present study. Because we used time delay embedding to preserve the "order" of the time series, the final number of features here tended to be larger than other methods (the number of possible features was doubled using an embedding dimension of 1). Each of these appeared to unrelated to accuracy.  
+##### Procrastination  
+
+```{r}
+(tuning_param %>% filter(model == "rf" & outcome == "pain"))$tab[[1]]
+```
+
+##### Loneliness  
+```{r}
+(tuning_param %>% filter(model == "rf" & outcome == "lonely"))$tab[[1]]
+```
+
+
+```{r}
+param_res %>%
+  right_join(best_mods %>% select(-.estimator, -.config)) %>%
+  pivot_wider(names_from = ".metric", values_from = ".estimate") %>%
+  select(-coefs)  %>%
+  unnest(params) %>%
+  select(-.config, -merror, -time) %>%
+  pivot_longer(cols = c(-(model:group))
+               , names_to = "param"
+               , values_to = "value"
+               , values_drop_na = T) %>%
+  group_by(model, outcome, group, param) %>%
+  summarize_at(vars(value), lst(mean, sd, min, max)) %>%
+  ungroup() %>%
+  mutate(mean = sprintf("%.2f (%.2f)", mean, sd),
+         range = sprintf("%.2f-%.2f", min, max)) %>%
+  select(-sd, -min, -max) %>%
+  pivot_wider(names_from = c("outcome", "group")
+              , values_from = c("mean", "range")
+              , names_glue = "{outcome}_{group}_{.value}") %>%
+  mutate(model = factor(model, c("glmnet", "biscwit", "rf"), c("Elastic Net", "BISCWIT", "Random Forest"))
+         , param = factor(param, c("rmse", "rsq", "penalty", "mixture", "nitem", "min_n", "mtry", "nvars"), c("RMSE", "R^2", "Penalty", "Mixture", "# Items", "Min N Split", "# Predictors Samples", "# Features Selected"))) %>%
+  arrange(model, param)
+```
+
+## Question 2: Are there individual differences in the idiographic range of prediction across people?  
+
+Next, rather than grouping performance information by the feature sets, we'll group the feature sets by participant, demonstrating the mean, standard deviation, median, and range for each person to answer the range of prediction across people.  
+
+In the manuscript, we include a subset of this as a figure of a sample of 25 participants for each outcome. But below, we'll create tables for each outcome, where each participant is a row to describe their results.  
+
+### The Range of Prediction {.tabset}  
+
+#### Table {.tabset}  
+
+```{r}
+px_sum_tab <- function(d, outcome){
+  # clean up the outcome names
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  # create the caption
+  cap <- sprintf("<strong>Table SX</strong><br><em>Descriptive Statistics of Model Performance for Each Participant for %s", outcome)
+  # create the span headers for the table
+  h1 <- c(1, rep(2, 6)); names(h1) <- c(" ", rep(c("RMSE", "R^2"), times = 3))
+  h2 <- c(1, rep(4, 3)); names(h2) <- c(" ", "Elastic Net", "BISCWIT", "Random Forest")
+  # call the kable table
+  tab <- d %>%
+    kable(.
+          , "html"
+          , col.names = c("ID", rep(c("M (SD)", "Range"), times = 6))
+          , align = c("r", rep("c", 12))
+          , caption = cap
+          ) %>%
+    kable_styling(full_width = F) %>%
+    add_header_above(h1) %>%
+    add_header_above(h2) 
+  save_kable(tab, file = sprintf("%s/05-results/04-tables/04-participant-sum/%s.html", local_path, outcome))
+  return(tab)
+}
+
+# indexing the preferred column order
+ord <- paste(rep(c("glmnet", "biscwit", "rf"), each = 6)
+             , rep(c("rmse", "rsq"), each = 3, times = 3)
+             , rep(c("mean", "median", "range"), times = 6)
+             , sep = "_")
+
+px_tabs <- sum_res %>% 
+  unnest(data) %>%
+  group_by(SID, outcome, model, .metric) %>%
+  # summaries for each participant, outcome, model, and metric combinations
+  summarize_at(vars(.estimate), lst(mean, median, sd, min, max), na.rm = T) %>%
+  ungroup() %>%
+  mutate(sd = ifelse(sd < .01, "<.01", sprintf("%.2f", sd)),
+         mean = sprintf("%.2f (%s)", mean, sd),
+         range = sprintf("%.2f-%.2f", min, max),
+         median = sprintf("%.2f", median)) %>%
+  select(-sd, -min, -max) %>%
+  pivot_wider(names_from = c("model", ".metric")
+              , values_from = c("mean", "median", "range")
+              , names_glue = "{model}_{.metric}_{.value}") %>%
+  select(SID, outcome, ord) %>% 
+  select(-contains("median")) %>%
+  group_by(outcome) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(tab = map2(data, outcome, px_sum_tab))
+```
+
+From the tables below, a few things become clear. First, for both accuracy and AUC, some individuals are very consistent in how accurately we can predict future procrastination or loneliness, regardless of what feature set is used (albeit low or high accuracy). Others, however, show a wide range, with a few participants even showing the full 0 - 1 range (e.g., Participant 135 for procrastination, 154 for loneliness) that is possible for classification accuracy and AUC.  
+
+##### Physical Pain  
+```{r, results = 'asis'}
+px_tabs$tab[[1]]  %>%
+    scroll_box(height = "750px")## procrastination
+```
+
+##### Loneliness    
+```{r, results = 'asis'}
+px_tabs$tab[[2]]  %>%
+    scroll_box(height = "750px")## loneliness
+```
+
+#### Figure (Figure 2) {.tabset}  
+Now, we'll create the figure that samples 25 participants ranges. We'll create separate figures for each outcome (Procrastination, Loneliness) and metric (accuracy, AUC), which will be in Supplemental Materials (05-results/05/figures/01-px-sum-dist). Then, we'll create a combined version for accuracy and both outcomes that will become Figure 2 in the manuscript.  
+
+```{r}
+px_sum_plot <- function(d, metric, outcome, model){
+  m <- if(metric == "rmse") "RMSE" else "R^2"
+  mod <- mapvalues(model, c("glmnet", "biscwit", "rf"), c("Elastic Net", "BISCWIT", "Random Forest"), warn_missing = F)
+  # set.seed(6)
+  d %>%
+    # filter(SID %in% sample(SID, 25)) %>%
+    mutate(SID = forcats::fct_reorder(SID, .estimate, median)) %>%
+      ggplot(aes(x = SID, y = .estimate)) + 
+      # scale_y_continuous(limits = c(0,1), breaks = seq(0,1,.5)) +
+      stat_pointinterval() +
+      labs(x = NULL, y = m, title = mod) + 
+      coord_flip() + 
+      # facet_grid(. ~ , scales = "free", space = "free") + 
+      theme_classic() + 
+      theme(plot.title = element_text(face = "bold", size = rel(1.2), hjust = .5)
+            , axis.text = element_text(face = "bold", color = "black")
+            , axis.title = element_text(face = "bold", size = rel(1.1))
+            , axis.line = element_blank()
+            , panel.background = element_rect(color = "black", size = 1)
+            # , plot.margin = margin(1,.1,.1,.1, unit = "cm")
+            )
+}
+
+combine_px_plots <- function(d, outcome, metric){
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  
+  my_theme <- function(...) {
+    theme_classic() + 
+      theme(plot.title = element_text(face = "bold"))
+    }
+
+title_theme <- calc_element("plot.title", my_theme())
+
+ttl <- ggdraw() + 
+    draw_label(
+        o,
+        fontfamily = title_theme$family,
+        fontface = title_theme$face,
+        size = title_theme$size
+    )
+
+  p1 <- d$p[[1]] + labs(y = ""); p2 <- d$p[[2]]; p3 <- d$p[[3]] + labs(y = "")
+  p <- cowplot::plot_grid(p1, p2, p3, nrow = 1, axis = "b")
+  p <- plot_grid(ttl, p, nrow = 2, rel_heights = c(.05,.95))
+  ggsave(p, file = sprintf("%s/05-results/05-figures/01-px-sum-dist/%s_%s.pdf"
+                           , local_path, outcome, metric)
+         , width = 8
+         , height = 5)
+  ggsave(p, file = sprintf("%s/05-results/05-figures/01-px-sum-dist/png/%s_%s.png"
+                           , local_path, outcome, metric)
+         , width = 8
+         , height = 5)
+  return(p)
+}
+
+set.seed(8)
+px_plots_sum <- sum_res %>% 
+  unnest(data) %>%
+  filter(!is.na(.estimate)) %>%
+  group_by(outcome, .metric) %>%
+  filter(SID %in% sample(unique(SID), 25)) %>%
+  group_by(outcome, .metric, model) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(model = factor(model, c("glmnet", "biscwit", "rf"))
+         , p = pmap(list(data, .metric, outcome, model), px_sum_plot)) %>%
+  arrange(outcome, model, .metric) %>%
+  group_by(outcome, .metric) %>%
+  nest() %>% 
+  ungroup() %>%
+  mutate(p = pmap(list(data, outcome, .metric), combine_px_plots))
+
+p <- cowplot::plot_grid(px_plots_sum$p[[3]], px_plots_sum$p[[1]]
+                   , nrow = 2); p
+ggsave(p, file = sprintf("%s/05-results/05-figures/fig-2-rmse.pdf"
+                           , local_path)
+       , width = 8, height = 10)
+ggsave(p, file = sprintf("%s/05-results/05-figures/fig-2-rmse.png"
+                           , local_path)
+       , width = 8, height = 10)
+       
+p <- cowplot::plot_grid(px_plots_sum$p[[2]], px_plots_sum$p[[4]]
+                   , nrow = 2); p
+ggsave(p, file = sprintf("%s/05-results/05-figures/fig-2-rsq.pdf"
+                           , local_path)
+       , width = 8, height = 10)
+ggsave(p, file = sprintf("%s/05-results/05-figures/fig-2-rsq.png"
+                           , local_path)
+       , width = 8, height = 10)
+```
+
+Figure 2 in the manuscript is the combination of the classification accuracy graphs below. Each of the figures below present the median, 66%, and 95% range of classification accuracy for a random sample of 25 participants, ordered by the median accuracy (AUC is available in the online materials and webapp [“Model Performance Distributions”]). As is clear in the figures, accuracy varies both across people and within them. In other words, although there are between-person differences in the degree of accuracy, there are also within-person differences, depending on which features are used.  
+
+##### Procrastination, Accuracy  
+```{r, fig.width=8, fig.height = 5.5, fig.align='center'}
+px_plots_sum$p[[3]]
+```
+
+##### Procrastination, AUC  
+```{r, fig.width=8, fig.height = 5.5, fig.align='center'}
+px_plots_sum$p[[4]] 
+```
+
+##### Loneliness, Accuracy  
+```{r, fig.width=8, fig.height = 5.5, fig.align='center'}
+px_plots_sum$p[[1]]
+```
+
+##### Loneliness, AUC  
+```{r, fig.width=8, fig.height = 5.5, fig.align='center'}
+px_plots_sum$p[[2]] 
+```
+
+## Question 3: Do Psychological, Situational, or Full Feature Sets Perform Best?  
+To answer the question of whether psychological, situational, or full feature sets (with or without time) perform best, we'll pull the performance metric data we've been working with and combine it with information about specific coefficinets.  
+
+### Psychological Features, Situations, or Time?  
+#### Table  
+```{r}
+ord <- paste(rep(c("lonely", "pain"), each = 6)
+             , rep(c("glmnet", "biscwit", "rf"), each = 2, times = 2)
+             , rep(c("n", "perc"), times = 6)
+             , sep = "_")
+
+fps_tab <- best_mods %>%
+  group_by(model, outcome, group, time, .metric) %>%
+  tally() %>%
+  group_by(model, outcome, .metric) %>%
+  mutate(perc = n/(sum(n, na.rm = T))*100
+         , perc = sprintf("%.1f%%",perc)) %>%
+  ungroup() %>%
+  pivot_wider(names_from = c("outcome", "model")
+              , values_from = c("n", "perc")
+              , names_glue = "{outcome}_{model}_{.value}"
+              , names_sort = T) %>%
+  mutate_at(vars(-group, -time, -.metric), ~ifelse(is.na(.), "0", .)) %>%
+  arrange(.metric, group, time) %>%
+  mutate(group = factor(str_to_title(group))
+         , time = factor(time, c("no time", "time"), c("No", "Yes"))) %>%
+  select(group, time, ord) %>%
+  kable(.
+        , "html"
+        , escape = F
+        , col.names = c("Set", "Time", rep(c("#", "%"), times = 6))
+        , align = c("r", "r", rep("c", 12))
+        , cap = "<strong>Table 1</strong><br><em>Frequencies of the Full, Psychological, and Situation Feature Sets with or Without Time Being the Best Model for a Participant</em>"
+        ) %>%
+  kable_styling(full_width = F) %>%
+  collapse_rows(1) %>%
+  kableExtra::group_rows("RMSE", 1, 8) %>%
+  kableExtra::group_rows("R^2", 9, 16) %>%
+  add_header_above(c(" " = 2, "Elastic Net" = 2, "BISCWIT" = 2, "Random Forest" = 2, 
+                     "Elastic Net" = 2, "BISCWIT" = 2, "Random Forest" = 2)) %>%
+  add_header_above(c(" " = 2, "Loneliness" = 6, "Physical Pain" = 6)) 
+save_kable(fps_tab, file = sprintf("%s/05-results/04-tables/02-feature-perf-tab.html", local_path))
+fps_tab
+```
+
+Table 1 presents the number of and percentage of participants whose best model was for each feature set. As is clear, feature sets without time performed better than those with time. Second, relative to AUC, using accuracy as the selection metric was more likely to indicate that the full feature set performed best. Third, with some slight differences, relative proportions were similar across the three methods. Finally, for accuracy but not AUC, only RF indicated that situation feature models performed better than psychological feature models. We next examined the breakdown of selected features for each participant.  
+
+#### Figure (Figure 3)  
+
+Next, to demonstrate the relative performance of feature sets and coefficients within those feature sets, we'll create a series of sequence plots that show the proportion of features from each category for each participant. This will become Figure 3.  
+
+```{r, fig.width=8, fig.height=8, fig.cap="Figure 3. Sequence plots of the percentage of features from the Psychological, Situational, and Time Features Sets for each participant for each outcome."}
+seq_plot_fun <- function(d, outcome, model){
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name)
+  m <- mapvalues(model, c("glmnet", "biscwit", "rf")
+                 , c("Elastic Net", "BISCWIT", "Random Forest")
+                 , warn_missing = F)
+  ord <- (d %>% 
+      select(-n) %>%
+      pivot_wider(names_from = "category", values_from = "perc") %>%
+      arrange(desc(psychological), desc(behavior), desc(situation)))$SID
+  p <- d %>%
+    mutate(SID = factor(SID, levels = ord),
+           category = factor(category, c("time", "situation", "behavior", "psychological")
+                             , c("Time", "Situation", "Behavior", "Psychological"))) %>%
+    ggplot(aes(x = SID
+               , y = perc
+               , rev = T)
+           ) + 
+    scale_fill_manual(values = rev(c("#FFD700", "#FF598F", "#236E96", "#15B2D3"))
+                      , breaks = rev(c("Time", "Situation", "Behavior", "Psychological"))
+                      , labels = rev(c("Time", "Situation", "Behavior", "Psychological"))) + 
+    #c("lightgoldenrod1", "seagreen3", "deepskyblue4", "grey")) +
+    geom_bar(aes(fill = category)
+             , stat = "identity"
+             ) +
+    labs(x = "Participant ID"
+         , y = "Percentage"
+         , fill = "Feature Category"
+         , title = m) + 
+    coord_flip() +
+    theme_classic() + 
+    theme(legend.position = "bottom"
+          , axis.text.y = element_blank()
+          , axis.ticks.y = element_blank()
+          , axis.text.x = element_text(face = "bold", size = rel(1.2), color = "black")
+          , axis.title = element_text(face = "bold", size = rel(1.2))
+          , legend.text = element_text(face = "bold")
+          , legend.title = element_text(face = "bold")
+          , plot.title = element_text(face = "bold", hjust = .5)
+          )
+  return(p)
+}
+## first get counts and percentages and create each plot for each outcome and model  
+seq_plot <- param_res %>% 
+  right_join(best_mods %>% filter(.metric == "rmse") %>% select(model:time)) %>%
+  select(-params) %>%
+  filter(map_lgl(coefs, is.null) == F) %>%
+  mutate(coefs = map(coefs, ~(.) %>% data.frame() %>% rownames_to_column("Variable") %>% setNames(c("Variable", "coef")))) %>%
+  unnest(coefs) %>%
+  mutate(Variable = str_remove_all(Variable, "_X1"),
+         Variable = str_remove_all(Variable, "_1"),
+         Variable = str_remove_all(Variable, "_2"),
+         Variable = str_replace_all(Variable, "[.]", "_")) %>%
+  filter(coef != 0) %>%
+  left_join(ftrs %>% select(category, Variable = name, long_name)) %>%
+  filter(!is.na(category)) %>%
+  group_by(SID, outcome, model, category) %>%
+  tally() %>%
+  group_by(SID, outcome, model) %>%
+  mutate(perc = n/sum(n)*100) %>%
+  ungroup() %>%
+  group_by(outcome, model) %>% 
+  nest() %>%
+  ungroup() %>%
+  mutate(p = pmap(list(data, outcome, model), seq_plot_fun))
+
+# seq_plot <- seq_plot %>% 
+#   unnest(data) %>%
+#   group_by(outcome, SID, category) %>%
+#   summarize(perc = mean(perc, na.rm = T)) %>%
+#   ungroup() %>%
+#   mutate(model = "combined") %>%
+#   group_by(outcome, model) %>%
+#   nest() %>%
+#   ungroup() %>%
+#   full_join(seq_plot) %>%
+#   mutate(p = pmap(list(data, outcome), seq_plot_fun))
+my_theme <- function(...) {
+  theme_classic() + 
+    theme(plot.title = element_text(face = "bold"))
+}
+
+title_theme <- calc_element("plot.title", my_theme())
+
+legend <- get_legend(seq_plot$p[[1]])
+seq_plot <- seq_plot %>% mutate(p = map(p, ~(.) + theme(legend.position = "none")))
+p1 <- plot_grid(
+  (seq_plot %>% filter(outcome == "pain" & model == "glmnet"))$p[[1]] + 
+    labs(y = NULL)
+  , (seq_plot %>% filter(outcome == "pain" & model == "biscwit"))$p[[1]]+ 
+    labs(x = NULL, y = NULL)
+  , (seq_plot %>% filter(outcome == "pain" & model == "rf"))$p[[1]]+ 
+    labs(x = NULL, y = NULL)
+  , nrow = 1
+  , axis = "b"
+  , align = "hv"
+)
+ttl <- ggdraw() + draw_label("Physical Pain", fontface = title_theme$face)  
+p1 <- plot_grid(ttl, p1, nrow = 2, rel_heights = c(.05, .95))
+
+p2 <- plot_grid(
+  (seq_plot %>% filter(outcome == "lonely" & model == "glmnet"))$p[[1]] + 
+    labs(y = NULL, title = NULL)
+  , (seq_plot %>% filter(outcome == "lonely" & model == "biscwit"))$p[[1]]+ 
+    labs(x = NULL, title = NULL)
+  , (seq_plot %>% filter(outcome == "lonely" & model == "rf"))$p[[1]]+ 
+    labs(x = NULL, y = NULL, title = NULL)
+  , nrow = 1
+  , axis = "b"
+  , align = "hv"
+)
+ttl <- ggdraw() + draw_label("Loneliness", fontface = title_theme$face)  
+p2 <- plot_grid(ttl, p2, nrow = 2, rel_heights = c(.05, .95))
+
+p <- plot_grid(p1, p2, nrow = 2, rel_heights = c(.5, .5))
+p <- plot_grid(p, legend, nrow = 2, rel_heights = c(.95, .05)); p
+ggsave(p
+       , file = sprintf("%s/05-results/05-figures/fig-3-seq-plot.pdf", local_path)
+       , width = 8, height = 8)
+ggsave(p
+       , file = sprintf("%s/05-results/05-figures/fig-3-seq-plot.png", local_path)
+       , width = 8, height = 8)
+```
+
+As is clear in Figure 3, which shows proportions of features for all participants’ best models for each method, there were individual differences in the proportion of psychological, situational, and time features. Some participants’ best models included exclusively psychological or situational features, with most showing a varying mixture of both. In addition, as should not be surprising given that Table 1 indicated that random forest was more likely to select the situation feature set as a participant's best model, Figure 3 demonstrates the impact this has on the relative proportion of each type of feature for each outcome.  
+
+## Question 4: Which features are most associated with Procrastination and Loneliness?  
+### Feature Frequency: Psychological Features, Situations, or Time?  
+To better understand which features were driving differences in which feature set produced the best model for each person, we next examined the variable importance metrics for each participant’s best models. To do so, we extracted the top five features and calculated the proportion of the sample that had each feature in their top five. Then, we created a figure that visually depicts those proportional frequencies of each feature for each outcome and model.     
+
+#### Figure (Figure 4)  
+
+```{r}
+var_freq <- param_res %>% 
+  right_join(best_mods %>% 
+               select(-.estimator, -.config) %>% 
+               filter(.metric == "rmse")
+             ) %>%
+  filter(map_lgl(coefs, is.null) == F) %>%
+  mutate(coefs = map(coefs, ~(.) %>% 
+                       data.frame() %>% 
+                       rownames_to_column("Variable") %>% 
+                       setNames(c("Variable", "coef")))
+         ) %>%
+  select(-params) %>% 
+  unnest(coefs) %>%
+  mutate(Variable = str_remove_all(Variable, "_X1"),
+         Variable = str_remove_all(Variable, "_1"),
+         Variable = str_remove_all(Variable, "_2"),
+         Variable = str_replace_all(Variable, "[.]", "_")) %>%
+  filter(coef != 0) %>%
+  # select(-.) %>%
+  group_by(model, SID, outcome) %>% 
+  arrange(desc(abs(coef))) %>%
+  slice_max(abs(coef), n = 5) %>%
+  group_by(model, outcome) %>%
+  mutate(N = length(unique(SID))) %>%
+  group_by(model, outcome, Variable, N) %>%
+  tally() %>%
+  ungroup() %>%
+  mutate(n = n/N*100) %>%
+  right_join(crossing(model = c("biscwit", "glmnet", "rf"), 
+                      outcome = c("lonely", "pain"),
+              ftrs %>% 
+              filter(category != "outcome") %>%
+              select(group = category, Variable = name, new_name = long_name) %>%
+              distinct() %>%
+              mutate(group = str_to_title(group)) %>%
+              group_by(group) %>%
+              mutate(ni = 1:n(), 
+                     ni = ifelse(ni < 10, paste0("0", ni), ni),
+                     Variable2 = paste0(substr(group, 1, 1), ni)
+              ) %>%
+              ungroup())
+            ) %>%
+  filter(!is.na(group)) %>%
+  distinct() 
+```
+
+```{r}
+p1 <- var_freq %>%
+  filter(outcome == "pain") %>%
+  mutate(model2 = as.numeric(mapvalues(model, c("glmnet", "biscwit", "rf"), seq(5,1,-2))),
+         # model2 = ifelse(outcome == "prcrst", model2 + 1, model2),
+         model = factor(model, c("glmnet", "biscwit", "rf"), c("Elastic Net", "BISCWIT", "Random Forest")),
+         new_name = factor(new_name, unique(ftrs$long_name)),
+         outcome = factor(outcome, outcomes$name, outcomes$long_name)) %>%
+  arrange(model) %>%
+  ggplot(aes(x = Variable2
+             , y = model2
+             , group = factor(Variable2)
+             , fill = model
+             # , color = model
+             # , shape = group
+             , rev=F
+             )) +
+  geom_line(size = .2) + #keep this here, otherwise there is an error
+  xlab("") +
+  ylab("") +
+  # Generate the grid lines
+  geom_hline(yintercept = 1:7
+             , colour = "grey80"
+             , size = .2) +
+  geom_vline(xintercept = 1:52
+             , colour = "grey80"
+             , size = .2) +
+  # Points and lines
+  geom_line(colour="grey80", size = .2) +
+  geom_point(aes(size = n, alpha = n)
+             , color = "black"
+             , shape = 21) +
+  # Fill the middle space with a white blank rectangle
+  geom_rect(xmin=-Inf
+            ,xmax=Inf
+            ,ymin=-Inf
+            ,ymax=0
+            ,fill="white"
+            , color=NA) +
+  scale_y_continuous(limits=c(-5,5.5)
+                     , expand=c(0,0)
+                     , breaks=seq(1,5,2)
+                     , labels = NULL) +
+  scale_size_continuous(range = c(.5,8)
+                        , limits = c(0, 35) # 5 features
+                        , breaks = seq(5, 35, length.out = 5)
+                        , labels = c("5", "12.5", "20", "27.5", "35")) + 
+  scale_alpha_continuous(range = c(.3, 1)
+                        , limits = c(0, 35) # 5 features
+                        , breaks = seq(5, 35, length.out = 5)
+                        , labels = c("5", "12.5", "20", "27.5", "35")) +
+  scale_fill_manual(
+        values = c("deepskyblue4", "seagreen3", "lightgoldenrod1")
+        , drop = F
+        ) +
+  # Polar coordinates
+  coord_polar() +
+  # facet_wrap(~outcome, nrow = 2) + 
+  # The angle for the symptoms and remove the default grid lines
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 360/(2*pi)*rev( pi/2 + seq(pi/52, 2*pi-pi/52, len=52)) + c(rep(0,floor(52/2)), rep(180,ceiling(52/2))), size = rel(1.1), face = "bold")
+        , panel.border = element_blank()
+        , axis.line = element_blank()
+        , axis.ticks = element_blank()
+        , panel.grid = element_blank()
+        , panel.background = element_blank()
+        , legend.position="bottom"
+        # , legend.position = "none"
+        # legend.direction = "vertical",
+        , plot.margin = margin(t = .5, r = 0, l = 0, b = 0, unit = "cm")
+        , plot.title = element_text(face = "bold", hjust = .5)
+        , strip.background = element_blank()
+        , strip.text = element_text(face = "bold", size = rel(1.2))
+        ) +
+    labs(size = "% Participants"
+         # , fill = "Model"
+         , alpha = "% Participants"
+         , title = "Physical Pain ") +
+    guides(size = guide_legend(title.position="top", title.hjust = 0.5)
+           , fill = "none"#guide_legend(title.position="top", title.hjust = 0.5)
+           , alpha = guide_legend(title.position="top", title.hjust = 0.5)
+           , shape = guide_legend(title.position="top", title.hjust = 0.5))
+legend <- cowplot::get_legend(p1)
+p1 <- p1 + theme(legend.position = "none")
+p1 <- plot_grid(p1, legend, nrow = 2, rel_heights = c(.9, .1))
+
+mx <- max((var_freq %>%filter(outcome == "lonely"))$n)
+p2 <- var_freq %>%
+  filter(outcome == "lonely") %>%
+  mutate(model2 = as.numeric(mapvalues(model, c("glmnet", "biscwit", "rf"), seq(5,1,-2))),
+         # model2 = ifelse(outcome == "prcrst", model2 + 1, model2),
+         model = factor(model, c("glmnet", "biscwit", "rf"), c("Elastic Net", "BISCWIT", "Random Forest")),
+         new_name = factor(new_name, ftrs$new_name),
+         outcome = factor(outcome, outcomes$name, outcomes$long_name)) %>%
+  arrange(model) %>%
+  ggplot(aes(x = Variable2
+             , y = model2
+             , group = factor(Variable2)
+             , fill = model
+             # , color = model
+             # , shape = group
+             , rev=F
+             )) +
+  geom_line(size = .2) + #keep this here, otherwise there is an error
+  xlab("") +
+  ylab("") +
+  # Generate the grid lines
+  geom_hline(yintercept = 1:7
+             , colour = "grey80"
+             , size = .2) +
+  geom_vline(xintercept = 1:52
+             , colour = "grey80"
+             , size = .2) +
+  # Points and lines
+  geom_line(colour="grey80", size = .2) +
+  geom_point(aes(size = n, alpha = n)
+             , color = "black"
+             , shape = 21) +
+  # Fill the middle space with a white blank rectangle
+  geom_rect(xmin=-Inf
+            ,xmax=Inf
+            ,ymin=-Inf
+            ,ymax=0
+            ,fill="white"
+            , color=NA) +
+  scale_y_continuous(limits=c(-8,5.5)
+                     , expand=c(0,0)
+                     , breaks=seq(1,5,2)
+                     , labels = NULL) +
+  scale_size_continuous(range = c(.5,8)
+                        , limits = c(0, 35) # 5 features
+                        , breaks = seq(5, 35, length.out = 5)
+                        , labels = c("5", "12.5", "20", "27.5", "35")) +
+                        # , breaks = c(5, 10, 15, 20, 25)) + # 5 features
+  scale_alpha_continuous(range = c(.3, 1)
+                        , limits = c(0, 35) # 5 features
+                        , breaks = seq(5, 35, length.out = 5)
+                        , labels = c("5", "12.5", "20", "27.5", "35")) +
+  scale_fill_manual(
+        values = c("deepskyblue4", "seagreen3", "lightgoldenrod1")
+        , drop = F
+        ) +
+  # Polar coordinates
+  coord_polar() +
+  # facet_wrap(~outcome, nrow = 2) + 
+  # The angle for the symptoms and remove the default grid lines
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 360/(2*pi)*rev( pi/2 + seq(pi/52, 2*pi-pi/52, len=52)) + c(rep(0,floor(52/2)), rep(180,ceiling(52/2))), size = rel(1.1), face = "bold")
+        , panel.border = element_blank()
+        , axis.line = element_blank()
+        , axis.ticks = element_blank()
+        , panel.grid = element_blank()
+        , panel.background = element_blank()
+        , legend.position="bottom"
+        # legend.direction = "vertical",
+        , plot.margin = margin(t = .5, r = 0, l = 0, b = 0, unit = "cm")
+        , plot.title = element_text(face = "bold", hjust = .5)
+        , strip.background = element_blank()
+        , strip.text = element_text(face = "bold", size = rel(1.2))
+        ) +
+    labs(size = "% Participants"
+         , fill = "Model"
+         , alpha = "% Participants"
+         , title = "Loneliness") +
+    # guides(size = "none"
+    #        , fill = guide_legend(title.position="top", title.hjust = .5, label.hjust = 0)
+    #        , alpha = "none"
+    #        , shape = "none")
+    guides(size = guide_legend(title.position="top", title.hjust = .5, order = 1, label.hjust = 0.1)
+             , fill = guide_legend(title.position="top", title.hjust = .5, label.hjust = 0)
+             , alpha = guide_legend(title.position="top", title.hjust = 0.5, order = 1, label.hjust = 0.1)
+             , shape = guide_legend(title.position="top", title.hjust = 0.5, order = 1, label.hjust = 0.1))
+
+legend <- cowplot::get_legend(p2)
+p2 <- p2 + theme(legend.position = "none")
+  # guides(size = guide_legend(title.position="top", title.hjust = 0.5, order = 1)
+  #          , fill = "none"
+  #          , alpha = guide_legend(title.position="top", title.hjust = 0.5, order = 1)
+  #          , shape = guide_legend(title.position="top", title.hjust = 0.5, order = 1))
+  
+  p3 <- var_freq %>% 
+    select(new_name, Variable2) %>%
+    distinct() %>%
+    mutate(new_name = factor(new_name, unique(ftrs$long_name)),
+           names = paste0(Variable2, ": ", new_name)) %>%
+    arrange(Variable2) %>%
+    mutate(names = factor(names, .$names)) %>%
+    ggplot(aes(x = 1, y = 1:52)) +
+    geom_text(aes(label = rev(names)), hjust = 0, size = 3) +
+    scale_x_continuous(limits = c(.9999, 1.1))+ 
+    theme_classic() +
+    theme(axis.line = element_blank()
+          , axis.text = element_blank()
+          , axis.ticks = element_blank()
+          , axis.title = element_blank())
+  # p3 <- plot_grid(p3, legend, nrow = 2, rel_heights = c(.95, .05)) + 
+  #   theme(plot.margin = margin(.1,.5,.5,-1, unit = "cm"))
+
+p <- plot_grid(p1, p2, nrow = 2, rel_heights = c(.53, .47))
+p <- plot_grid(p, p3, nrow = 1, rel_widths = c(.65, .35))
+p <- plot_grid(p, legend, nrow = 2, rel_heights = c(.95, .05)); p
+ggsave(p, file = sprintf("%s/05-results/05-figures/fig-4-combined_top5.pdf", local_path)
+       , height = 12 , width = 9)
+ggsave(p, file = sprintf("%s/05-results/05-figures/fig-4-combined_top5.png", local_path)
+       , height = 12 , width = 9)
+```
+
+The resulting Figure 4 has several takeaways. First, across models, timing features were less frequent, with the exception linear, quadratic, and cubic trends (T12-T14) across the ESM period. Second, for ENR and BISCWIT, psychological features were slightly more frequent than situation features. Third, one consequence of the higher frequency of situation feature RF models being selected than for the other two models, top five situation features were both more frequent as well as more variable (more different sized circles) for the RF models than for ENR or BISCWIT (more similarly sized circles). Finally, and perhaps most crucially, this figure makes clear that person and situation characteristics were both key in predicting each outcome, with neither “dominating” the feature space.  
+
+It's noteworthy that this figure depicts relative frequencies of each feature but says nothing about whether certain features were more or less likely to co-occur for each person. This is a question we will return to in Question 5.  
+
+## Question 5: Do people vary in the which features are most important?  
+
+Next we want to address not just general frequencies of important coefficients but also patterns of coefficients at the participant level. To do this, we'll (1) make tables of all coefficients for each participant's best model for all outcomes and models, (2) make a figure that displays this graphically, and (3) examine whether there are patterns of coefficients across people.  
+
+### Participant Coefficients  
+#### Table {.tabset}  
+First, let's create tables for each participant and outcome combination of the coefficients from their models. As we've previously selected the feature set with the best performance, features from other sets will automatically be set to 0. In addition, as each of the models we used have feature selection procedures, features not chosen by the model will also be 0.  
+
+```{r}
+px_coef_tab_fun <- function(d, SID, outcome){
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  mchar <- d %>% select(model, group, accuracy) %>% distinct() %>%
+    mutate(model = mapvalues(model, c("glmnet", "biscwit", "rf"), c("Elastic Net", "BISCWIT", "Random Forest")),
+           tmp = sprintf("%s: best model was %s with RMSE %.2f", model, group, rmse))
+  note <- paste(mchar$tmp, collapse = "; "); note <- paste0(note, ".")
+  d2 <- d %>% 
+    select(-group, -accuracy) %>%
+    pivot_wider(names_from = "model"
+                , values_from = "coef"
+                , values_fn = mean) %>%
+    mutate_at(vars(-Variable), ~ifelse(abs(.) > .01, sprintf("%.2f", .), ifelse(. == 0, "0", ifelse(. > -.01 & . < 0, "> -.01", "< .01")))) %>%
+    full_join(ftrs %>% select(group, Variable = old_name, new_name)) %>%
+    filter(!is.na(group)) %>%
+    select(-Variable) %>%
+    mutate(new_name = factor(new_name, ftrs$new_name)
+           , group = str_to_title(group)) %>%
+    mutate_at(vars(glmnet, biscwit, rf), ~ifelse(is.na(.), 0, .)) %>%
+    arrange(new_name)
+  
+  rs <- d2 %>% group_by(group) %>% tally() %>% 
+    mutate(end = cumsum(n), start = lag(end) + 1, start = ifelse(is.na(start), 1, start))
+  
+  tab <- d2 %>%
+    select(new_name, glmnet, biscwit, rf) %>%
+    kable(.
+          , "html"
+          , escape = F
+          , col.names = c("Variable", "Elastic Net", "BISCWIT", "Random Forest")
+          , align = c("r", rep("c", 3))
+          , cap = sprintf("%s Model Coefficients for Participant %s", o, SID)) %>%
+    kable_styling(full_width = F) %>%
+    add_footnote(note, label = NULL)
+  for (i in 1:nrow(rs)){
+    tab <- tab %>% kableExtra::group_rows(rs$group[i], rs$start[i], rs$end[i])
+  }
+  save_kable(tab, file = sprintf("%s/05-results/04-tables/05-participant-coef/%s_%s.html"
+                                 , local_path, SID, outcome))
+  return(tab)
+}
+
+px_coef <- param_res %>% 
+  right_join(best_mods %>% 
+               select(-.estimator, -.config) %>% 
+               filter(.metric == "rmse")
+             ) %>%
+  filter(map_lgl(coefs, is.null) == F) %>%
+  mutate(coefs = map(coefs, ~(.) %>% data.frame() %>% rownames_to_column("Variable") %>% setNames(c("Variable", "coef")))) %>%
+  select(-params) %>% 
+  unnest(coefs) %>%
+  mutate(Variable = str_remove_all(Variable, "_X1"),
+         Variable = str_remove_all(Variable, "_1"),
+         Variable = str_remove_all(Variable, "_2"),
+         Variable = str_replace_all(Variable, "[.]", "_"),
+         group = sprintf("%s, %s", str_to_title(group), str_to_title(time))) %>%
+  select(-.metric, -time) %>%
+  rename(accuracy = .estimate) %>%
+  group_by(SID, outcome) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(tab = pmap(list(data, SID, outcome), possibly(px_coef_tab_fun, NA_real_))); px_coef
+```
+
+All of these tables will be contained with the R shiny web app for readers to peruse at their leisure. An in detail description of each is a little beyond the goal and scope of the present study. However, the three sample participants from the manuscript are shown below.  
+
+Notably (and by design), each of these participants differed in the feature set. Participant 169's best model had the psychological feature set; Participant 43 had the situation feature set; and Participant 160 had the full feature set (psychological + situations).  
+
+A few general notes on all these tables. ENR shows log odds coefficient weights, BISCWIT shows zero-order correlation weights, and Random Forest shows permutation-based variable importance metrics. Thus, these are not directly comparable, and observations like that the size of the coefficients tend to be smaller for biscwit are better thought of as relative. The direction magnitude relative to other coefficients / correlations / variable importance metrics tend to be similar across models relative to other variables in the same model. But due to differences in the estimation procedures of these models, they are not (and should not be expected to be) the same across models.  
+
+##### Participant 169  
+```{r}
+(px_coef %>% filter(SID == "169" & outcome == "prcrst"))$tab[[1]] %>%
+    scroll_box(height = "750px")
+```
+
+##### Participant 43  
+```{r}
+(px_coef %>% filter(SID == "43" & outcome == "lonely"))$tab[[1]] %>%
+    scroll_box(height = "750px")
+```
+
+##### Participant 160  
+```{r}
+(px_coef %>% filter(SID == "160" & outcome == "prcrst"))$tab[[1]] %>%
+    scroll_box(height = "750px")
+```
+
+#### Figure {.tabset}  
+Now we'll create some figures that display the same information but make relative comparisons within a model easier.  
+
+```{r}
+coef_plot_fun <- function(d, outcome, gr, SID, model){
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  mod <- mapvalues(model, c("glmnet", "biscwit", "rf"), c("Elastic Net", "BISCWIT", "Random Forest"), warn_missing = F)
+  ttl <- sprintf("Best %s Model (%s) Predicting \n%s for Participant %s", mod, gr, o, SID)
+  d <- d %>% mutate(neg = ifelse(sign(coef) == -1, "(-)", NA), coef = abs(coef))
+  # Set a number of 'empty bar' to add at the end of each group
+  empty_bar <- 4
+  to_add <- data.frame(matrix(NA, empty_bar*nlevels(factor(d$category)), ncol(d)) )
+  colnames(to_add) <- colnames(d)
+  to_add$category <- rep(levels(factor(d$category)), each=empty_bar)
+  d <- rbind(d, to_add)
+  d <- d %>% arrange(category, desc(coef))
+  d$id <- seq(1, nrow(d))
+  
+  
+  breaks <- round(seq(0, max(d$coef, na.rm = T), length.out = 5),2)
+  rng <- c(-1*(breaks[5]-.01), breaks[5]+.01)
+   
+  # Get the name and the y position of each label
+  label_data <- d
+  number_of_bar <- nrow(label_data)
+  angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+  label_data$hjust <- ifelse( angle < -90, 1, 0)
+  label_data$angle <- ifelse(angle < -90, angle+180, angle)
+  label_data <- label_data %>% 
+    mutate(y = ifelse(is.na(coef) | coef < 0, 0, coef + rng[2]/20)
+           , lab = ifelse(!is.na(coef) & coef > 0, str_wrap(`short name`, 20), `short name`))
+  rng <- c(round(-1*max(label_data$y),2)-.01, round(max(label_data$y),2)+.01)
+  
+  # prepare a data frame for base lines
+  base_data <- d %>%
+    group_by(category) %>%
+    summarize(start=min(id), end=max(id) - empty_bar) %>%
+    rowwise() %>%
+    mutate(title=mean(c(start, end)))
+ 
+  
+  breaks <- breaks[1:4]
+  # rng <- c(-1*breaks[4], breaks[4])
+  # prepare a data frame for grid (scales)
+  grid_data <- base_data
+  grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+  grid_data$start <- grid_data$start - 1
+  grid_data <- grid_data[-1,]
+  # grid_data <- grid_data %>% crossing(breaks)
+  
+  p <- d %>%
+    ggplot(aes(
+      x = as.factor(id)
+      , y = coef
+      , fill = category
+    )) +
+      geom_bar(aes(na.rm = F), stat="identity", alpha=0.5) + 
+      scale_x_discrete(drop=FALSE) +
+      scale_fill_manual(
+        values = c("deepskyblue4", "seagreen3", "lightgoldenrod1", "purple")
+        , drop = F
+        ) +
+  
+    # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+      geom_segment(data = grid_data
+                   , aes(x = end, y = breaks[1], xend = start, yend = breaks[1])
+                   , colour = "grey"
+                   , alpha=1
+                   , size=0.3
+                   , inherit.aes = FALSE ) + 
+    geom_segment(data = grid_data
+                   , aes(x = end, y = breaks[2], xend = start, yend = breaks[2])
+                   , colour = "grey"
+                   , alpha=1
+                   , size=0.3
+                   , inherit.aes = FALSE ) + 
+    geom_segment(data = grid_data
+                   , aes(x = end, y = breaks[3], xend = start, yend = breaks[3])
+                   , colour = "grey"
+                   , alpha=1
+                   , size=0.3
+                   , inherit.aes = FALSE ) + 
+    geom_segment(data = grid_data
+                   , aes(x = end, y = breaks[4], xend = start, yend = breaks[4])
+                   , colour = "grey"
+                   , alpha=1
+                   , size=0.3
+                   , inherit.aes = FALSE ) + 
+      #  # Add text showing the value of each 100/75/50/25 lines
+      annotate("text"
+               , x = rep(max(d$id),4)
+               , y = breaks
+               , label = paste0(breaks, "-")
+               , color="grey"
+               , size=3
+               , angle=0
+               , fontface="bold"
+               , hjust=1) +
+      ylim(rng[1], rng[2]) + 
+      theme_minimal() +
+      theme(
+        # legend.position = "none",
+        legend.position = "bottom",
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        plot.title = element_text(hjust = .5, size = rel(1))
+        # plot.margin = unit(rep(-1,4), "cm") 
+      ) +
+      coord_polar() +
+      labs(fill = "Feature Category", title = ttl) + 
+      guides(fill = guide_legend(title.position="top", title.hjust = .5, label.hjust = 0)) + 
+      geom_text(data = label_data
+                , aes(x = id
+                      , y = y#coef
+                      , label = lab
+                      , hjust = hjust)
+                , color="black"
+                , fontface="bold"
+                , lineheight = .6
+                , alpha=0.6
+                , size=2.5
+                , angle= label_data$angle
+                , inherit.aes = FALSE) + 
+    geom_text(data = label_data
+                , aes(x = id
+                      , y = coef - rng[2]/20
+                      , label = neg)
+                , color="black"
+                , hjust = .5
+                , fontface="bold"
+                , lineheight = .6
+                , size=2
+                , angle= label_data$angle
+                , inherit.aes = FALSE) + 
+    # Add base line information
+    geom_segment(data = base_data
+                 , aes(x = start
+                       , y = rng[1]/20
+                       , xend = end
+                       , yend = rng[1]/20)
+                 , colour = "black"
+                 , alpha=0.8
+                 , size=0.6 
+                 , inherit.aes = FALSE) 
+  ggsave(p, filename = sprintf("%s/05-results/05-figures/02-participant-coef/%s/%s_%s.pdf"
+                            , local_path, model, SID, outcome)
+         , width = 6, height = 8)
+  ggsave(p, filename = sprintf("%s/05-results/05-figures/02-participant-coef/%s/png/%s_%s.png"
+                            , local_path, model, SID, outcome)
+         , width = 6, height = 8)
+  return(p)
+}
+
+
+px_coef_fig <- param_res %>% 
+  right_join(best_mods %>% filter(.metric == "rmse") %>% select(model:time)) %>% 
+  select(-params) %>% 
+  filter(map_lgl(coefs, is.null) == F) %>% 
+  mutate(coefs = map(coefs, ~(.) %>% 
+                       data.frame() %>% 
+                       rownames_to_column("Variable") %>% 
+                       setNames(c("Variable", "coef")))
+         ) %>%
+    unnest(coefs) %>%
+    mutate(Variable = str_remove_all(Variable, "_X1"),
+           Variable = str_remove_all(Variable, "_1"),
+           Variable = str_remove_all(Variable, "_2"),
+           Variable = str_replace_all(Variable, "[.]", "_"),
+         group = sprintf("%s, %s", str_to_title(group), str_to_title(time))) %>%
+  select(-time) %>%
+  group_by(model, SID, outcome, group, Variable) %>%
+  summarize(coef = mean(coef)) %>%
+  ungroup() %>%
+  group_by(model, outcome, SID, group) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(data = map(data, ~(.) %>% 
+                      full_join(ftrs %>% 
+                                  select(category = group, Variable = old_name, `short name`)
+                                ) %>%
+                      mutate(coef = ifelse(coef == 0, NA_real_, coef)
+                             , category = factor(str_to_title(category)))),
+         p = pmap(list(data, outcome, group, SID, model)
+                  , possibly(coef_plot_fun, NA_real_)))
+```
+
+As before, we'll show our three example participants. These figures are present in the manuscript as Figures 5-7.  
+
+##### Participant 169 (Figure 6)  
+Participant 169’s best model for procrastination used the psychological feature set without time for each of the three methods (accuracy = 0.94; AUC = 0.80). Variable importance (log odds ratios) for the features in their ENR model are shown in the bar graph in Figure 5. Across all three methods, there were some differences selected features, but consensus in the direction and general magnitude of them. Across all three, the top feature was the Openness to Experience facet Creative Imagination, perhaps indicating that this participant tended to procrastinate when they were feeling more creative or imaginative previously. As in clear in Figure 5, they also tended to procrastinate less when they were Intellectually Curious (O) and more when they felt afraid. Thus, it seems like this participant’s procrastination may partially hinge upon competition between intellectual and creative pursuits, as well general fears.  
+
+```{r, fig.width = 6, fig.height = 8, fig.cap="Figure 5. Variable Importance (absolute value of log odds) for Participant 169’s best model predicting Procrastination. Each bar is a different feature. Color indicates feature category (psychological, situational, or time). Height of bars indicates the magnitude of the effect. (-)indicate negative effects (i.e. lower odds)."}
+(px_coef_fig %>% filter(outcome == "prcrst" & SID == "169" & model == "glmnet"))$p[[1]]
+ggsave(file = sprintf("%s/05-results/05-figures/fig-6-px-169.pdf", local_path)
+       , width = 6, height = 8)
+```
+
+##### Participant 43 (Figure 7)  
+participant 43’s best model for loneliness used the situation feature set (without time; accuracy = 0.91; AUC = 0.83). As in seen in the bar graph of their ENR variable importance in Figure 6, the situation characteristics and features seem to indicate that obligations (e.g., duty, in class), physical health (e.g., sick, sleeping), and social interactions (Sociability, argument) were predictive of future feelings of loneliness. For example, both the situation feature Duty and being in class predicted less loneliness, while feeling sick and getting in an argument predicted more.  
+
+```{r, fig.width = 6, fig.height = 8, fig.cap="Figure 6. Variable Importance (absolute value of log odds) for Participant 43’s best model predicting Loneliness. Each bar is a different feature. Color indicates feature category (psychological, situational, or time). Height of bars indicates the magnitude of the effect. (-) indicates negative effects."}
+(px_coef_fig %>% filter(outcome == "lonely" & SID == "43" & model == "glmnet"))$p[[1]]
+ggsave(file = sprintf("%s/05-results/05-figures/fig-7-px-43.pdf", local_path)
+       , width = 6, height = 8)
+```
+
+##### Participant 160 (Figure 8)  
+Participant 160’s best models for procrastination utilized the full feature set (i.e. psychological and situational features) without time (see Figure 7; accuracy = 0.89, AUC = 0.94). ENR and BISCWIT agreed on the top three features: Sociability (DIAMONDS; negative), Sleeping (positive), and Depression (Neuroticism; negative) were each associated with future procrastination. Moreover, other related features, like attentiveness and Assertiveness (Extraversion), were also predictive of both outcomes.  
+
+```{r, fig.width = 6, fig.height = 8, fig.cap="Figure 7. Variable Importance (absolute value of log odds) for Participant 160’s best model predicting Procrastination. Each bar is a different feature. Color indicates feature category (psychological, situational, or time). Height of bars indicates the magnitude of the effect. (-) indicates negative effects."}
+(px_coef_fig %>% filter(outcome == "prcrst" & SID == "160" & model == "glmnet"))$p[[1]]
+ggsave(file = sprintf("%s/05-results/05-figures/fig-8-px-160.pdf", local_path)
+       , width = 6, height = 8)
+```
+
+### Profile Similarity  
+Finally, when we looked at relative proportional frequencies of different features appearing in particiapnts' top fives, it told us nothing about the tendency of features to co-occur. To look at this, we'll opt for a simple visual depiction of the profile of coefficients/correlations/variable importance for each participant's best model for each metric (accuracy, AUC), outcome (procrastination, loneliness), and model (ENR, BISCWIT, RF).  
+```{r}
+procor_fun <- function(d){
+  m <- d %>% 
+    select(-SID) %>%
+    mutate_all(~ifelse(is.na(.), 0, .)) %>%
+    as.matrix(); rownames(m) <- d$SID
+  r <- cor(t(m))
+  diag(r) <- NA
+  rd <- r %>% data.frame() %>% 
+    rownames_to_column("SID1") %>%
+    pivot_longer(cols = -SID1
+                 , names_to = "SID2"
+                 , values_to = "r"
+                 , values_drop_na = T) %>%
+    mutate(SID2 = str_remove_all(SID2, "X"))
+  
+  r %>%
+    mutate(r = fisherz(r)) %>%
+    group_by(SID1) %>%
+    summarize_at(vars(r), lst(mean, min, max))
+}
+
+profile_sim <- param_res %>%
+  select(-params) %>%
+  right_join(best_mods %>% select(model:.metric)) %>%
+  filter(map_lgl(coefs, is.null) == F) %>% 
+  mutate(coefs = map(coefs, ~(.) %>% 
+                       data.frame() %>% 
+                       rownames_to_column("Variable") %>% 
+                       setNames(c("Variable", "coef")))
+         ) %>%
+    unnest(coefs) %>%
+    mutate(Variable = str_remove_all(Variable, "_X1"),
+           Variable = str_remove_all(Variable, "_1"),
+           Variable = str_remove_all(Variable, "_2"),
+           Variable = str_replace_all(Variable, "[.]", "_")) %>%
+    filter(Variable %in% ftrs$name) %>%
+  group_by(model, SID, outcome, .metric, Variable) %>%
+  summarize(coef = mean(coef)) %>%
+  ungroup()
+
+profile_plot_fun <- function(d, model, metric, outcome){
+  o <- mapvalues(outcome, outcomes$name, outcomes$long_name, warn_missing = F)
+  mod <- mapvalues(model, c("glmnet", "biscwit", "rf"), c("Elastic Net", "BISCWIT", "Random Forest"), warn_missing = F)
+  m <- mapvalues(metric, c("rmse", "rsq"), c("RMSE", "R^2"), warn_missing = F)
+  ttl <- sprintf("%s Predicting Future %s Using Best %s Models", mod, o, m)
+  min <- if(model == "glmnet") 5 else if (model == "biscwit") 1 else max(abs(d$coef), na.rm = T)
+  p <- d %>%
+  mutate(coef = ifelse(coef == 0, NA, coef)
+         , coef = ifelse(coef > min, min, ifelse(coef < -1*min, -1*min, coef))
+         , group = str_to_title(group)
+         , new_name = factor(new_name, rev(unique(ftrs$long_name)))) %>%
+  drop_na() %>%
+  ggplot(aes(x = SID, y = new_name, color = coef)) + 
+    scale_color_gradient2(low = "blue"
+                          , mid = "white"
+                          , high = "red"
+                          # , limits = c(-5,5)
+                          ) + 
+    geom_point(size = 2) + 
+    labs(x = "Participant ID", y = NULL, color = "Coefficient"
+         , title = ttl) + 
+    facet_grid(group ~ ., space = "free", scale = "free", switch = "both") + 
+    theme_classic() + 
+    theme(axis.text.x = element_text(angle = 90, face = "bold", size = rel(.6))
+          , axis.text.y = element_text(face = "bold")
+          , plot.title = element_text(hjust = .5, face = "bold")
+          , legend.position = "bottom"
+          , strip.background = element_rect(fill = "black")
+          , strip.placement = "outside"
+          , strip.text = element_text(face = "bold", color = "white", size = rel(1.2))
+          )
+  ggsave(p, file = sprintf("%s/05-results/05-figures/03-px-profiles/%s_%s_%s.pdf"
+                           , local_path, outcome, model, metric)
+         , width = 16, height = 10)
+  ggsave(p, file = sprintf("%s/05-results/05-figures/03-px-profiles/png/%s_%s_%s.png"
+                           , local_path, outcome, model, metric)
+         , width = 16, height = 10)
+  return(p)
+}
+  
+profile_sim_plots <- profile_sim %>%
+  left_join(ftrs %>% select(group = category, Variable = name, new_name = long_name)) %>%
+  group_by(model, .metric, outcome) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(p = pmap(list(data, model, .metric, outcome), profile_plot_fun))
+```
+
+For parsimony, I'm just going to display the accuracy plots. You'll find the others in the online materials and webapp.  
+
+#### Elastic Net  
+Broadly there are a few takeaways from each of these figures. First, relative to other models (see below), ENR tended to include more features in any given model. However, likely due to the the combination of both soft and hard constraints via L1 and L2 regularization, the magnitudes were relatively low for some individuals than others. Second, only a relatively small number of participants' best models had timing features. Third, even common features varied widely across people in presence, direction, and magnitude without exception. Finally, no two profiles are the same even just in which features were included, let alone in direction and magnitude of the associations.  
+##### Procrastination  
+```{r}
+(profile_sim_plots %>% filter(.metric == "accuracy" & model == "glmnet" & outcome == "prcrst"))$p[[1]]
+```
+
+##### Loneliness  
+```{r}
+(profile_sim_plots %>% filter(.metric == "accuracy" & model == "glmnet" & outcome == "lonely"))$p[[1]]
+```
+
+
+#### BISCWIT  
+Broadly there are a few takeaways from each of these figures. First, the relative magnitude of the correlations tended to be stronger in the positive direction than the negative one. Second, only a relatively small number of participants' best models had timing features. Third, even common features varied widely across people in presence, direction, and magnitude without exception. Finally, no two profiles are the same even just in which features were included, let alone in direction and magnitude of the associations.    
+##### Procrastination (Figure 5)  
+```{r}
+(profile_sim_plots %>% filter(.metric == "accuracy" & model == "biscwit" & outcome == "prcrst"))$p[[1]]
+ggsave(file = sprintf("%s/05-results/05-figures/fig-5-px-coef-profiles.png"
+                           , local_path)
+       , width = 12, height = 10)
+```
+
+##### Loneliness  
+```{r}
+(profile_sim_plots %>% filter(.metric == "accuracy" & model == "biscwit" & outcome == "lonely"))$p[[1]]
+```
+
+#### Random Forest  
+##### Procrastination  
+```{r}
+(profile_sim_plots %>% filter(.metric == "accuracy" & model == "rf" & outcome == "prcrst"))$p[[1]]
+```
+
+##### Loneliness  
+```{r}
+(profile_sim_plots %>% filter(.metric == "accuracy" & model == "rf" & outcome == "lonely"))$p[[1]]
+```

@@ -1,0 +1,3240 @@
+SID,outcome,group,time
+10163,lonely,behavior,no time
+10163,lonely,behavior,time
+10163,lonely,full,time
+10163,lonely,psychological,no time
+10163,lonely,psychological,time
+10163,lonely,situation,no time
+10163,lonely,situation,time
+10163,pain,behavior,no time
+10163,pain,behavior,time
+10163,pain,full,time
+10163,pain,psychological,no time
+10163,pain,psychological,time
+10163,pain,situation,no time
+10163,pain,situation,time
+10277,lonely,behavior,no time
+10277,lonely,behavior,time
+10277,lonely,full,time
+10277,lonely,psychological,no time
+10277,lonely,psychological,time
+10277,lonely,situation,no time
+10277,lonely,situation,time
+10277,pain,behavior,no time
+10277,pain,behavior,time
+10277,pain,full,time
+10277,pain,psychological,no time
+10277,pain,psychological,time
+10277,pain,situation,no time
+10277,pain,situation,time
+10297,lonely,behavior,no time
+10297,lonely,behavior,time
+10297,lonely,full,time
+10297,lonely,psychological,no time
+10297,lonely,psychological,time
+10297,lonely,situation,no time
+10297,lonely,situation,time
+10297,pain,behavior,no time
+10297,pain,behavior,time
+10297,pain,full,time
+10297,pain,psychological,no time
+10297,pain,psychological,time
+10297,pain,situation,no time
+10297,pain,situation,time
+10299,lonely,behavior,no time
+10299,lonely,behavior,time
+10299,lonely,full,time
+10299,lonely,psychological,no time
+10299,lonely,psychological,time
+10299,lonely,situation,no time
+10299,lonely,situation,time
+10299,pain,behavior,no time
+10299,pain,behavior,time
+10299,pain,full,time
+10299,pain,psychological,no time
+10299,pain,psychological,time
+10299,pain,situation,no time
+10299,pain,situation,time
+10455,lonely,behavior,no time
+10455,lonely,behavior,time
+10455,lonely,full,time
+10455,lonely,psychological,no time
+10455,lonely,psychological,time
+10455,lonely,situation,no time
+10455,lonely,situation,time
+10455,pain,behavior,no time
+10455,pain,behavior,time
+10455,pain,full,time
+10455,pain,psychological,no time
+10455,pain,psychological,time
+10455,pain,situation,no time
+10455,pain,situation,time
+10468,lonely,behavior,no time
+10468,lonely,behavior,time
+10468,lonely,full,time
+10468,lonely,psychological,no time
+10468,lonely,psychological,time
+10468,lonely,situation,no time
+10468,lonely,situation,time
+10468,pain,behavior,no time
+10468,pain,behavior,time
+10468,pain,full,time
+10468,pain,psychological,no time
+10468,pain,psychological,time
+10468,pain,situation,no time
+10468,pain,situation,time
+10514,lonely,behavior,no time
+10514,lonely,behavior,time
+10514,lonely,full,time
+10514,lonely,psychological,no time
+10514,lonely,psychological,time
+10514,lonely,situation,no time
+10514,lonely,situation,time
+10514,pain,behavior,no time
+10514,pain,behavior,time
+10514,pain,full,time
+10514,pain,psychological,no time
+10514,pain,psychological,time
+10514,pain,situation,no time
+10514,pain,situation,time
+10644,lonely,behavior,no time
+10644,lonely,behavior,time
+10644,lonely,full,time
+10644,lonely,psychological,no time
+10644,lonely,psychological,time
+10644,lonely,situation,no time
+10644,lonely,situation,time
+10644,pain,behavior,no time
+10644,pain,behavior,time
+10644,pain,full,time
+10644,pain,psychological,no time
+10644,pain,psychological,time
+10644,pain,situation,no time
+10644,pain,situation,time
+10683,lonely,behavior,no time
+10683,lonely,behavior,time
+10683,lonely,full,time
+10683,lonely,psychological,no time
+10683,lonely,psychological,time
+10683,lonely,situation,no time
+10683,lonely,situation,time
+10683,pain,behavior,no time
+10683,pain,behavior,time
+10683,pain,full,time
+10683,pain,psychological,no time
+10683,pain,psychological,time
+10683,pain,situation,no time
+10683,pain,situation,time
+10698,lonely,behavior,no time
+10698,lonely,behavior,time
+10698,lonely,full,time
+10698,lonely,psychological,no time
+10698,lonely,psychological,time
+10698,lonely,situation,no time
+10698,lonely,situation,time
+10698,pain,behavior,no time
+10698,pain,behavior,time
+10698,pain,full,time
+10698,pain,psychological,no time
+10698,pain,psychological,time
+10698,pain,situation,no time
+10698,pain,situation,time
+10753,lonely,behavior,no time
+10753,lonely,behavior,time
+10753,lonely,full,time
+10753,lonely,psychological,no time
+10753,lonely,psychological,time
+10753,lonely,situation,no time
+10753,lonely,situation,time
+10753,pain,behavior,no time
+10753,pain,behavior,time
+10753,pain,full,time
+10753,pain,psychological,no time
+10753,pain,psychological,time
+10753,pain,situation,no time
+10753,pain,situation,time
+10841,lonely,behavior,no time
+10841,lonely,behavior,time
+10841,lonely,full,time
+10841,lonely,psychological,no time
+10841,lonely,psychological,time
+10841,lonely,situation,no time
+10841,lonely,situation,time
+10841,pain,behavior,no time
+10841,pain,behavior,time
+10841,pain,full,time
+10841,pain,psychological,no time
+10841,pain,psychological,time
+10841,pain,situation,no time
+10841,pain,situation,time
+10846,lonely,behavior,no time
+10846,lonely,behavior,time
+10846,lonely,full,time
+10846,lonely,psychological,no time
+10846,lonely,psychological,time
+10846,lonely,situation,no time
+10846,lonely,situation,time
+10846,pain,behavior,no time
+10846,pain,behavior,time
+10846,pain,full,time
+10846,pain,psychological,no time
+10846,pain,psychological,time
+10846,pain,situation,no time
+10846,pain,situation,time
+10858,lonely,behavior,no time
+10858,lonely,behavior,time
+10858,lonely,full,time
+10858,lonely,psychological,no time
+10858,lonely,psychological,time
+10858,lonely,situation,no time
+10858,lonely,situation,time
+10858,pain,behavior,no time
+10858,pain,behavior,time
+10858,pain,full,time
+10858,pain,psychological,no time
+10858,pain,psychological,time
+10858,pain,situation,no time
+10858,pain,situation,time
+10872,lonely,behavior,no time
+10872,lonely,behavior,time
+10872,lonely,full,time
+10872,lonely,psychological,no time
+10872,lonely,psychological,time
+10872,lonely,situation,no time
+10872,lonely,situation,time
+10872,pain,behavior,no time
+10872,pain,behavior,time
+10872,pain,full,time
+10872,pain,psychological,no time
+10872,pain,psychological,time
+10872,pain,situation,no time
+10872,pain,situation,time
+10875,lonely,behavior,no time
+10875,lonely,behavior,time
+10875,lonely,full,time
+10875,lonely,psychological,no time
+10875,lonely,psychological,time
+10875,lonely,situation,no time
+10875,lonely,situation,time
+10875,pain,behavior,no time
+10875,pain,behavior,time
+10875,pain,full,time
+10875,pain,psychological,no time
+10875,pain,psychological,time
+10875,pain,situation,no time
+10875,pain,situation,time
+10883,lonely,behavior,no time
+10883,lonely,behavior,time
+10883,lonely,full,time
+10883,lonely,psychological,no time
+10883,lonely,psychological,time
+10883,lonely,situation,no time
+10883,lonely,situation,time
+10883,pain,behavior,no time
+10883,pain,behavior,time
+10883,pain,full,time
+10883,pain,psychological,no time
+10883,pain,psychological,time
+10883,pain,situation,no time
+10883,pain,situation,time
+10927,lonely,behavior,no time
+10927,lonely,behavior,time
+10927,lonely,full,time
+10927,lonely,psychological,no time
+10927,lonely,psychological,time
+10927,lonely,situation,no time
+10927,lonely,situation,time
+10927,pain,behavior,no time
+10927,pain,behavior,time
+10927,pain,full,time
+10927,pain,psychological,no time
+10927,pain,psychological,time
+10927,pain,situation,no time
+10927,pain,situation,time
+10943,lonely,behavior,no time
+10943,lonely,behavior,time
+10943,lonely,full,time
+10943,lonely,psychological,no time
+10943,lonely,psychological,time
+10943,lonely,situation,no time
+10943,lonely,situation,time
+10943,pain,behavior,no time
+10943,pain,behavior,time
+10943,pain,full,time
+10943,pain,psychological,no time
+10943,pain,psychological,time
+10943,pain,situation,no time
+10943,pain,situation,time
+11007,lonely,behavior,no time
+11007,lonely,behavior,time
+11007,lonely,full,time
+11007,lonely,psychological,no time
+11007,lonely,psychological,time
+11007,lonely,situation,no time
+11007,lonely,situation,time
+11007,pain,behavior,no time
+11007,pain,behavior,time
+11007,pain,full,time
+11007,pain,psychological,no time
+11007,pain,psychological,time
+11007,pain,situation,no time
+11007,pain,situation,time
+11017,lonely,behavior,no time
+11017,lonely,behavior,time
+11017,lonely,full,time
+11017,lonely,psychological,no time
+11017,lonely,psychological,time
+11017,lonely,situation,no time
+11017,lonely,situation,time
+11017,pain,behavior,no time
+11017,pain,behavior,time
+11017,pain,full,time
+11017,pain,psychological,no time
+11017,pain,psychological,time
+11017,pain,situation,no time
+11017,pain,situation,time
+12009,lonely,behavior,no time
+12009,lonely,behavior,time
+12009,lonely,full,time
+12009,lonely,psychological,no time
+12009,lonely,psychological,time
+12009,lonely,situation,no time
+12009,lonely,situation,time
+12009,pain,behavior,no time
+12009,pain,behavior,time
+12009,pain,full,time
+12009,pain,psychological,no time
+12009,pain,psychological,time
+12009,pain,situation,no time
+12009,pain,situation,time
+12011,lonely,behavior,no time
+12011,lonely,behavior,time
+12011,lonely,full,time
+12011,lonely,psychological,no time
+12011,lonely,psychological,time
+12011,lonely,situation,no time
+12011,lonely,situation,time
+12011,pain,behavior,no time
+12011,pain,behavior,time
+12011,pain,full,time
+12011,pain,psychological,no time
+12011,pain,psychological,time
+12011,pain,situation,no time
+12011,pain,situation,time
+12012,lonely,behavior,no time
+12012,lonely,behavior,time
+12012,lonely,full,time
+12012,lonely,psychological,no time
+12012,lonely,psychological,time
+12012,lonely,situation,no time
+12012,lonely,situation,time
+12012,pain,behavior,no time
+12012,pain,behavior,time
+12012,pain,full,time
+12012,pain,psychological,no time
+12012,pain,psychological,time
+12012,pain,situation,no time
+12012,pain,situation,time
+12013,lonely,behavior,no time
+12013,lonely,behavior,time
+12013,lonely,full,time
+12013,lonely,psychological,no time
+12013,lonely,psychological,time
+12013,lonely,situation,no time
+12013,lonely,situation,time
+12013,pain,behavior,no time
+12013,pain,behavior,time
+12013,pain,full,time
+12013,pain,psychological,no time
+12013,pain,psychological,time
+12013,pain,situation,no time
+12013,pain,situation,time
+12015,lonely,behavior,no time
+12015,lonely,behavior,time
+12015,lonely,full,time
+12015,lonely,psychological,no time
+12015,lonely,psychological,time
+12015,lonely,situation,no time
+12015,lonely,situation,time
+12015,pain,behavior,no time
+12015,pain,behavior,time
+12015,pain,full,time
+12015,pain,psychological,no time
+12015,pain,psychological,time
+12015,pain,situation,no time
+12015,pain,situation,time
+12016,lonely,behavior,no time
+12016,lonely,behavior,time
+12016,lonely,full,time
+12016,lonely,psychological,no time
+12016,lonely,psychological,time
+12016,lonely,situation,no time
+12016,lonely,situation,time
+12016,pain,behavior,no time
+12016,pain,behavior,time
+12016,pain,full,time
+12016,pain,psychological,no time
+12016,pain,psychological,time
+12016,pain,situation,no time
+12016,pain,situation,time
+12017,lonely,behavior,no time
+12017,lonely,behavior,time
+12017,lonely,full,time
+12017,lonely,psychological,no time
+12017,lonely,psychological,time
+12017,lonely,situation,no time
+12017,lonely,situation,time
+12017,pain,behavior,no time
+12017,pain,behavior,time
+12017,pain,full,time
+12017,pain,psychological,no time
+12017,pain,psychological,time
+12017,pain,situation,no time
+12017,pain,situation,time
+12018,lonely,behavior,no time
+12018,lonely,behavior,time
+12018,lonely,full,time
+12018,lonely,psychological,no time
+12018,lonely,psychological,time
+12018,lonely,situation,no time
+12018,lonely,situation,time
+12018,pain,behavior,no time
+12018,pain,behavior,time
+12018,pain,full,time
+12018,pain,psychological,no time
+12018,pain,psychological,time
+12018,pain,situation,no time
+12018,pain,situation,time
+12019,lonely,behavior,no time
+12019,lonely,behavior,time
+12019,lonely,full,time
+12019,lonely,psychological,no time
+12019,lonely,psychological,time
+12019,lonely,situation,no time
+12019,lonely,situation,time
+12019,pain,behavior,no time
+12019,pain,behavior,time
+12019,pain,full,time
+12019,pain,psychological,no time
+12019,pain,psychological,time
+12019,pain,situation,no time
+12019,pain,situation,time
+12020,lonely,behavior,no time
+12020,lonely,behavior,time
+12020,lonely,full,time
+12020,lonely,psychological,no time
+12020,lonely,psychological,time
+12020,lonely,situation,no time
+12020,lonely,situation,time
+12020,pain,behavior,no time
+12020,pain,behavior,time
+12020,pain,full,time
+12020,pain,psychological,no time
+12020,pain,psychological,time
+12020,pain,situation,no time
+12020,pain,situation,time
+12021,lonely,behavior,no time
+12021,lonely,behavior,time
+12021,lonely,full,time
+12021,lonely,psychological,no time
+12021,lonely,psychological,time
+12021,lonely,situation,no time
+12021,lonely,situation,time
+12021,pain,behavior,no time
+12021,pain,behavior,time
+12021,pain,full,time
+12021,pain,psychological,no time
+12021,pain,psychological,time
+12021,pain,situation,no time
+12021,pain,situation,time
+12022,lonely,behavior,no time
+12022,lonely,behavior,time
+12022,lonely,full,time
+12022,lonely,psychological,no time
+12022,lonely,psychological,time
+12022,lonely,situation,no time
+12022,lonely,situation,time
+12022,pain,behavior,no time
+12022,pain,behavior,time
+12022,pain,full,time
+12022,pain,psychological,no time
+12022,pain,psychological,time
+12022,pain,situation,no time
+12022,pain,situation,time
+12024,lonely,behavior,no time
+12024,lonely,behavior,time
+12024,lonely,full,time
+12024,lonely,psychological,no time
+12024,lonely,psychological,time
+12024,lonely,situation,no time
+12024,lonely,situation,time
+12024,pain,behavior,no time
+12024,pain,behavior,time
+12024,pain,full,time
+12024,pain,psychological,no time
+12024,pain,psychological,time
+12024,pain,situation,no time
+12024,pain,situation,time
+12025,lonely,behavior,no time
+12025,lonely,behavior,time
+12025,lonely,full,time
+12025,lonely,psychological,no time
+12025,lonely,psychological,time
+12025,lonely,situation,no time
+12025,lonely,situation,time
+12025,pain,behavior,no time
+12025,pain,behavior,time
+12025,pain,full,time
+12025,pain,psychological,no time
+12025,pain,psychological,time
+12025,pain,situation,no time
+12025,pain,situation,time
+12026,pain,behavior,no time
+12026,pain,behavior,time
+12026,pain,full,time
+12026,pain,psychological,no time
+12026,pain,psychological,time
+12026,pain,situation,no time
+12026,pain,situation,time
+12028,lonely,behavior,no time
+12028,lonely,behavior,time
+12028,lonely,full,time
+12028,lonely,psychological,no time
+12028,lonely,psychological,time
+12028,lonely,situation,no time
+12028,lonely,situation,time
+12028,pain,behavior,no time
+12028,pain,behavior,time
+12028,pain,full,time
+12028,pain,psychological,no time
+12028,pain,psychological,time
+12028,pain,situation,no time
+12028,pain,situation,time
+12029,lonely,behavior,no time
+12029,lonely,behavior,time
+12029,lonely,full,time
+12029,lonely,psychological,no time
+12029,lonely,psychological,time
+12029,lonely,situation,no time
+12029,lonely,situation,time
+12029,pain,behavior,no time
+12029,pain,behavior,time
+12029,pain,full,time
+12029,pain,psychological,no time
+12029,pain,psychological,time
+12029,pain,situation,no time
+12029,pain,situation,time
+12030,lonely,behavior,no time
+12030,lonely,behavior,time
+12030,lonely,full,time
+12030,lonely,psychological,no time
+12030,lonely,psychological,time
+12030,lonely,situation,no time
+12030,lonely,situation,time
+12030,pain,behavior,no time
+12030,pain,behavior,time
+12030,pain,full,time
+12030,pain,psychological,no time
+12030,pain,psychological,time
+12030,pain,situation,no time
+12030,pain,situation,time
+12033,lonely,behavior,no time
+12033,lonely,behavior,time
+12033,lonely,full,time
+12033,lonely,psychological,no time
+12033,lonely,psychological,time
+12033,lonely,situation,no time
+12033,lonely,situation,time
+12033,pain,behavior,no time
+12033,pain,behavior,time
+12033,pain,full,time
+12033,pain,psychological,no time
+12033,pain,psychological,time
+12033,pain,situation,no time
+12033,pain,situation,time
+12034,lonely,behavior,no time
+12034,lonely,behavior,time
+12034,lonely,full,time
+12034,lonely,psychological,no time
+12034,lonely,psychological,time
+12034,lonely,situation,no time
+12034,lonely,situation,time
+12034,pain,behavior,no time
+12034,pain,behavior,time
+12034,pain,full,time
+12034,pain,psychological,no time
+12034,pain,psychological,time
+12034,pain,situation,no time
+12034,pain,situation,time
+12035,lonely,behavior,no time
+12035,lonely,behavior,time
+12035,lonely,full,time
+12035,lonely,psychological,no time
+12035,lonely,psychological,time
+12035,lonely,situation,no time
+12035,lonely,situation,time
+12035,pain,behavior,no time
+12035,pain,behavior,time
+12035,pain,full,time
+12035,pain,psychological,no time
+12035,pain,psychological,time
+12035,pain,situation,no time
+12035,pain,situation,time
+12036,lonely,behavior,no time
+12036,lonely,behavior,time
+12036,lonely,full,time
+12036,lonely,psychological,no time
+12036,lonely,psychological,time
+12036,lonely,situation,no time
+12036,lonely,situation,time
+12036,pain,behavior,no time
+12036,pain,behavior,time
+12036,pain,full,time
+12036,pain,psychological,no time
+12036,pain,psychological,time
+12036,pain,situation,no time
+12036,pain,situation,time
+12037,lonely,behavior,no time
+12037,lonely,behavior,time
+12037,lonely,full,time
+12037,lonely,psychological,no time
+12037,lonely,psychological,time
+12037,lonely,situation,no time
+12037,lonely,situation,time
+12037,pain,behavior,no time
+12037,pain,behavior,time
+12037,pain,full,time
+12037,pain,psychological,no time
+12037,pain,psychological,time
+12037,pain,situation,no time
+12037,pain,situation,time
+12038,lonely,behavior,no time
+12038,lonely,behavior,time
+12038,lonely,full,time
+12038,lonely,psychological,no time
+12038,lonely,psychological,time
+12038,lonely,situation,no time
+12038,lonely,situation,time
+12038,pain,behavior,no time
+12038,pain,behavior,time
+12038,pain,full,time
+12038,pain,psychological,no time
+12038,pain,psychological,time
+12038,pain,situation,no time
+12038,pain,situation,time
+12040,lonely,behavior,no time
+12040,lonely,behavior,time
+12040,lonely,full,time
+12040,lonely,psychological,no time
+12040,lonely,psychological,time
+12040,lonely,situation,no time
+12040,lonely,situation,time
+12040,pain,behavior,no time
+12040,pain,behavior,time
+12040,pain,full,time
+12040,pain,psychological,no time
+12040,pain,psychological,time
+12040,pain,situation,no time
+12040,pain,situation,time
+12042,lonely,behavior,no time
+12042,lonely,behavior,time
+12042,lonely,full,time
+12042,lonely,psychological,no time
+12042,lonely,psychological,time
+12042,lonely,situation,no time
+12042,lonely,situation,time
+12042,pain,behavior,no time
+12042,pain,behavior,time
+12042,pain,full,time
+12042,pain,psychological,no time
+12042,pain,psychological,time
+12042,pain,situation,no time
+12042,pain,situation,time
+12043,lonely,behavior,no time
+12043,lonely,behavior,time
+12043,lonely,full,time
+12043,lonely,psychological,no time
+12043,lonely,psychological,time
+12043,lonely,situation,no time
+12043,lonely,situation,time
+12043,pain,behavior,no time
+12043,pain,behavior,time
+12043,pain,full,time
+12043,pain,psychological,no time
+12043,pain,psychological,time
+12043,pain,situation,no time
+12043,pain,situation,time
+12045,lonely,behavior,no time
+12045,lonely,behavior,time
+12045,lonely,full,time
+12045,lonely,psychological,no time
+12045,lonely,psychological,time
+12045,lonely,situation,no time
+12045,lonely,situation,time
+12045,pain,behavior,no time
+12045,pain,behavior,time
+12045,pain,full,time
+12045,pain,psychological,no time
+12045,pain,psychological,time
+12045,pain,situation,no time
+12045,pain,situation,time
+12046,lonely,behavior,no time
+12046,lonely,behavior,time
+12046,lonely,full,time
+12046,lonely,psychological,no time
+12046,lonely,psychological,time
+12046,lonely,situation,no time
+12046,lonely,situation,time
+12046,pain,behavior,no time
+12046,pain,behavior,time
+12046,pain,full,time
+12046,pain,psychological,no time
+12046,pain,psychological,time
+12046,pain,situation,no time
+12046,pain,situation,time
+12048,lonely,behavior,no time
+12048,lonely,behavior,time
+12048,lonely,full,time
+12048,lonely,psychological,no time
+12048,lonely,psychological,time
+12048,lonely,situation,no time
+12048,lonely,situation,time
+12048,pain,behavior,no time
+12048,pain,behavior,time
+12048,pain,full,time
+12048,pain,psychological,no time
+12048,pain,psychological,time
+12048,pain,situation,no time
+12048,pain,situation,time
+12051,lonely,behavior,no time
+12051,lonely,behavior,time
+12051,lonely,full,time
+12051,lonely,psychological,no time
+12051,lonely,psychological,time
+12051,lonely,situation,no time
+12051,lonely,situation,time
+12051,pain,behavior,no time
+12051,pain,behavior,time
+12051,pain,full,time
+12051,pain,psychological,no time
+12051,pain,psychological,time
+12051,pain,situation,no time
+12051,pain,situation,time
+12053,lonely,behavior,no time
+12053,lonely,behavior,time
+12053,lonely,full,time
+12053,lonely,psychological,no time
+12053,lonely,psychological,time
+12053,lonely,situation,no time
+12053,lonely,situation,time
+12053,pain,behavior,no time
+12053,pain,behavior,time
+12053,pain,full,time
+12053,pain,psychological,no time
+12053,pain,psychological,time
+12053,pain,situation,no time
+12053,pain,situation,time
+12054,lonely,behavior,no time
+12054,lonely,behavior,time
+12054,lonely,full,time
+12054,lonely,psychological,no time
+12054,lonely,psychological,time
+12054,lonely,situation,no time
+12054,lonely,situation,time
+12054,pain,behavior,no time
+12054,pain,behavior,time
+12054,pain,full,time
+12054,pain,psychological,no time
+12054,pain,psychological,time
+12054,pain,situation,no time
+12054,pain,situation,time
+12056,lonely,behavior,no time
+12056,lonely,behavior,time
+12056,lonely,full,time
+12056,lonely,psychological,no time
+12056,lonely,psychological,time
+12056,lonely,situation,no time
+12056,lonely,situation,time
+12056,pain,behavior,no time
+12056,pain,behavior,time
+12056,pain,full,time
+12056,pain,psychological,no time
+12056,pain,psychological,time
+12056,pain,situation,no time
+12056,pain,situation,time
+12057,lonely,behavior,no time
+12057,lonely,behavior,time
+12057,lonely,full,time
+12057,lonely,psychological,no time
+12057,lonely,psychological,time
+12057,lonely,situation,no time
+12057,lonely,situation,time
+12057,pain,behavior,no time
+12057,pain,behavior,time
+12057,pain,full,time
+12057,pain,psychological,no time
+12057,pain,psychological,time
+12057,pain,situation,no time
+12057,pain,situation,time
+12059,lonely,behavior,no time
+12059,lonely,behavior,time
+12059,lonely,full,time
+12059,lonely,psychological,no time
+12059,lonely,psychological,time
+12059,lonely,situation,no time
+12059,lonely,situation,time
+12059,pain,behavior,no time
+12059,pain,behavior,time
+12059,pain,full,time
+12059,pain,psychological,no time
+12059,pain,psychological,time
+12059,pain,situation,no time
+12059,pain,situation,time
+12060,lonely,behavior,no time
+12060,lonely,behavior,time
+12060,lonely,full,time
+12060,lonely,psychological,no time
+12060,lonely,psychological,time
+12060,lonely,situation,no time
+12060,lonely,situation,time
+12060,pain,behavior,no time
+12060,pain,behavior,time
+12060,pain,full,time
+12060,pain,psychological,no time
+12060,pain,psychological,time
+12060,pain,situation,no time
+12060,pain,situation,time
+12061,lonely,behavior,no time
+12061,lonely,behavior,time
+12061,lonely,full,time
+12061,lonely,psychological,no time
+12061,lonely,psychological,time
+12061,lonely,situation,no time
+12061,lonely,situation,time
+12061,pain,behavior,no time
+12061,pain,behavior,time
+12061,pain,full,time
+12061,pain,psychological,no time
+12061,pain,psychological,time
+12061,pain,situation,no time
+12061,pain,situation,time
+12063,lonely,behavior,no time
+12063,lonely,behavior,time
+12063,lonely,full,time
+12063,lonely,psychological,no time
+12063,lonely,psychological,time
+12063,lonely,situation,no time
+12063,lonely,situation,time
+12063,pain,behavior,no time
+12063,pain,behavior,time
+12063,pain,full,time
+12063,pain,psychological,no time
+12063,pain,psychological,time
+12063,pain,situation,no time
+12063,pain,situation,time
+12065,lonely,behavior,no time
+12065,lonely,behavior,time
+12065,lonely,full,time
+12065,lonely,psychological,no time
+12065,lonely,psychological,time
+12065,lonely,situation,no time
+12065,lonely,situation,time
+12065,pain,behavior,no time
+12065,pain,behavior,time
+12065,pain,full,time
+12065,pain,psychological,no time
+12065,pain,psychological,time
+12065,pain,situation,no time
+12065,pain,situation,time
+12066,lonely,behavior,no time
+12066,lonely,behavior,time
+12066,lonely,full,time
+12066,lonely,psychological,no time
+12066,lonely,psychological,time
+12066,lonely,situation,no time
+12066,lonely,situation,time
+12066,pain,behavior,no time
+12066,pain,behavior,time
+12066,pain,full,time
+12066,pain,psychological,no time
+12066,pain,psychological,time
+12066,pain,situation,no time
+12066,pain,situation,time
+12067,lonely,behavior,no time
+12067,lonely,behavior,time
+12067,lonely,full,time
+12067,lonely,psychological,no time
+12067,lonely,psychological,time
+12067,lonely,situation,no time
+12067,lonely,situation,time
+12067,pain,behavior,no time
+12067,pain,behavior,time
+12067,pain,full,time
+12067,pain,psychological,no time
+12067,pain,psychological,time
+12067,pain,situation,no time
+12067,pain,situation,time
+12071,lonely,behavior,no time
+12071,lonely,behavior,time
+12071,lonely,full,time
+12071,lonely,psychological,no time
+12071,lonely,psychological,time
+12071,lonely,situation,no time
+12071,lonely,situation,time
+12071,pain,behavior,no time
+12071,pain,behavior,time
+12071,pain,full,time
+12071,pain,psychological,no time
+12071,pain,psychological,time
+12071,pain,situation,no time
+12071,pain,situation,time
+12072,lonely,behavior,no time
+12072,lonely,behavior,time
+12072,lonely,full,time
+12072,lonely,psychological,no time
+12072,lonely,psychological,time
+12072,lonely,situation,no time
+12072,lonely,situation,time
+12072,pain,behavior,no time
+12072,pain,behavior,time
+12072,pain,full,time
+12072,pain,psychological,no time
+12072,pain,psychological,time
+12072,pain,situation,no time
+12072,pain,situation,time
+12073,lonely,behavior,no time
+12073,lonely,behavior,time
+12073,lonely,full,time
+12073,lonely,psychological,no time
+12073,lonely,psychological,time
+12073,lonely,situation,no time
+12073,lonely,situation,time
+12073,pain,behavior,no time
+12073,pain,behavior,time
+12073,pain,full,time
+12073,pain,psychological,no time
+12073,pain,psychological,time
+12073,pain,situation,no time
+12073,pain,situation,time
+12076,lonely,behavior,no time
+12076,lonely,behavior,time
+12076,lonely,full,time
+12076,lonely,psychological,no time
+12076,lonely,psychological,time
+12076,lonely,situation,no time
+12076,lonely,situation,time
+12076,pain,behavior,no time
+12076,pain,behavior,time
+12076,pain,full,time
+12076,pain,psychological,no time
+12076,pain,psychological,time
+12076,pain,situation,no time
+12076,pain,situation,time
+12079,lonely,behavior,no time
+12079,lonely,behavior,time
+12079,lonely,full,time
+12079,lonely,psychological,no time
+12079,lonely,psychological,time
+12079,lonely,situation,no time
+12079,lonely,situation,time
+12079,pain,behavior,no time
+12079,pain,behavior,time
+12079,pain,full,time
+12079,pain,psychological,no time
+12079,pain,psychological,time
+12079,pain,situation,no time
+12079,pain,situation,time
+12081,lonely,behavior,no time
+12081,lonely,behavior,time
+12081,lonely,full,time
+12081,lonely,psychological,no time
+12081,lonely,psychological,time
+12081,lonely,situation,no time
+12081,lonely,situation,time
+12081,pain,behavior,no time
+12081,pain,behavior,time
+12081,pain,full,time
+12081,pain,psychological,no time
+12081,pain,psychological,time
+12081,pain,situation,no time
+12081,pain,situation,time
+12083,lonely,behavior,no time
+12083,lonely,behavior,time
+12083,lonely,full,time
+12083,lonely,psychological,no time
+12083,lonely,psychological,time
+12083,lonely,situation,no time
+12083,lonely,situation,time
+12083,pain,behavior,no time
+12083,pain,behavior,time
+12083,pain,full,time
+12083,pain,psychological,no time
+12083,pain,psychological,time
+12083,pain,situation,no time
+12083,pain,situation,time
+12084,lonely,behavior,no time
+12084,lonely,behavior,time
+12084,lonely,full,time
+12084,lonely,psychological,no time
+12084,lonely,psychological,time
+12084,lonely,situation,no time
+12084,lonely,situation,time
+12084,pain,behavior,no time
+12084,pain,behavior,time
+12084,pain,full,time
+12084,pain,psychological,no time
+12084,pain,psychological,time
+12084,pain,situation,no time
+12084,pain,situation,time
+12087,pain,behavior,no time
+12087,pain,behavior,time
+12087,pain,full,time
+12087,pain,psychological,no time
+12087,pain,psychological,time
+12087,pain,situation,no time
+12087,pain,situation,time
+12088,lonely,behavior,no time
+12088,lonely,behavior,time
+12088,lonely,full,time
+12088,lonely,psychological,no time
+12088,lonely,psychological,time
+12088,lonely,situation,no time
+12088,lonely,situation,time
+12088,pain,behavior,no time
+12088,pain,behavior,time
+12088,pain,full,time
+12088,pain,psychological,no time
+12088,pain,psychological,time
+12088,pain,situation,no time
+12088,pain,situation,time
+12089,pain,behavior,no time
+12089,pain,behavior,time
+12089,pain,full,time
+12089,pain,situation,no time
+12089,pain,situation,time
+12090,lonely,behavior,no time
+12090,lonely,behavior,time
+12090,lonely,full,time
+12090,lonely,psychological,no time
+12090,lonely,psychological,time
+12090,lonely,situation,no time
+12090,lonely,situation,time
+12090,pain,behavior,no time
+12090,pain,behavior,time
+12090,pain,full,time
+12090,pain,psychological,no time
+12090,pain,psychological,time
+12090,pain,situation,no time
+12090,pain,situation,time
+12091,lonely,behavior,no time
+12091,lonely,behavior,time
+12091,lonely,full,time
+12091,lonely,psychological,no time
+12091,lonely,psychological,time
+12091,lonely,situation,no time
+12091,lonely,situation,time
+12091,pain,behavior,no time
+12091,pain,behavior,time
+12091,pain,full,time
+12091,pain,psychological,no time
+12091,pain,psychological,time
+12091,pain,situation,no time
+12091,pain,situation,time
+12092,lonely,behavior,no time
+12092,lonely,behavior,time
+12092,lonely,full,time
+12092,lonely,psychological,no time
+12092,lonely,psychological,time
+12092,lonely,situation,no time
+12092,lonely,situation,time
+12092,pain,behavior,no time
+12092,pain,behavior,time
+12092,pain,full,time
+12092,pain,psychological,no time
+12092,pain,psychological,time
+12092,pain,situation,no time
+12092,pain,situation,time
+12094,lonely,behavior,no time
+12094,lonely,behavior,time
+12094,lonely,full,time
+12094,lonely,psychological,no time
+12094,lonely,psychological,time
+12094,lonely,situation,no time
+12094,lonely,situation,time
+12094,pain,behavior,no time
+12094,pain,behavior,time
+12094,pain,full,time
+12094,pain,psychological,no time
+12094,pain,psychological,time
+12094,pain,situation,no time
+12094,pain,situation,time
+12095,lonely,behavior,no time
+12095,lonely,behavior,time
+12095,lonely,full,time
+12095,lonely,psychological,no time
+12095,lonely,psychological,time
+12095,lonely,situation,no time
+12095,lonely,situation,time
+12095,pain,behavior,no time
+12095,pain,behavior,time
+12095,pain,full,time
+12095,pain,psychological,no time
+12095,pain,psychological,time
+12095,pain,situation,no time
+12095,pain,situation,time
+12096,lonely,behavior,no time
+12096,lonely,behavior,time
+12096,lonely,full,time
+12096,lonely,psychological,no time
+12096,lonely,psychological,time
+12096,lonely,situation,no time
+12096,lonely,situation,time
+12096,pain,behavior,no time
+12096,pain,behavior,time
+12096,pain,full,time
+12096,pain,psychological,no time
+12096,pain,psychological,time
+12096,pain,situation,no time
+12096,pain,situation,time
+12099,lonely,behavior,no time
+12099,lonely,behavior,time
+12099,lonely,full,time
+12099,lonely,psychological,no time
+12099,lonely,psychological,time
+12099,lonely,situation,no time
+12099,lonely,situation,time
+12099,pain,behavior,no time
+12099,pain,behavior,time
+12099,pain,full,time
+12099,pain,psychological,no time
+12099,pain,psychological,time
+12099,pain,situation,no time
+12099,pain,situation,time
+12100,lonely,behavior,no time
+12100,lonely,behavior,time
+12100,lonely,full,time
+12100,lonely,psychological,no time
+12100,lonely,psychological,time
+12100,lonely,situation,no time
+12100,lonely,situation,time
+12100,pain,behavior,no time
+12100,pain,behavior,time
+12100,pain,full,time
+12100,pain,psychological,no time
+12100,pain,psychological,time
+12100,pain,situation,no time
+12100,pain,situation,time
+12102,lonely,behavior,no time
+12102,lonely,behavior,time
+12102,lonely,full,time
+12102,lonely,psychological,no time
+12102,lonely,psychological,time
+12102,lonely,situation,no time
+12102,lonely,situation,time
+12102,pain,behavior,no time
+12102,pain,behavior,time
+12102,pain,full,time
+12102,pain,psychological,no time
+12102,pain,psychological,time
+12102,pain,situation,no time
+12102,pain,situation,time
+12103,lonely,behavior,no time
+12103,lonely,behavior,time
+12103,lonely,full,time
+12103,lonely,psychological,no time
+12103,lonely,psychological,time
+12103,lonely,situation,no time
+12103,lonely,situation,time
+12103,pain,behavior,no time
+12103,pain,behavior,time
+12103,pain,full,time
+12103,pain,psychological,no time
+12103,pain,psychological,time
+12103,pain,situation,no time
+12103,pain,situation,time
+12104,lonely,behavior,no time
+12104,lonely,behavior,time
+12104,lonely,full,time
+12104,lonely,psychological,no time
+12104,lonely,psychological,time
+12104,lonely,situation,no time
+12104,lonely,situation,time
+12105,lonely,behavior,no time
+12105,lonely,behavior,time
+12105,lonely,full,time
+12105,lonely,psychological,no time
+12105,lonely,psychological,time
+12105,lonely,situation,no time
+12105,lonely,situation,time
+12105,pain,behavior,no time
+12105,pain,behavior,time
+12105,pain,full,time
+12105,pain,psychological,no time
+12105,pain,psychological,time
+12105,pain,situation,no time
+12105,pain,situation,time
+12106,lonely,behavior,no time
+12106,lonely,behavior,time
+12106,lonely,full,time
+12106,lonely,psychological,no time
+12106,lonely,psychological,time
+12106,lonely,situation,no time
+12106,lonely,situation,time
+12106,pain,behavior,no time
+12106,pain,behavior,time
+12106,pain,full,time
+12106,pain,psychological,no time
+12106,pain,psychological,time
+12106,pain,situation,no time
+12106,pain,situation,time
+12107,lonely,behavior,no time
+12107,lonely,behavior,time
+12107,lonely,full,time
+12107,lonely,psychological,no time
+12107,lonely,psychological,time
+12107,lonely,situation,no time
+12107,lonely,situation,time
+12107,pain,behavior,no time
+12107,pain,behavior,time
+12107,pain,full,time
+12107,pain,psychological,no time
+12107,pain,psychological,time
+12107,pain,situation,no time
+12107,pain,situation,time
+12108,lonely,behavior,no time
+12108,lonely,behavior,time
+12108,lonely,full,time
+12108,lonely,psychological,no time
+12108,lonely,psychological,time
+12108,lonely,situation,no time
+12108,lonely,situation,time
+12108,pain,behavior,no time
+12108,pain,behavior,time
+12108,pain,full,time
+12108,pain,psychological,no time
+12108,pain,psychological,time
+12108,pain,situation,no time
+12108,pain,situation,time
+12111,lonely,behavior,no time
+12111,lonely,behavior,time
+12111,lonely,full,time
+12111,lonely,psychological,no time
+12111,lonely,psychological,time
+12111,lonely,situation,no time
+12111,lonely,situation,time
+12111,pain,behavior,no time
+12111,pain,behavior,time
+12111,pain,full,time
+12111,pain,psychological,no time
+12111,pain,psychological,time
+12111,pain,situation,no time
+12111,pain,situation,time
+12114,lonely,behavior,no time
+12114,lonely,behavior,time
+12114,lonely,full,time
+12114,lonely,psychological,no time
+12114,lonely,psychological,time
+12114,lonely,situation,no time
+12114,lonely,situation,time
+12114,pain,behavior,no time
+12114,pain,behavior,time
+12114,pain,full,time
+12114,pain,psychological,no time
+12114,pain,psychological,time
+12114,pain,situation,no time
+12114,pain,situation,time
+12115,lonely,behavior,no time
+12115,lonely,behavior,time
+12115,lonely,full,time
+12115,lonely,psychological,no time
+12115,lonely,psychological,time
+12115,lonely,situation,no time
+12115,lonely,situation,time
+12115,pain,behavior,no time
+12115,pain,behavior,time
+12115,pain,full,time
+12115,pain,psychological,no time
+12115,pain,psychological,time
+12115,pain,situation,no time
+12115,pain,situation,time
+12116,lonely,behavior,no time
+12116,lonely,behavior,time
+12116,lonely,full,time
+12116,lonely,psychological,no time
+12116,lonely,psychological,time
+12116,lonely,situation,no time
+12116,lonely,situation,time
+12116,pain,behavior,no time
+12116,pain,behavior,time
+12116,pain,full,time
+12116,pain,psychological,no time
+12116,pain,psychological,time
+12116,pain,situation,no time
+12116,pain,situation,time
+12119,lonely,behavior,no time
+12119,lonely,behavior,time
+12119,lonely,full,time
+12119,lonely,psychological,no time
+12119,lonely,psychological,time
+12119,lonely,situation,no time
+12119,lonely,situation,time
+12119,pain,behavior,no time
+12119,pain,behavior,time
+12119,pain,full,time
+12119,pain,psychological,no time
+12119,pain,psychological,time
+12119,pain,situation,no time
+12119,pain,situation,time
+12120,lonely,behavior,no time
+12120,lonely,behavior,time
+12120,lonely,full,time
+12120,lonely,psychological,no time
+12120,lonely,psychological,time
+12120,lonely,situation,no time
+12120,lonely,situation,time
+12120,pain,behavior,no time
+12120,pain,behavior,time
+12120,pain,full,time
+12120,pain,psychological,no time
+12120,pain,psychological,time
+12120,pain,situation,no time
+12120,pain,situation,time
+12121,lonely,behavior,no time
+12121,lonely,behavior,time
+12121,lonely,full,time
+12121,lonely,psychological,no time
+12121,lonely,psychological,time
+12121,lonely,situation,no time
+12121,lonely,situation,time
+12121,pain,behavior,no time
+12121,pain,behavior,time
+12121,pain,full,time
+12121,pain,psychological,no time
+12121,pain,psychological,time
+12121,pain,situation,no time
+12121,pain,situation,time
+12122,lonely,behavior,no time
+12122,lonely,behavior,time
+12122,lonely,full,time
+12122,lonely,psychological,no time
+12122,lonely,psychological,time
+12122,lonely,situation,no time
+12122,lonely,situation,time
+12122,pain,behavior,no time
+12122,pain,behavior,time
+12122,pain,full,time
+12122,pain,psychological,no time
+12122,pain,psychological,time
+12122,pain,situation,no time
+12122,pain,situation,time
+12123,lonely,behavior,no time
+12123,lonely,behavior,time
+12123,lonely,full,time
+12123,lonely,psychological,no time
+12123,lonely,psychological,time
+12123,lonely,situation,no time
+12123,lonely,situation,time
+12123,pain,behavior,no time
+12123,pain,behavior,time
+12123,pain,full,time
+12123,pain,psychological,no time
+12123,pain,psychological,time
+12123,pain,situation,no time
+12123,pain,situation,time
+12125,lonely,behavior,no time
+12125,lonely,behavior,time
+12125,lonely,full,time
+12125,lonely,psychological,no time
+12125,lonely,psychological,time
+12125,lonely,situation,no time
+12125,lonely,situation,time
+12125,pain,behavior,no time
+12125,pain,behavior,time
+12125,pain,full,time
+12125,pain,psychological,no time
+12125,pain,psychological,time
+12125,pain,situation,no time
+12125,pain,situation,time
+12126,lonely,behavior,no time
+12126,lonely,behavior,time
+12126,lonely,full,time
+12126,lonely,psychological,no time
+12126,lonely,psychological,time
+12126,lonely,situation,no time
+12126,lonely,situation,time
+12126,pain,behavior,no time
+12126,pain,behavior,time
+12126,pain,full,time
+12126,pain,psychological,no time
+12126,pain,psychological,time
+12126,pain,situation,no time
+12126,pain,situation,time
+12128,lonely,behavior,no time
+12128,lonely,behavior,time
+12128,lonely,full,time
+12128,lonely,psychological,no time
+12128,lonely,psychological,time
+12128,lonely,situation,no time
+12128,lonely,situation,time
+12128,pain,behavior,no time
+12128,pain,behavior,time
+12128,pain,full,time
+12128,pain,psychological,no time
+12128,pain,psychological,time
+12128,pain,situation,no time
+12128,pain,situation,time
+12129,lonely,behavior,no time
+12129,lonely,behavior,time
+12129,lonely,full,time
+12129,lonely,psychological,no time
+12129,lonely,psychological,time
+12129,lonely,situation,no time
+12129,lonely,situation,time
+12129,pain,behavior,no time
+12129,pain,behavior,time
+12129,pain,full,time
+12129,pain,psychological,no time
+12129,pain,psychological,time
+12129,pain,situation,no time
+12129,pain,situation,time
+12130,lonely,behavior,no time
+12130,lonely,behavior,time
+12130,lonely,full,time
+12130,lonely,psychological,no time
+12130,lonely,psychological,time
+12130,lonely,situation,no time
+12130,lonely,situation,time
+12130,pain,behavior,no time
+12130,pain,behavior,time
+12130,pain,full,time
+12130,pain,psychological,no time
+12130,pain,psychological,time
+12130,pain,situation,no time
+12130,pain,situation,time
+12131,lonely,behavior,no time
+12131,lonely,behavior,time
+12131,lonely,full,time
+12131,lonely,psychological,no time
+12131,lonely,psychological,time
+12131,lonely,situation,no time
+12131,lonely,situation,time
+12131,pain,behavior,no time
+12131,pain,behavior,time
+12131,pain,full,time
+12131,pain,psychological,no time
+12131,pain,psychological,time
+12131,pain,situation,no time
+12131,pain,situation,time
+12135,lonely,behavior,no time
+12135,lonely,behavior,time
+12135,lonely,full,time
+12135,lonely,psychological,no time
+12135,lonely,psychological,time
+12135,lonely,situation,no time
+12135,lonely,situation,time
+12135,pain,behavior,no time
+12135,pain,behavior,time
+12135,pain,full,time
+12135,pain,psychological,no time
+12135,pain,psychological,time
+12135,pain,situation,no time
+12135,pain,situation,time
+12136,lonely,behavior,no time
+12136,lonely,behavior,time
+12136,lonely,full,time
+12136,lonely,psychological,no time
+12136,lonely,psychological,time
+12136,lonely,situation,no time
+12136,lonely,situation,time
+12136,pain,behavior,no time
+12136,pain,behavior,time
+12136,pain,full,time
+12136,pain,psychological,no time
+12136,pain,psychological,time
+12136,pain,situation,no time
+12136,pain,situation,time
+12137,lonely,behavior,no time
+12137,lonely,behavior,time
+12137,lonely,full,time
+12137,lonely,psychological,no time
+12137,lonely,psychological,time
+12137,lonely,situation,no time
+12137,lonely,situation,time
+12137,pain,behavior,no time
+12137,pain,behavior,time
+12137,pain,full,time
+12137,pain,psychological,no time
+12137,pain,psychological,time
+12137,pain,situation,no time
+12137,pain,situation,time
+12139,lonely,behavior,no time
+12139,lonely,behavior,time
+12139,lonely,full,time
+12139,lonely,psychological,no time
+12139,lonely,psychological,time
+12139,lonely,situation,no time
+12139,lonely,situation,time
+12139,pain,behavior,no time
+12139,pain,behavior,time
+12139,pain,full,time
+12139,pain,psychological,no time
+12139,pain,psychological,time
+12139,pain,situation,no time
+12139,pain,situation,time
+12140,lonely,behavior,no time
+12140,lonely,behavior,time
+12140,lonely,full,time
+12140,lonely,psychological,no time
+12140,lonely,psychological,time
+12140,lonely,situation,no time
+12140,lonely,situation,time
+12140,pain,behavior,no time
+12140,pain,behavior,time
+12140,pain,full,time
+12140,pain,psychological,no time
+12140,pain,psychological,time
+12140,pain,situation,no time
+12140,pain,situation,time
+12141,lonely,behavior,no time
+12141,lonely,behavior,time
+12141,lonely,full,time
+12141,lonely,psychological,no time
+12141,lonely,psychological,time
+12141,lonely,situation,no time
+12141,lonely,situation,time
+12141,pain,behavior,no time
+12141,pain,behavior,time
+12141,pain,full,time
+12141,pain,psychological,no time
+12141,pain,psychological,time
+12141,pain,situation,no time
+12141,pain,situation,time
+12142,lonely,behavior,no time
+12142,lonely,behavior,time
+12142,lonely,full,time
+12142,lonely,psychological,no time
+12142,lonely,psychological,time
+12142,lonely,situation,no time
+12142,lonely,situation,time
+12142,pain,behavior,no time
+12142,pain,behavior,time
+12142,pain,full,time
+12142,pain,psychological,no time
+12142,pain,psychological,time
+12142,pain,situation,no time
+12142,pain,situation,time
+12145,lonely,behavior,no time
+12145,lonely,behavior,time
+12145,lonely,full,time
+12145,lonely,psychological,no time
+12145,lonely,psychological,time
+12145,lonely,situation,no time
+12145,lonely,situation,time
+12145,pain,behavior,no time
+12145,pain,behavior,time
+12145,pain,full,time
+12145,pain,psychological,no time
+12145,pain,psychological,time
+12145,pain,situation,no time
+12145,pain,situation,time
+12147,lonely,behavior,no time
+12147,lonely,behavior,time
+12147,lonely,full,time
+12147,lonely,psychological,no time
+12147,lonely,psychological,time
+12147,lonely,situation,no time
+12147,lonely,situation,time
+12147,pain,behavior,no time
+12147,pain,behavior,time
+12147,pain,full,time
+12147,pain,psychological,no time
+12147,pain,psychological,time
+12147,pain,situation,no time
+12147,pain,situation,time
+12148,lonely,behavior,no time
+12148,lonely,behavior,time
+12148,lonely,full,time
+12148,lonely,psychological,no time
+12148,lonely,psychological,time
+12148,lonely,situation,no time
+12148,lonely,situation,time
+12148,pain,behavior,no time
+12148,pain,behavior,time
+12148,pain,full,time
+12148,pain,psychological,no time
+12148,pain,psychological,time
+12148,pain,situation,no time
+12148,pain,situation,time
+12149,lonely,behavior,no time
+12149,lonely,behavior,time
+12149,lonely,full,time
+12149,lonely,psychological,no time
+12149,lonely,psychological,time
+12149,lonely,situation,no time
+12149,lonely,situation,time
+12149,pain,behavior,no time
+12149,pain,behavior,time
+12149,pain,full,time
+12149,pain,psychological,no time
+12149,pain,psychological,time
+12149,pain,situation,no time
+12149,pain,situation,time
+12150,lonely,behavior,no time
+12150,lonely,behavior,time
+12150,lonely,full,time
+12150,lonely,psychological,no time
+12150,lonely,psychological,time
+12150,lonely,situation,no time
+12150,lonely,situation,time
+12150,pain,behavior,no time
+12150,pain,behavior,time
+12150,pain,full,time
+12150,pain,psychological,no time
+12150,pain,psychological,time
+12150,pain,situation,no time
+12150,pain,situation,time
+12151,lonely,behavior,no time
+12151,lonely,behavior,time
+12151,lonely,full,time
+12151,lonely,psychological,no time
+12151,lonely,psychological,time
+12151,lonely,situation,no time
+12151,lonely,situation,time
+12151,pain,behavior,no time
+12151,pain,behavior,time
+12151,pain,full,time
+12151,pain,psychological,no time
+12151,pain,psychological,time
+12151,pain,situation,no time
+12151,pain,situation,time
+12152,lonely,behavior,no time
+12152,lonely,behavior,time
+12152,lonely,full,time
+12152,lonely,psychological,no time
+12152,lonely,psychological,time
+12152,lonely,situation,no time
+12152,lonely,situation,time
+12152,pain,behavior,no time
+12152,pain,behavior,time
+12152,pain,full,time
+12152,pain,psychological,no time
+12152,pain,psychological,time
+12152,pain,situation,no time
+12152,pain,situation,time
+12153,lonely,behavior,no time
+12153,lonely,behavior,time
+12153,lonely,full,time
+12153,lonely,psychological,no time
+12153,lonely,psychological,time
+12153,lonely,situation,no time
+12153,lonely,situation,time
+12153,pain,behavior,no time
+12153,pain,behavior,time
+12153,pain,full,time
+12153,pain,psychological,no time
+12153,pain,psychological,time
+12153,pain,situation,no time
+12153,pain,situation,time
+12154,lonely,behavior,no time
+12154,lonely,behavior,time
+12154,lonely,full,time
+12154,lonely,psychological,no time
+12154,lonely,psychological,time
+12154,lonely,situation,no time
+12154,lonely,situation,time
+12154,pain,behavior,no time
+12154,pain,behavior,time
+12154,pain,full,time
+12154,pain,psychological,no time
+12154,pain,psychological,time
+12154,pain,situation,no time
+12154,pain,situation,time
+12156,lonely,behavior,no time
+12156,lonely,behavior,time
+12156,lonely,full,time
+12156,lonely,psychological,no time
+12156,lonely,psychological,time
+12156,lonely,situation,no time
+12156,lonely,situation,time
+12156,pain,behavior,no time
+12156,pain,behavior,time
+12156,pain,full,time
+12156,pain,psychological,no time
+12156,pain,psychological,time
+12156,pain,situation,no time
+12156,pain,situation,time
+12157,lonely,behavior,no time
+12157,lonely,behavior,time
+12157,lonely,full,time
+12157,lonely,psychological,no time
+12157,lonely,psychological,time
+12157,lonely,situation,no time
+12157,lonely,situation,time
+12157,pain,behavior,no time
+12157,pain,behavior,time
+12157,pain,full,time
+12157,pain,psychological,no time
+12157,pain,psychological,time
+12157,pain,situation,no time
+12157,pain,situation,time
+12158,lonely,behavior,no time
+12158,lonely,behavior,time
+12158,lonely,full,time
+12158,lonely,psychological,no time
+12158,lonely,psychological,time
+12158,lonely,situation,no time
+12158,lonely,situation,time
+12158,pain,behavior,no time
+12158,pain,behavior,time
+12158,pain,full,time
+12158,pain,psychological,no time
+12158,pain,psychological,time
+12158,pain,situation,no time
+12158,pain,situation,time
+12159,lonely,behavior,no time
+12159,lonely,behavior,time
+12159,lonely,full,time
+12159,lonely,psychological,no time
+12159,lonely,psychological,time
+12159,lonely,situation,no time
+12159,lonely,situation,time
+12159,pain,behavior,no time
+12159,pain,behavior,time
+12159,pain,full,time
+12159,pain,psychological,no time
+12159,pain,psychological,time
+12159,pain,situation,no time
+12159,pain,situation,time
+12160,lonely,behavior,no time
+12160,lonely,behavior,time
+12160,lonely,full,time
+12160,lonely,psychological,no time
+12160,lonely,psychological,time
+12160,lonely,situation,no time
+12160,lonely,situation,time
+12160,pain,behavior,no time
+12160,pain,behavior,time
+12160,pain,full,time
+12160,pain,psychological,no time
+12160,pain,psychological,time
+12160,pain,situation,no time
+12160,pain,situation,time
+12162,lonely,behavior,no time
+12162,lonely,behavior,time
+12162,lonely,full,time
+12162,lonely,psychological,no time
+12162,lonely,psychological,time
+12162,lonely,situation,no time
+12162,lonely,situation,time
+12162,pain,behavior,no time
+12162,pain,behavior,time
+12162,pain,full,time
+12162,pain,psychological,no time
+12162,pain,psychological,time
+12162,pain,situation,no time
+12162,pain,situation,time
+12163,lonely,behavior,no time
+12163,lonely,behavior,time
+12163,lonely,full,time
+12163,lonely,psychological,no time
+12163,lonely,psychological,time
+12163,lonely,situation,no time
+12163,lonely,situation,time
+12163,pain,behavior,no time
+12163,pain,behavior,time
+12163,pain,full,time
+12163,pain,psychological,no time
+12163,pain,psychological,time
+12163,pain,situation,no time
+12163,pain,situation,time
+12164,lonely,behavior,no time
+12164,lonely,behavior,time
+12164,lonely,full,time
+12164,lonely,psychological,no time
+12164,lonely,psychological,time
+12164,lonely,situation,no time
+12164,lonely,situation,time
+12164,pain,behavior,no time
+12164,pain,behavior,time
+12164,pain,full,time
+12164,pain,psychological,no time
+12164,pain,psychological,time
+12164,pain,situation,no time
+12164,pain,situation,time
+12166,lonely,behavior,no time
+12166,lonely,behavior,time
+12166,lonely,full,time
+12166,lonely,psychological,no time
+12166,lonely,psychological,time
+12166,lonely,situation,no time
+12166,lonely,situation,time
+12166,pain,behavior,no time
+12166,pain,behavior,time
+12166,pain,full,time
+12166,pain,psychological,no time
+12166,pain,psychological,time
+12166,pain,situation,no time
+12166,pain,situation,time
+12167,lonely,behavior,no time
+12167,lonely,behavior,time
+12167,lonely,full,time
+12167,lonely,psychological,no time
+12167,lonely,psychological,time
+12167,lonely,situation,no time
+12167,lonely,situation,time
+12167,pain,behavior,no time
+12167,pain,behavior,time
+12167,pain,full,time
+12167,pain,psychological,no time
+12167,pain,psychological,time
+12167,pain,situation,no time
+12167,pain,situation,time
+12169,lonely,behavior,no time
+12169,lonely,behavior,time
+12169,lonely,full,time
+12169,lonely,psychological,no time
+12169,lonely,psychological,time
+12169,lonely,situation,no time
+12169,lonely,situation,time
+12169,pain,behavior,no time
+12169,pain,behavior,time
+12169,pain,full,time
+12169,pain,psychological,no time
+12169,pain,psychological,time
+12169,pain,situation,no time
+12169,pain,situation,time
+12171,lonely,behavior,no time
+12171,lonely,behavior,time
+12171,lonely,full,time
+12171,lonely,psychological,no time
+12171,lonely,psychological,time
+12171,lonely,situation,no time
+12171,lonely,situation,time
+12171,pain,behavior,no time
+12171,pain,behavior,time
+12171,pain,full,time
+12171,pain,psychological,no time
+12171,pain,psychological,time
+12171,pain,situation,no time
+12171,pain,situation,time
+12172,lonely,behavior,no time
+12172,lonely,behavior,time
+12172,lonely,full,time
+12172,lonely,psychological,no time
+12172,lonely,psychological,time
+12172,lonely,situation,no time
+12172,lonely,situation,time
+12172,pain,behavior,no time
+12172,pain,behavior,time
+12172,pain,full,time
+12172,pain,psychological,no time
+12172,pain,psychological,time
+12172,pain,situation,no time
+12172,pain,situation,time
+12173,lonely,behavior,no time
+12173,lonely,behavior,time
+12173,lonely,full,time
+12173,lonely,psychological,no time
+12173,lonely,psychological,time
+12173,lonely,situation,no time
+12173,lonely,situation,time
+12173,pain,behavior,no time
+12173,pain,behavior,time
+12173,pain,full,time
+12173,pain,psychological,no time
+12173,pain,psychological,time
+12173,pain,situation,no time
+12173,pain,situation,time
+12174,lonely,behavior,no time
+12174,lonely,behavior,time
+12174,lonely,full,time
+12174,lonely,psychological,no time
+12174,lonely,psychological,time
+12174,lonely,situation,no time
+12174,lonely,situation,time
+12174,pain,behavior,no time
+12174,pain,behavior,time
+12174,pain,full,time
+12174,pain,psychological,no time
+12174,pain,psychological,time
+12174,pain,situation,no time
+12174,pain,situation,time
+12176,lonely,behavior,no time
+12176,lonely,behavior,time
+12176,lonely,full,time
+12176,lonely,psychological,no time
+12176,lonely,psychological,time
+12176,lonely,situation,no time
+12176,lonely,situation,time
+12176,pain,behavior,no time
+12176,pain,behavior,time
+12176,pain,full,time
+12176,pain,psychological,no time
+12176,pain,psychological,time
+12176,pain,situation,no time
+12176,pain,situation,time
+12177,lonely,behavior,no time
+12177,lonely,behavior,time
+12177,lonely,full,time
+12177,lonely,psychological,no time
+12177,lonely,psychological,time
+12177,lonely,situation,no time
+12177,lonely,situation,time
+12177,pain,behavior,no time
+12177,pain,behavior,time
+12177,pain,full,time
+12177,pain,psychological,no time
+12177,pain,psychological,time
+12177,pain,situation,no time
+12177,pain,situation,time
+12178,lonely,behavior,no time
+12178,lonely,behavior,time
+12178,lonely,full,time
+12178,lonely,psychological,no time
+12178,lonely,psychological,time
+12178,lonely,situation,no time
+12178,lonely,situation,time
+12178,pain,behavior,no time
+12178,pain,behavior,time
+12178,pain,full,time
+12178,pain,psychological,no time
+12178,pain,psychological,time
+12178,pain,situation,no time
+12178,pain,situation,time
+12179,lonely,behavior,no time
+12179,lonely,behavior,time
+12179,lonely,full,time
+12179,lonely,psychological,no time
+12179,lonely,psychological,time
+12179,lonely,situation,no time
+12179,lonely,situation,time
+12179,pain,behavior,no time
+12179,pain,behavior,time
+12179,pain,full,time
+12179,pain,psychological,no time
+12179,pain,psychological,time
+12179,pain,situation,no time
+12179,pain,situation,time
+12180,lonely,behavior,no time
+12180,lonely,behavior,time
+12180,lonely,full,time
+12180,lonely,psychological,no time
+12180,lonely,psychological,time
+12180,lonely,situation,no time
+12180,lonely,situation,time
+12180,pain,behavior,no time
+12180,pain,behavior,time
+12180,pain,full,time
+12180,pain,psychological,no time
+12180,pain,psychological,time
+12180,pain,situation,no time
+12180,pain,situation,time
+12181,lonely,behavior,no time
+12181,lonely,behavior,time
+12181,lonely,full,time
+12181,lonely,psychological,no time
+12181,lonely,psychological,time
+12181,lonely,situation,no time
+12181,lonely,situation,time
+12181,pain,behavior,no time
+12181,pain,behavior,time
+12181,pain,full,time
+12181,pain,psychological,no time
+12181,pain,psychological,time
+12181,pain,situation,no time
+12181,pain,situation,time
+12182,lonely,behavior,no time
+12182,lonely,behavior,time
+12182,lonely,full,time
+12182,lonely,psychological,no time
+12182,lonely,psychological,time
+12182,lonely,situation,no time
+12182,lonely,situation,time
+12182,pain,behavior,no time
+12182,pain,behavior,time
+12182,pain,full,time
+12182,pain,psychological,no time
+12182,pain,psychological,time
+12182,pain,situation,no time
+12182,pain,situation,time
+12183,lonely,behavior,no time
+12183,lonely,behavior,time
+12183,lonely,full,time
+12183,lonely,psychological,no time
+12183,lonely,psychological,time
+12183,lonely,situation,no time
+12183,lonely,situation,time
+12183,pain,behavior,no time
+12183,pain,behavior,time
+12183,pain,full,time
+12183,pain,psychological,no time
+12183,pain,psychological,time
+12183,pain,situation,no time
+12183,pain,situation,time
+12184,lonely,behavior,no time
+12184,lonely,behavior,time
+12184,lonely,full,time
+12184,lonely,psychological,no time
+12184,lonely,psychological,time
+12184,lonely,situation,no time
+12184,lonely,situation,time
+12184,pain,behavior,no time
+12184,pain,behavior,time
+12184,pain,full,time
+12184,pain,psychological,no time
+12184,pain,psychological,time
+12184,pain,situation,no time
+12184,pain,situation,time
+12185,lonely,behavior,no time
+12185,lonely,behavior,time
+12185,lonely,full,time
+12185,lonely,psychological,no time
+12185,lonely,psychological,time
+12185,lonely,situation,no time
+12185,lonely,situation,time
+12185,pain,behavior,no time
+12185,pain,behavior,time
+12185,pain,full,time
+12185,pain,psychological,no time
+12185,pain,psychological,time
+12185,pain,situation,no time
+12185,pain,situation,time
+12186,lonely,behavior,no time
+12186,lonely,behavior,time
+12186,lonely,full,time
+12186,lonely,psychological,no time
+12186,lonely,psychological,time
+12186,lonely,situation,no time
+12186,lonely,situation,time
+12186,pain,behavior,no time
+12186,pain,behavior,time
+12186,pain,full,time
+12186,pain,psychological,no time
+12186,pain,psychological,time
+12186,pain,situation,no time
+12186,pain,situation,time
+12187,lonely,behavior,no time
+12187,lonely,behavior,time
+12187,lonely,full,time
+12187,lonely,psychological,no time
+12187,lonely,psychological,time
+12187,lonely,situation,no time
+12187,lonely,situation,time
+12187,pain,behavior,no time
+12187,pain,behavior,time
+12187,pain,full,time
+12187,pain,psychological,no time
+12187,pain,psychological,time
+12187,pain,situation,no time
+12187,pain,situation,time
+12188,lonely,behavior,no time
+12188,lonely,behavior,time
+12188,lonely,full,time
+12188,lonely,psychological,no time
+12188,lonely,psychological,time
+12188,lonely,situation,no time
+12188,lonely,situation,time
+12188,pain,behavior,no time
+12188,pain,behavior,time
+12188,pain,full,time
+12188,pain,psychological,no time
+12188,pain,psychological,time
+12188,pain,situation,no time
+12188,pain,situation,time
+12189,lonely,behavior,no time
+12189,lonely,behavior,time
+12189,lonely,full,time
+12189,lonely,psychological,no time
+12189,lonely,psychological,time
+12189,lonely,situation,no time
+12189,lonely,situation,time
+12189,pain,behavior,no time
+12189,pain,behavior,time
+12189,pain,full,time
+12189,pain,psychological,no time
+12189,pain,psychological,time
+12189,pain,situation,no time
+12189,pain,situation,time
+12192,lonely,behavior,no time
+12192,lonely,behavior,time
+12192,lonely,full,time
+12192,lonely,psychological,no time
+12192,lonely,psychological,time
+12192,lonely,situation,no time
+12192,lonely,situation,time
+12192,pain,behavior,no time
+12192,pain,behavior,time
+12192,pain,full,time
+12192,pain,psychological,no time
+12192,pain,psychological,time
+12192,pain,situation,no time
+12192,pain,situation,time
+12193,lonely,behavior,no time
+12193,lonely,behavior,time
+12193,lonely,full,time
+12193,lonely,psychological,no time
+12193,lonely,psychological,time
+12193,lonely,situation,no time
+12193,lonely,situation,time
+12193,pain,behavior,no time
+12193,pain,behavior,time
+12193,pain,full,time
+12193,pain,psychological,no time
+12193,pain,psychological,time
+12193,pain,situation,no time
+12193,pain,situation,time
+12194,lonely,behavior,no time
+12194,lonely,behavior,time
+12194,lonely,full,time
+12194,lonely,psychological,no time
+12194,lonely,psychological,time
+12194,lonely,situation,no time
+12194,lonely,situation,time
+12194,pain,behavior,no time
+12194,pain,behavior,time
+12194,pain,full,time
+12194,pain,psychological,no time
+12194,pain,psychological,time
+12194,pain,situation,no time
+12194,pain,situation,time
+12195,lonely,behavior,no time
+12195,lonely,behavior,time
+12195,lonely,full,time
+12195,lonely,psychological,no time
+12195,lonely,psychological,time
+12195,lonely,situation,no time
+12195,lonely,situation,time
+12195,pain,behavior,no time
+12195,pain,behavior,time
+12195,pain,full,time
+12195,pain,psychological,no time
+12195,pain,psychological,time
+12195,pain,situation,no time
+12195,pain,situation,time
+12196,lonely,behavior,no time
+12196,lonely,behavior,time
+12196,lonely,full,time
+12196,lonely,psychological,no time
+12196,lonely,psychological,time
+12196,lonely,situation,no time
+12196,lonely,situation,time
+12196,pain,behavior,no time
+12196,pain,behavior,time
+12196,pain,full,time
+12196,pain,psychological,no time
+12196,pain,psychological,time
+12196,pain,situation,no time
+12196,pain,situation,time
+12197,lonely,behavior,no time
+12197,lonely,behavior,time
+12197,lonely,full,time
+12197,lonely,psychological,no time
+12197,lonely,psychological,time
+12197,lonely,situation,no time
+12197,lonely,situation,time
+12197,pain,behavior,no time
+12197,pain,behavior,time
+12197,pain,full,time
+12197,pain,psychological,no time
+12197,pain,psychological,time
+12197,pain,situation,no time
+12197,pain,situation,time
+12198,pain,behavior,no time
+12198,pain,behavior,time
+12198,pain,full,time
+12198,pain,psychological,no time
+12198,pain,psychological,time
+12198,pain,situation,no time
+12198,pain,situation,time
+12200,lonely,behavior,no time
+12200,lonely,behavior,time
+12200,lonely,full,time
+12200,lonely,psychological,no time
+12200,lonely,psychological,time
+12200,lonely,situation,no time
+12200,lonely,situation,time
+12200,pain,behavior,no time
+12200,pain,behavior,time
+12200,pain,full,time
+12200,pain,psychological,no time
+12200,pain,psychological,time
+12200,pain,situation,no time
+12200,pain,situation,time
+12201,lonely,behavior,no time
+12201,lonely,behavior,time
+12201,lonely,full,time
+12201,lonely,psychological,no time
+12201,lonely,psychological,time
+12201,lonely,situation,no time
+12201,lonely,situation,time
+12201,pain,behavior,no time
+12201,pain,behavior,time
+12201,pain,full,time
+12201,pain,psychological,no time
+12201,pain,psychological,time
+12201,pain,situation,no time
+12201,pain,situation,time
+12202,lonely,behavior,no time
+12202,lonely,behavior,time
+12202,lonely,full,time
+12202,lonely,psychological,no time
+12202,lonely,psychological,time
+12202,lonely,situation,no time
+12202,lonely,situation,time
+12202,pain,behavior,no time
+12202,pain,behavior,time
+12202,pain,full,time
+12202,pain,psychological,no time
+12202,pain,psychological,time
+12202,pain,situation,no time
+12202,pain,situation,time
+12203,lonely,behavior,no time
+12203,lonely,behavior,time
+12203,lonely,full,time
+12203,lonely,psychological,no time
+12203,lonely,psychological,time
+12203,lonely,situation,no time
+12203,lonely,situation,time
+12203,pain,behavior,no time
+12203,pain,behavior,time
+12203,pain,full,time
+12203,pain,psychological,no time
+12203,pain,psychological,time
+12203,pain,situation,no time
+12203,pain,situation,time
+12208,lonely,behavior,no time
+12208,lonely,behavior,time
+12208,lonely,full,time
+12208,lonely,psychological,no time
+12208,lonely,psychological,time
+12208,lonely,situation,no time
+12208,lonely,situation,time
+12208,pain,behavior,no time
+12208,pain,behavior,time
+12208,pain,full,time
+12208,pain,psychological,no time
+12208,pain,psychological,time
+12208,pain,situation,no time
+12208,pain,situation,time
+12210,lonely,behavior,no time
+12210,lonely,behavior,time
+12210,lonely,full,time
+12210,lonely,psychological,no time
+12210,lonely,psychological,time
+12210,lonely,situation,no time
+12210,lonely,situation,time
+12210,pain,behavior,no time
+12210,pain,behavior,time
+12210,pain,full,time
+12210,pain,psychological,no time
+12210,pain,psychological,time
+12210,pain,situation,no time
+12210,pain,situation,time
+12211,lonely,behavior,no time
+12211,lonely,behavior,time
+12211,lonely,full,time
+12211,lonely,psychological,no time
+12211,lonely,psychological,time
+12211,lonely,situation,no time
+12211,lonely,situation,time
+12211,pain,behavior,no time
+12211,pain,behavior,time
+12211,pain,full,time
+12211,pain,psychological,no time
+12211,pain,psychological,time
+12211,pain,situation,no time
+12211,pain,situation,time
+12213,lonely,behavior,no time
+12213,lonely,behavior,time
+12213,lonely,full,time
+12213,lonely,psychological,no time
+12213,lonely,psychological,time
+12213,lonely,situation,no time
+12213,lonely,situation,time
+12213,pain,behavior,no time
+12213,pain,behavior,time
+12213,pain,full,time
+12213,pain,psychological,no time
+12213,pain,psychological,time
+12213,pain,situation,no time
+12213,pain,situation,time
+12214,lonely,behavior,no time
+12214,lonely,behavior,time
+12214,lonely,full,time
+12214,lonely,psychological,no time
+12214,lonely,psychological,time
+12214,lonely,situation,no time
+12214,lonely,situation,time
+12214,pain,behavior,no time
+12214,pain,behavior,time
+12214,pain,full,time
+12214,pain,psychological,no time
+12214,pain,psychological,time
+12214,pain,situation,no time
+12214,pain,situation,time
+12215,lonely,behavior,no time
+12215,lonely,behavior,time
+12215,lonely,full,time
+12215,lonely,psychological,no time
+12215,lonely,psychological,time
+12215,lonely,situation,no time
+12215,lonely,situation,time
+12215,pain,behavior,no time
+12215,pain,behavior,time
+12215,pain,full,time
+12215,pain,psychological,no time
+12215,pain,psychological,time
+12215,pain,situation,no time
+12215,pain,situation,time
+12217,lonely,behavior,no time
+12217,lonely,behavior,time
+12217,lonely,full,time
+12217,lonely,psychological,no time
+12217,lonely,psychological,time
+12217,lonely,situation,no time
+12217,lonely,situation,time
+12217,pain,behavior,no time
+12217,pain,behavior,time
+12217,pain,full,time
+12217,pain,psychological,no time
+12217,pain,psychological,time
+12217,pain,situation,no time
+12217,pain,situation,time
+12218,lonely,behavior,no time
+12218,lonely,behavior,time
+12218,lonely,full,time
+12218,lonely,psychological,no time
+12218,lonely,psychological,time
+12218,lonely,situation,no time
+12218,lonely,situation,time
+12218,pain,behavior,no time
+12218,pain,behavior,time
+12218,pain,full,time
+12218,pain,psychological,no time
+12218,pain,psychological,time
+12218,pain,situation,no time
+12218,pain,situation,time
+12219,lonely,behavior,no time
+12219,lonely,behavior,time
+12219,lonely,full,time
+12219,lonely,psychological,no time
+12219,lonely,psychological,time
+12219,lonely,situation,no time
+12219,lonely,situation,time
+12219,pain,behavior,no time
+12219,pain,behavior,time
+12219,pain,full,time
+12219,pain,psychological,no time
+12219,pain,psychological,time
+12219,pain,situation,no time
+12219,pain,situation,time
+12220,lonely,behavior,no time
+12220,lonely,behavior,time
+12220,lonely,full,time
+12220,lonely,psychological,no time
+12220,lonely,psychological,time
+12220,lonely,situation,no time
+12220,lonely,situation,time
+12220,pain,behavior,no time
+12220,pain,behavior,time
+12220,pain,full,time
+12220,pain,psychological,no time
+12220,pain,psychological,time
+12220,pain,situation,no time
+12220,pain,situation,time
+12222,lonely,behavior,no time
+12222,lonely,behavior,time
+12222,lonely,full,time
+12222,lonely,psychological,no time
+12222,lonely,psychological,time
+12222,lonely,situation,no time
+12222,lonely,situation,time
+12222,pain,behavior,no time
+12222,pain,behavior,time
+12222,pain,full,time
+12222,pain,psychological,no time
+12222,pain,psychological,time
+12222,pain,situation,no time
+12222,pain,situation,time
+12223,lonely,behavior,no time
+12223,lonely,psychological,no time
+12223,lonely,situation,no time
+12223,pain,behavior,no time
+12223,pain,psychological,no time
+12223,pain,situation,no time
+12226,lonely,behavior,no time
+12226,lonely,behavior,time
+12226,lonely,full,time
+12226,lonely,psychological,no time
+12226,lonely,psychological,time
+12226,lonely,situation,no time
+12226,lonely,situation,time
+12226,pain,behavior,no time
+12226,pain,behavior,time
+12226,pain,full,time
+12226,pain,psychological,no time
+12226,pain,psychological,time
+12226,pain,situation,no time
+12226,pain,situation,time
+12227,lonely,behavior,no time
+12227,lonely,behavior,time
+12227,lonely,full,time
+12227,lonely,psychological,no time
+12227,lonely,psychological,time
+12227,lonely,situation,no time
+12227,lonely,situation,time
+12227,pain,behavior,no time
+12227,pain,behavior,time
+12227,pain,full,time
+12227,pain,psychological,no time
+12227,pain,psychological,time
+12227,pain,situation,no time
+12227,pain,situation,time
+12228,lonely,behavior,no time
+12228,lonely,behavior,time
+12228,lonely,full,time
+12228,lonely,psychological,no time
+12228,lonely,psychological,time
+12228,lonely,situation,no time
+12228,lonely,situation,time
+12228,pain,behavior,no time
+12228,pain,behavior,time
+12228,pain,full,time
+12228,pain,psychological,no time
+12228,pain,psychological,time
+12228,pain,situation,no time
+12228,pain,situation,time
+12229,lonely,behavior,no time
+12229,lonely,behavior,time
+12229,lonely,full,time
+12229,lonely,psychological,no time
+12229,lonely,psychological,time
+12229,lonely,situation,no time
+12229,lonely,situation,time
+12229,pain,behavior,no time
+12229,pain,behavior,time
+12229,pain,full,time
+12229,pain,psychological,no time
+12229,pain,psychological,time
+12229,pain,situation,no time
+12229,pain,situation,time
+12231,lonely,behavior,no time
+12231,lonely,behavior,time
+12231,lonely,full,time
+12231,lonely,psychological,no time
+12231,lonely,psychological,time
+12231,lonely,situation,no time
+12231,lonely,situation,time
+12231,pain,behavior,no time
+12231,pain,behavior,time
+12231,pain,full,time
+12231,pain,psychological,no time
+12231,pain,psychological,time
+12231,pain,situation,no time
+12231,pain,situation,time
+12232,lonely,behavior,no time
+12232,lonely,behavior,time
+12232,lonely,full,time
+12232,lonely,psychological,no time
+12232,lonely,psychological,time
+12232,lonely,situation,no time
+12232,lonely,situation,time
+12232,pain,behavior,no time
+12232,pain,behavior,time
+12232,pain,full,time
+12232,pain,psychological,no time
+12232,pain,psychological,time
+12232,pain,situation,no time
+12232,pain,situation,time
+12233,lonely,behavior,no time
+12233,lonely,behavior,time
+12233,lonely,full,time
+12233,lonely,psychological,no time
+12233,lonely,psychological,time
+12233,lonely,situation,no time
+12233,lonely,situation,time
+12233,pain,behavior,no time
+12233,pain,behavior,time
+12233,pain,full,time
+12233,pain,psychological,no time
+12233,pain,psychological,time
+12233,pain,situation,no time
+12233,pain,situation,time
+12234,lonely,behavior,no time
+12234,lonely,behavior,time
+12234,lonely,full,time
+12234,lonely,psychological,no time
+12234,lonely,psychological,time
+12234,lonely,situation,no time
+12234,lonely,situation,time
+12234,pain,behavior,no time
+12234,pain,behavior,time
+12234,pain,full,time
+12234,pain,psychological,no time
+12234,pain,psychological,time
+12234,pain,situation,no time
+12234,pain,situation,time
+12236,lonely,behavior,no time
+12236,lonely,behavior,time
+12236,lonely,full,time
+12236,lonely,psychological,no time
+12236,lonely,psychological,time
+12236,lonely,situation,no time
+12236,lonely,situation,time
+12236,pain,behavior,no time
+12236,pain,behavior,time
+12236,pain,full,time
+12236,pain,psychological,no time
+12236,pain,psychological,time
+12236,pain,situation,no time
+12236,pain,situation,time
+12237,lonely,behavior,no time
+12237,lonely,behavior,time
+12237,lonely,full,time
+12237,lonely,psychological,no time
+12237,lonely,psychological,time
+12237,lonely,situation,no time
+12237,lonely,situation,time
+12237,pain,behavior,no time
+12237,pain,behavior,time
+12237,pain,full,time
+12237,pain,psychological,no time
+12237,pain,psychological,time
+12237,pain,situation,no time
+12237,pain,situation,time
+12238,lonely,behavior,no time
+12238,lonely,behavior,time
+12238,lonely,full,time
+12238,lonely,psychological,no time
+12238,lonely,psychological,time
+12238,lonely,situation,no time
+12238,lonely,situation,time
+12238,pain,behavior,no time
+12238,pain,behavior,time
+12238,pain,full,time
+12238,pain,psychological,no time
+12238,pain,psychological,time
+12238,pain,situation,no time
+12238,pain,situation,time
+12239,lonely,behavior,no time
+12239,lonely,behavior,time
+12239,lonely,full,time
+12239,lonely,psychological,no time
+12239,lonely,psychological,time
+12239,lonely,situation,no time
+12239,lonely,situation,time
+12239,pain,behavior,no time
+12239,pain,behavior,time
+12239,pain,full,time
+12239,pain,psychological,no time
+12239,pain,psychological,time
+12239,pain,situation,no time
+12239,pain,situation,time
+12240,lonely,behavior,no time
+12240,lonely,behavior,time
+12240,lonely,full,time
+12240,lonely,psychological,no time
+12240,lonely,psychological,time
+12240,lonely,situation,no time
+12240,lonely,situation,time
+12240,pain,behavior,no time
+12240,pain,behavior,time
+12240,pain,full,time
+12240,pain,psychological,no time
+12240,pain,psychological,time
+12240,pain,situation,no time
+12240,pain,situation,time
+12241,lonely,behavior,no time
+12241,lonely,behavior,time
+12241,lonely,full,time
+12241,lonely,psychological,no time
+12241,lonely,psychological,time
+12241,lonely,situation,no time
+12241,lonely,situation,time
+12241,pain,behavior,no time
+12241,pain,behavior,time
+12241,pain,full,time
+12241,pain,psychological,no time
+12241,pain,psychological,time
+12241,pain,situation,no time
+12241,pain,situation,time
+12242,lonely,behavior,no time
+12242,lonely,behavior,time
+12242,lonely,full,time
+12242,lonely,psychological,no time
+12242,lonely,psychological,time
+12242,lonely,situation,no time
+12242,lonely,situation,time
+12242,pain,behavior,no time
+12242,pain,behavior,time
+12242,pain,full,time
+12242,pain,psychological,no time
+12242,pain,psychological,time
+12242,pain,situation,no time
+12242,pain,situation,time
+12243,lonely,behavior,no time
+12243,lonely,behavior,time
+12243,lonely,full,time
+12243,lonely,psychological,no time
+12243,lonely,psychological,time
+12243,lonely,situation,no time
+12243,lonely,situation,time
+12243,pain,behavior,no time
+12243,pain,behavior,time
+12243,pain,full,time
+12243,pain,psychological,no time
+12243,pain,psychological,time
+12243,pain,situation,no time
+12243,pain,situation,time
+12244,lonely,behavior,no time
+12244,lonely,behavior,time
+12244,lonely,full,time
+12244,lonely,psychological,no time
+12244,lonely,psychological,time
+12244,lonely,situation,no time
+12244,lonely,situation,time
+12244,pain,behavior,no time
+12244,pain,behavior,time
+12244,pain,full,time
+12244,pain,psychological,no time
+12244,pain,psychological,time
+12244,pain,situation,no time
+12244,pain,situation,time
+12245,lonely,behavior,no time
+12245,lonely,behavior,time
+12245,lonely,full,time
+12245,lonely,psychological,no time
+12245,lonely,psychological,time
+12245,lonely,situation,no time
+12245,lonely,situation,time
+12245,pain,behavior,no time
+12245,pain,behavior,time
+12245,pain,full,time
+12245,pain,psychological,no time
+12245,pain,psychological,time
+12245,pain,situation,no time
+12245,pain,situation,time
+12246,lonely,behavior,no time
+12246,lonely,behavior,time
+12246,lonely,full,time
+12246,lonely,psychological,no time
+12246,lonely,psychological,time
+12246,lonely,situation,no time
+12246,lonely,situation,time
+12246,pain,behavior,no time
+12246,pain,behavior,time
+12246,pain,full,time
+12246,pain,psychological,no time
+12246,pain,psychological,time
+12246,pain,situation,no time
+12246,pain,situation,time
+12247,lonely,behavior,no time
+12247,lonely,behavior,time
+12247,lonely,full,time
+12247,lonely,psychological,no time
+12247,lonely,psychological,time
+12247,lonely,situation,no time
+12247,lonely,situation,time
+12247,pain,behavior,no time
+12247,pain,behavior,time
+12247,pain,full,time
+12247,pain,psychological,no time
+12247,pain,psychological,time
+12247,pain,situation,no time
+12247,pain,situation,time
+12248,lonely,behavior,no time
+12248,lonely,behavior,time
+12248,lonely,full,time
+12248,lonely,psychological,no time
+12248,lonely,psychological,time
+12248,lonely,situation,no time
+12248,lonely,situation,time
+12248,pain,behavior,no time
+12248,pain,behavior,time
+12248,pain,full,time
+12248,pain,psychological,no time
+12248,pain,psychological,time
+12248,pain,situation,no time
+12248,pain,situation,time
+12251,lonely,behavior,no time
+12251,lonely,behavior,time
+12251,lonely,full,time
+12251,lonely,psychological,no time
+12251,lonely,psychological,time
+12251,lonely,situation,no time
+12251,lonely,situation,time
+12251,pain,behavior,no time
+12251,pain,behavior,time
+12251,pain,full,time
+12251,pain,psychological,no time
+12251,pain,psychological,time
+12251,pain,situation,no time
+12251,pain,situation,time
+12252,lonely,behavior,no time
+12252,lonely,behavior,time
+12252,lonely,full,time
+12252,lonely,psychological,no time
+12252,lonely,psychological,time
+12252,lonely,situation,no time
+12252,lonely,situation,time
+12252,pain,behavior,no time
+12252,pain,behavior,time
+12252,pain,full,time
+12252,pain,psychological,no time
+12252,pain,psychological,time
+12252,pain,situation,no time
+12252,pain,situation,time
+12254,lonely,behavior,no time
+12254,lonely,behavior,time
+12254,lonely,full,time
+12254,lonely,psychological,no time
+12254,lonely,psychological,time
+12254,lonely,situation,no time
+12254,lonely,situation,time
+12254,pain,behavior,no time
+12254,pain,behavior,time
+12254,pain,full,time
+12254,pain,psychological,no time
+12254,pain,psychological,time
+12254,pain,situation,no time
+12254,pain,situation,time
+12256,lonely,behavior,no time
+12256,lonely,behavior,time
+12256,lonely,full,time
+12256,lonely,psychological,no time
+12256,lonely,psychological,time
+12256,lonely,situation,no time
+12256,lonely,situation,time
+12256,pain,behavior,no time
+12256,pain,behavior,time
+12256,pain,full,time
+12256,pain,situation,no time
+12256,pain,situation,time
+12257,lonely,behavior,no time
+12257,lonely,behavior,time
+12257,lonely,full,time
+12257,lonely,psychological,no time
+12257,lonely,psychological,time
+12257,lonely,situation,no time
+12257,lonely,situation,time
+12257,pain,behavior,no time
+12257,pain,behavior,time
+12257,pain,full,time
+12257,pain,psychological,no time
+12257,pain,psychological,time
+12257,pain,situation,no time
+12257,pain,situation,time
+12258,lonely,behavior,no time
+12258,lonely,behavior,time
+12258,lonely,full,time
+12258,lonely,psychological,no time
+12258,lonely,psychological,time
+12258,lonely,situation,no time
+12258,lonely,situation,time
+12258,pain,behavior,no time
+12258,pain,behavior,time
+12258,pain,full,time
+12258,pain,psychological,no time
+12258,pain,psychological,time
+12258,pain,situation,no time
+12258,pain,situation,time
+12259,lonely,behavior,no time
+12259,lonely,behavior,time
+12259,lonely,full,time
+12259,lonely,psychological,no time
+12259,lonely,psychological,time
+12259,lonely,situation,no time
+12259,lonely,situation,time
+12259,pain,behavior,no time
+12259,pain,behavior,time
+12259,pain,full,time
+12259,pain,psychological,no time
+12259,pain,psychological,time
+12259,pain,situation,no time
+12259,pain,situation,time
+12260,lonely,behavior,no time
+12260,lonely,behavior,time
+12260,lonely,full,time
+12260,lonely,psychological,no time
+12260,lonely,psychological,time
+12260,lonely,situation,no time
+12260,lonely,situation,time
+12260,pain,behavior,no time
+12260,pain,behavior,time
+12260,pain,full,time
+12260,pain,psychological,no time
+12260,pain,psychological,time
+12260,pain,situation,no time
+12260,pain,situation,time
+12264,lonely,behavior,no time
+12264,lonely,behavior,time
+12264,lonely,full,time
+12264,lonely,psychological,no time
+12264,lonely,psychological,time
+12264,lonely,situation,no time
+12264,lonely,situation,time
+12264,pain,behavior,no time
+12264,pain,behavior,time
+12264,pain,full,time
+12264,pain,psychological,no time
+12264,pain,psychological,time
+12264,pain,situation,no time
+12264,pain,situation,time
+12267,pain,behavior,no time
+12267,pain,behavior,time
+12267,pain,full,time
+12267,pain,psychological,no time
+12267,pain,psychological,time
+12267,pain,situation,no time
+12267,pain,situation,time
+12270,lonely,behavior,no time
+12270,lonely,behavior,time
+12270,lonely,full,time
+12270,lonely,psychological,no time
+12270,lonely,psychological,time
+12270,lonely,situation,no time
+12270,lonely,situation,time
+12270,pain,behavior,no time
+12270,pain,behavior,time
+12270,pain,full,time
+12270,pain,psychological,no time
+12270,pain,psychological,time
+12270,pain,situation,no time
+12270,pain,situation,time
+12271,lonely,behavior,no time
+12271,lonely,behavior,time
+12271,lonely,full,time
+12271,lonely,psychological,no time
+12271,lonely,psychological,time
+12271,lonely,situation,no time
+12271,lonely,situation,time
+12271,pain,behavior,no time
+12271,pain,behavior,time
+12271,pain,full,time
+12271,pain,psychological,no time
+12271,pain,psychological,time
+12271,pain,situation,no time
+12271,pain,situation,time
+12272,lonely,behavior,no time
+12272,lonely,behavior,time
+12272,lonely,full,time
+12272,lonely,psychological,no time
+12272,lonely,psychological,time
+12272,lonely,situation,no time
+12272,lonely,situation,time
+12272,pain,behavior,no time
+12272,pain,behavior,time
+12272,pain,full,time
+12272,pain,psychological,no time
+12272,pain,psychological,time
+12272,pain,situation,no time
+12272,pain,situation,time
+12273,lonely,behavior,no time
+12273,lonely,behavior,time
+12273,lonely,full,time
+12273,lonely,psychological,no time
+12273,lonely,psychological,time
+12273,lonely,situation,no time
+12273,lonely,situation,time
+12273,pain,behavior,no time
+12273,pain,behavior,time
+12273,pain,full,time
+12273,pain,psychological,no time
+12273,pain,psychological,time
+12273,pain,situation,no time
+12273,pain,situation,time
+12274,lonely,behavior,no time
+12274,lonely,behavior,time
+12274,lonely,full,time
+12274,lonely,psychological,no time
+12274,lonely,psychological,time
+12274,lonely,situation,no time
+12274,lonely,situation,time
+12274,pain,behavior,no time
+12274,pain,behavior,time
+12274,pain,full,time
+12274,pain,psychological,no time
+12274,pain,psychological,time
+12274,pain,situation,no time
+12274,pain,situation,time
+12275,lonely,behavior,no time
+12275,lonely,behavior,time
+12275,lonely,full,time
+12275,lonely,psychological,no time
+12275,lonely,psychological,time
+12275,lonely,situation,no time
+12275,lonely,situation,time
+12275,pain,behavior,no time
+12275,pain,behavior,time
+12275,pain,full,time
+12275,pain,psychological,no time
+12275,pain,psychological,time
+12275,pain,situation,no time
+12275,pain,situation,time
+12276,lonely,behavior,no time
+12276,lonely,behavior,time
+12276,lonely,full,time
+12276,lonely,psychological,no time
+12276,lonely,psychological,time
+12276,lonely,situation,no time
+12276,lonely,situation,time
+12276,pain,behavior,no time
+12276,pain,behavior,time
+12276,pain,full,time
+12276,pain,psychological,no time
+12276,pain,psychological,time
+12276,pain,situation,no time
+12276,pain,situation,time
+12277,lonely,behavior,no time
+12277,lonely,behavior,time
+12277,lonely,full,time
+12277,lonely,psychological,no time
+12277,lonely,psychological,time
+12277,lonely,situation,no time
+12277,lonely,situation,time
+12277,pain,behavior,no time
+12277,pain,behavior,time
+12277,pain,full,time
+12277,pain,psychological,no time
+12277,pain,psychological,time
+12277,pain,situation,no time
+12277,pain,situation,time
+12278,lonely,behavior,no time
+12278,lonely,behavior,time
+12278,lonely,full,time
+12278,lonely,psychological,no time
+12278,lonely,psychological,time
+12278,lonely,situation,no time
+12278,lonely,situation,time
+12278,pain,behavior,no time
+12278,pain,behavior,time
+12278,pain,full,time
+12278,pain,psychological,no time
+12278,pain,psychological,time
+12278,pain,situation,no time
+12278,pain,situation,time
+12281,lonely,behavior,no time
+12281,lonely,behavior,time
+12281,lonely,full,time
+12281,lonely,psychological,no time
+12281,lonely,psychological,time
+12281,lonely,situation,no time
+12281,lonely,situation,time
+12281,pain,behavior,no time
+12281,pain,behavior,time
+12281,pain,full,time
+12281,pain,psychological,no time
+12281,pain,psychological,time
+12281,pain,situation,no time
+12281,pain,situation,time
+12282,lonely,behavior,no time
+12282,lonely,behavior,time
+12282,lonely,full,time
+12282,lonely,psychological,no time
+12282,lonely,psychological,time
+12282,lonely,situation,no time
+12282,lonely,situation,time
+12282,pain,behavior,no time
+12282,pain,behavior,time
+12282,pain,full,time
+12282,pain,psychological,no time
+12282,pain,psychological,time
+12282,pain,situation,no time
+12282,pain,situation,time
+12283,lonely,behavior,no time
+12283,lonely,behavior,time
+12283,lonely,full,time
+12283,lonely,psychological,no time
+12283,lonely,psychological,time
+12283,lonely,situation,no time
+12283,lonely,situation,time
+12283,pain,behavior,no time
+12283,pain,behavior,time
+12283,pain,full,time
+12283,pain,psychological,no time
+12283,pain,psychological,time
+12283,pain,situation,no time
+12283,pain,situation,time
+12284,lonely,behavior,no time
+12284,lonely,behavior,time
+12284,lonely,full,time
+12284,lonely,psychological,no time
+12284,lonely,psychological,time
+12284,lonely,situation,no time
+12284,lonely,situation,time
+12284,pain,behavior,no time
+12284,pain,behavior,time
+12284,pain,full,time
+12284,pain,psychological,no time
+12284,pain,psychological,time
+12284,pain,situation,no time
+12284,pain,situation,time
+12285,lonely,behavior,no time
+12285,lonely,behavior,time
+12285,lonely,full,time
+12285,lonely,psychological,no time
+12285,lonely,psychological,time
+12285,lonely,situation,no time
+12285,lonely,situation,time
+12285,pain,behavior,no time
+12285,pain,behavior,time
+12285,pain,full,time
+12285,pain,psychological,no time
+12285,pain,psychological,time
+12285,pain,situation,no time
+12285,pain,situation,time
+12286,lonely,behavior,no time
+12286,lonely,behavior,time
+12286,lonely,full,time
+12286,lonely,psychological,no time
+12286,lonely,psychological,time
+12286,lonely,situation,no time
+12286,lonely,situation,time
+12286,pain,behavior,no time
+12286,pain,behavior,time
+12286,pain,full,time
+12286,pain,psychological,no time
+12286,pain,psychological,time
+12286,pain,situation,no time
+12286,pain,situation,time
+12287,pain,behavior,no time
+12287,pain,behavior,time
+12287,pain,full,time
+12287,pain,psychological,no time
+12287,pain,psychological,time
+12287,pain,situation,no time
+12287,pain,situation,time
+12289,lonely,behavior,no time
+12289,lonely,behavior,time
+12289,lonely,full,time
+12289,lonely,psychological,no time
+12289,lonely,psychological,time
+12289,lonely,situation,no time
+12289,lonely,situation,time
+12289,pain,behavior,no time
+12289,pain,behavior,time
+12289,pain,full,time
+12289,pain,psychological,no time
+12289,pain,psychological,time
+12289,pain,situation,no time
+12289,pain,situation,time
+12290,lonely,behavior,no time
+12290,lonely,behavior,time
+12290,lonely,full,time
+12290,lonely,psychological,no time
+12290,lonely,psychological,time
+12290,lonely,situation,no time
+12290,lonely,situation,time
+12290,pain,behavior,no time
+12290,pain,behavior,time
+12290,pain,full,time
+12290,pain,psychological,no time
+12290,pain,psychological,time
+12290,pain,situation,no time
+12290,pain,situation,time
+12294,lonely,behavior,no time
+12294,lonely,behavior,time
+12294,lonely,full,time
+12294,lonely,psychological,no time
+12294,lonely,psychological,time
+12294,lonely,situation,no time
+12294,lonely,situation,time
+12294,pain,behavior,no time
+12294,pain,behavior,time
+12294,pain,full,time
+12294,pain,psychological,no time
+12294,pain,psychological,time
+12294,pain,situation,no time
+12294,pain,situation,time
+12295,lonely,behavior,no time
+12295,lonely,behavior,time
+12295,lonely,full,time
+12295,lonely,psychological,no time
+12295,lonely,psychological,time
+12295,lonely,situation,no time
+12295,lonely,situation,time
+12295,pain,behavior,no time
+12295,pain,behavior,time
+12295,pain,full,time
+12295,pain,psychological,no time
+12295,pain,psychological,time
+12295,pain,situation,no time
+12295,pain,situation,time
+12296,lonely,behavior,no time
+12296,lonely,behavior,time
+12296,lonely,full,time
+12296,lonely,psychological,no time
+12296,lonely,psychological,time
+12296,lonely,situation,no time
+12296,lonely,situation,time
+12296,pain,behavior,no time
+12296,pain,behavior,time
+12296,pain,full,time
+12296,pain,psychological,no time
+12296,pain,psychological,time
+12296,pain,situation,no time
+12296,pain,situation,time
+12297,lonely,behavior,no time
+12297,lonely,behavior,time
+12297,lonely,full,time
+12297,lonely,psychological,no time
+12297,lonely,psychological,time
+12297,lonely,situation,no time
+12297,lonely,situation,time
+12297,pain,behavior,no time
+12297,pain,behavior,time
+12297,pain,full,time
+12297,pain,psychological,no time
+12297,pain,psychological,time
+12297,pain,situation,no time
+12297,pain,situation,time
+12299,lonely,behavior,no time
+12299,lonely,behavior,time
+12299,lonely,full,time
+12299,lonely,psychological,no time
+12299,lonely,psychological,time
+12299,lonely,situation,no time
+12299,lonely,situation,time
+12299,pain,behavior,no time
+12299,pain,behavior,time
+12299,pain,full,time
+12299,pain,psychological,no time
+12299,pain,psychological,time
+12299,pain,situation,no time
+12299,pain,situation,time
+12300,lonely,behavior,no time
+12300,lonely,behavior,time
+12300,lonely,full,time
+12300,lonely,psychological,no time
+12300,lonely,psychological,time
+12300,lonely,situation,no time
+12300,lonely,situation,time
+12300,pain,behavior,no time
+12300,pain,behavior,time
+12300,pain,full,time
+12300,pain,psychological,no time
+12300,pain,psychological,time
+12300,pain,situation,no time
+12300,pain,situation,time
+12302,lonely,behavior,no time
+12302,lonely,behavior,time
+12302,lonely,full,time
+12302,lonely,psychological,no time
+12302,lonely,psychological,time
+12302,lonely,situation,no time
+12302,lonely,situation,time
+12302,pain,behavior,no time
+12302,pain,behavior,time
+12302,pain,full,time
+12302,pain,psychological,no time
+12302,pain,psychological,time
+12302,pain,situation,no time
+12302,pain,situation,time
+12303,lonely,behavior,no time
+12303,lonely,behavior,time
+12303,lonely,full,time
+12303,lonely,psychological,no time
+12303,lonely,psychological,time
+12303,lonely,situation,no time
+12303,lonely,situation,time
+12303,pain,behavior,no time
+12303,pain,behavior,time
+12303,pain,full,time
+12303,pain,psychological,no time
+12303,pain,psychological,time
+12303,pain,situation,no time
+12303,pain,situation,time
+12305,lonely,behavior,no time
+12305,lonely,behavior,time
+12305,lonely,full,time
+12305,lonely,psychological,no time
+12305,lonely,psychological,time
+12305,lonely,situation,no time
+12305,lonely,situation,time
+12305,pain,behavior,no time
+12305,pain,behavior,time
+12305,pain,full,time
+12305,pain,psychological,no time
+12305,pain,psychological,time
+12305,pain,situation,no time
+12305,pain,situation,time
+12306,lonely,behavior,no time
+12306,lonely,behavior,time
+12306,lonely,full,time
+12306,lonely,psychological,no time
+12306,lonely,psychological,time
+12306,lonely,situation,no time
+12306,lonely,situation,time
+12306,pain,behavior,no time
+12306,pain,behavior,time
+12306,pain,full,time
+12306,pain,psychological,no time
+12306,pain,psychological,time
+12306,pain,situation,no time
+12306,pain,situation,time
+12310,lonely,behavior,no time
+12310,lonely,behavior,time
+12310,lonely,full,time
+12310,lonely,psychological,no time
+12310,lonely,psychological,time
+12310,lonely,situation,no time
+12310,lonely,situation,time
+12310,pain,behavior,no time
+12310,pain,behavior,time
+12310,pain,full,time
+12310,pain,psychological,no time
+12310,pain,psychological,time
+12310,pain,situation,no time
+12310,pain,situation,time
+12313,lonely,behavior,no time
+12313,lonely,behavior,time
+12313,lonely,full,time
+12313,lonely,situation,no time
+12313,lonely,situation,time
+12313,pain,behavior,no time
+12313,pain,behavior,time
+12313,pain,full,time
+12313,pain,situation,no time
+12313,pain,situation,time
+12315,lonely,behavior,no time
+12315,lonely,behavior,time
+12315,lonely,full,time
+12315,lonely,psychological,no time
+12315,lonely,psychological,time
+12315,lonely,situation,no time
+12315,lonely,situation,time
+12315,pain,behavior,no time
+12315,pain,behavior,time
+12315,pain,full,time
+12315,pain,psychological,no time
+12315,pain,psychological,time
+12315,pain,situation,no time
+12315,pain,situation,time
+6075,lonely,behavior,no time
+6075,lonely,behavior,time
+6075,lonely,full,time
+6075,lonely,psychological,no time
+6075,lonely,psychological,time
+6075,lonely,situation,no time
+6075,lonely,situation,time
+6075,pain,behavior,no time
+6075,pain,behavior,time
+6075,pain,full,time
+6075,pain,psychological,no time
+6075,pain,psychological,time
+6075,pain,situation,no time
+6075,pain,situation,time
+8779,lonely,behavior,no time
+8779,lonely,behavior,time
+8779,lonely,full,time
+8779,lonely,psychological,no time
+8779,lonely,psychological,time
+8779,lonely,situation,no time
+8779,lonely,situation,time
+8779,pain,behavior,no time
+8779,pain,behavior,time
+8779,pain,full,time
+8779,pain,psychological,no time
+8779,pain,psychological,time
+8779,pain,situation,no time
+8779,pain,situation,time

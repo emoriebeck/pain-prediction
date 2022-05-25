@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Data Cleaning | Idiographic prediction of loneliness and procrastination</title>
+  <meta name="description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Data Cleaning | Idiographic prediction of loneliness and procrastination" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Data Cleaning | Idiographic prediction of loneliness and procrastination" />
+  
+  <meta name="twitter:description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  
+
+<meta name="author" content="Emorie D Beck" />
+
+
+<meta name="date" content="2021-06-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="elastic-net.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Workspace</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.1</b> Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#directory-path"><i class="fa fa-check"></i><b>1.2</b> Directory Path</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#codebook"><i class="fa fa-check"></i><b>1.3</b> Codebook</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#measures"><i class="fa fa-check"></i><b>1.3.1</b> Measures</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#procedure"><i class="fa fa-check"></i><b>1.3.2</b> Procedure</a></li>
+<li class="chapter" data-level="1.3.3" data-path="index.html"><a href="index.html#analytic-plan"><i class="fa fa-check"></i><b>1.3.3</b> Analytic Plan</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#demographics"><i class="fa fa-check"></i><b>1.4</b> Demographics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>2</b> Data Cleaning</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="cleaning.html"><a href="cleaning.html#pre-share-cleaning"><i class="fa fa-check"></i><b>2.1</b> Pre-Share Cleaning</a></li>
+<li class="chapter" data-level="2.2" data-path="cleaning.html"><a href="cleaning.html#esm-data-setup"><i class="fa fa-check"></i><b>2.2</b> ESM Data Setup</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="cleaning.html"><a href="cleaning.html#timing"><i class="fa fa-check"></i><b>2.2.1</b> Timing</a></li>
+<li class="chapter" data-level="2.2.2" data-path="cleaning.html"><a href="cleaning.html#personality-1"><i class="fa fa-check"></i><b>2.2.2</b> Personality</a></li>
+<li class="chapter" data-level="2.2.3" data-path="cleaning.html"><a href="cleaning.html#other-measured-features"><i class="fa fa-check"></i><b>2.2.3</b> Other Measured Features</a></li>
+<li class="chapter" data-level="2.2.4" data-path="cleaning.html"><a href="cleaning.html#timing-features-1"><i class="fa fa-check"></i><b>2.2.4</b> Timing Features</a></li>
+<li class="chapter" data-level="2.2.5" data-path="cleaning.html"><a href="cleaning.html#combine-features"><i class="fa fa-check"></i><b>2.2.5</b> Combine Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="cleaning.html"><a href="cleaning.html#setup-for-idiographic-machine-learning-models"><i class="fa fa-check"></i><b>2.3</b> Setup for Idiographic Machine Learning Models</a></li>
+<li class="chapter" data-level="2.4" data-path="cleaning.html"><a href="cleaning.html#demographics-1"><i class="fa fa-check"></i><b>2.4</b> Demographics</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elastic-net.html"><a href="elastic-net.html"><i class="fa fa-check"></i><b>3</b> Elastic Net</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="elastic-net.html"><a href="elastic-net.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a></li>
+<li class="chapter" data-level="3.2" data-path="elastic-net.html"><a href="elastic-net.html#run-models"><i class="fa fa-check"></i><b>3.2</b> Run Models</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="biscwit.html"><a href="biscwit.html"><i class="fa fa-check"></i><b>4</b> BISCWIT</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="biscwit.html"><a href="biscwit.html#functions-1"><i class="fa fa-check"></i><b>4.1</b> Functions</a></li>
+<li class="chapter" data-level="4.2" data-path="biscwit.html"><a href="biscwit.html#run-models-1"><i class="fa fa-check"></i><b>4.2</b> Run Models</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="random-forest.html"><a href="random-forest.html"><i class="fa fa-check"></i><b>5</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="random-forest.html"><a href="random-forest.html#set-up-data"><i class="fa fa-check"></i><b>5.1</b> Set Up Data</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="random-forest.html"><a href="random-forest.html#differencing-and-box-cox"><i class="fa fa-check"></i><b>5.1.1</b> Differencing and Box Cox</a></li>
+<li class="chapter" data-level="5.1.2" data-path="random-forest.html"><a href="random-forest.html#run-models-2"><i class="fa fa-check"></i><b>5.1.2</b> Run Models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarizing-models.html"><a href="summarizing-models.html"><i class="fa fa-check"></i><b>6</b> Summarizing Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="summarizing-models.html"><a href="summarizing-models.html#question-1-can-we-predict-procrastination-and-loneliness"><i class="fa fa-check"></i><b>6.1</b> Question 1: Can we predict procrastination and loneliness?</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="summarizing-models.html"><a href="summarizing-models.html#performance-metrics"><i class="fa fa-check"></i><b>6.1.1</b> Performance Metrics</a></li>
+<li class="chapter" data-level="6.1.2" data-path="summarizing-models.html"><a href="summarizing-models.html#classification-accuracy-and-auc-for-all-models"><i class="fa fa-check"></i><b>6.1.2</b> Classification Accuracy and AUC for all Models</a></li>
+<li class="chapter" data-level="6.1.3" data-path="summarizing-models.html"><a href="summarizing-models.html#best-models"><i class="fa fa-check"></i><b>6.1.3</b> Best Models</a></li>
+<li class="chapter" data-level="6.1.4" data-path="summarizing-models.html"><a href="summarizing-models.html#tuning-parameters-table"><i class="fa fa-check"></i><b>6.1.4</b> Tuning Parameters (Table)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="summarizing-models.html"><a href="summarizing-models.html#question-2-are-there-individual-differences-in-the-idiographic-range-of-prediction-across-people"><i class="fa fa-check"></i><b>6.2</b> Question 2: Are there individual differences in the idiographic range of prediction across people?</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="summarizing-models.html"><a href="summarizing-models.html#the-range-of-prediction"><i class="fa fa-check"></i><b>6.2.1</b> The Range of Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="summarizing-models.html"><a href="summarizing-models.html#question-3-do-psychological-situational-or-full-feature-sets-perform-best"><i class="fa fa-check"></i><b>6.3</b> Question 3: Do Psychological, Situational, or Full Feature Sets Perform Best?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="summarizing-models.html"><a href="summarizing-models.html#psychological-features-situations-or-time"><i class="fa fa-check"></i><b>6.3.1</b> Psychological Features, Situations, or Time?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="summarizing-models.html"><a href="summarizing-models.html#question-4-which-features-are-most-associated-with-procrastination-and-loneliness"><i class="fa fa-check"></i><b>6.4</b> Question 4: Which features are most associated with Procrastination and Loneliness?</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="summarizing-models.html"><a href="summarizing-models.html#feature-frequency-psychological-features-situations-or-time"><i class="fa fa-check"></i><b>6.4.1</b> Feature Frequency: Psychological Features, Situations, or Time?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="summarizing-models.html"><a href="summarizing-models.html#question-5-do-people-vary-in-the-which-features-are-most-important"><i class="fa fa-check"></i><b>6.5</b> Question 5: Do people vary in the which features are most important?</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="summarizing-models.html"><a href="summarizing-models.html#participant-coefficients"><i class="fa fa-check"></i><b>6.5.1</b> Participant Coefficients</a></li>
+<li class="chapter" data-level="6.5.2" data-path="summarizing-models.html"><a href="summarizing-models.html#profile-similarity"><i class="fa fa-check"></i><b>6.5.2</b> Profile Similarity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="extended-discussion.html"><a href="extended-discussion.html"><i class="fa fa-check"></i><b>7</b> Extended Discussion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="extended-discussion.html"><a href="extended-discussion.html#on-predicting-more-behaviors-more-of-the-time"><i class="fa fa-check"></i><b>7.1</b> On predicting more behaviors more of the time</a></li>
+<li class="chapter" data-level="7.2" data-path="extended-discussion.html"><a href="extended-discussion.html#the-person-situation-debate-revisited"><i class="fa fa-check"></i><b>7.2</b> The person situation debate revisited</a></li>
+<li class="chapter" data-level="7.3" data-path="extended-discussion.html"><a href="extended-discussion.html#limitations-and-conclusion"><i class="fa fa-check"></i><b>7.3</b> Limitations and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Idiographic prediction of loneliness and procrastination</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cleaning" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Data Cleaning</h1>
+<div id="pre-share-cleaning" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Pre-Share Cleaning</h2>
+<p>For the purposes of this study, we are only sharing the data used in this study (for both items and participants). ESM data were pre-cleaned because data imported from jsPsych are in a format not easily interpretable within R. An R script that shows the full procedure for extracting jsPscyh data is available on the OSF page for this study. Trait data were downloaded from Qualtrics and directly imported and cleaned as shown below.</p>
+<p>In addition, in order to anonymize participants, we have changed their ID’s using our master list, which we cannot make available because it contains identifying information.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="cleaning.html#cb18-1" aria-hidden="true" tabindex="-1"></a>participants <span class="ot">&lt;-</span> googlesheets4<span class="sc">::</span><span class="fu">sheets_read</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/1r808gQ-LWfG98J9rvt_CRMHtmCFgtdcfThl0XA0HHbM/edit#gid=16299281&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;ESM&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="cleaning.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SID, Name, Email) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="cleaning.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(.), <span class="dv">1</span>),</span>
+<span id="cb18-4"><a href="cleaning.html#cb18-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">new =</span> <span class="fu">ifelse</span>(new <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">paste</span>(<span class="st">&quot;0&quot;</span>, new, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>), new))</span>
+<span id="cb18-5"><a href="cleaning.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb18-6"><a href="cleaning.html#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="cleaning.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># wave 1 esm </span></span>
+<span id="cb18-8"><a href="cleaning.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/01-raw-data/clean_data_w1_2020-06-08.RData&quot;</span>, res_path))</span>
+<span id="cb18-9"><a href="cleaning.html#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="cleaning.html#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># combine waves  </span></span>
+<span id="cb18-11"><a href="cleaning.html#cb18-11" aria-hidden="true" tabindex="-1"></a>bfi <span class="ot">&lt;-</span> BFI <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-12"><a href="cleaning.html#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SID =</span> <span class="fu">mapvalues</span>(SID, participants<span class="sc">$</span>SID, participants<span class="sc">$</span>new)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-13"><a href="cleaning.html#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">orig_itemname =</span> item) <span class="sc">%&gt;%</span></span>
+<span id="cb18-14"><a href="cleaning.html#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(ipcs_codebook <span class="sc">%&gt;%</span> <span class="fu">select</span>(category, trait, facet, itemname, orig_itemname, reverse_code))</span>
+<span id="cb18-15"><a href="cleaning.html#cb18-15" aria-hidden="true" tabindex="-1"></a>old.names <span class="ot">&lt;-</span> ipcs_codebook<span class="sc">$</span>orig_itemname</span>
+<span id="cb18-16"><a href="cleaning.html#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="cleaning.html#cb18-17" aria-hidden="true" tabindex="-1"></a>emo <span class="ot">&lt;-</span> emotion <span class="sc">%&gt;%</span></span>
+<span id="cb18-18"><a href="cleaning.html#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>trait, <span class="sc">-</span>facet) <span class="sc">%&gt;%</span></span>
+<span id="cb18-19"><a href="cleaning.html#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">item =</span> <span class="fu">str_remove_all</span>(item, <span class="st">&quot;E_&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-20"><a href="cleaning.html#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SID =</span> <span class="fu">mapvalues</span>(SID, participants<span class="sc">$</span>SID, participants<span class="sc">$</span>new)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-21"><a href="cleaning.html#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">trait =</span> item) <span class="sc">%&gt;%</span></span>
+<span id="cb18-22"><a href="cleaning.html#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(ipcs_codebook <span class="sc">%&gt;%</span> <span class="fu">select</span>(category, trait, facet, itemname, reverse_code))</span>
+<span id="cb18-23"><a href="cleaning.html#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-24"><a href="cleaning.html#cb18-24" aria-hidden="true" tabindex="-1"></a>sit  <span class="ot">&lt;-</span> sit <span class="sc">%&gt;%</span></span>
+<span id="cb18-25"><a href="cleaning.html#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item <span class="sc">%in%</span> old.names) <span class="sc">%&gt;%</span></span>
+<span id="cb18-26"><a href="cleaning.html#cb18-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>trait, <span class="sc">-</span>facet, <span class="sc">-</span>answer) <span class="sc">%&gt;%</span></span>
+<span id="cb18-27"><a href="cleaning.html#cb18-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SID =</span> <span class="fu">mapvalues</span>(SID, participants<span class="sc">$</span>SID, participants<span class="sc">$</span>new)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-28"><a href="cleaning.html#cb18-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">orig_itemname =</span> item) <span class="sc">%&gt;%</span></span>
+<span id="cb18-29"><a href="cleaning.html#cb18-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(ipcs_codebook <span class="sc">%&gt;%</span> <span class="fu">select</span>(category, trait, facet, itemname, orig_itemname, reverse_code))</span>
+<span id="cb18-30"><a href="cleaning.html#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="cleaning.html#cb18-31" aria-hidden="true" tabindex="-1"></a>ds8 <span class="ot">&lt;-</span> DS8 <span class="sc">%&gt;%</span> </span>
+<span id="cb18-32"><a href="cleaning.html#cb18-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>trait, <span class="sc">-</span>facet, <span class="sc">-</span>answer) <span class="sc">%&gt;%</span></span>
+<span id="cb18-33"><a href="cleaning.html#cb18-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SID =</span> <span class="fu">mapvalues</span>(SID, participants<span class="sc">$</span>SID, participants<span class="sc">$</span>new)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-34"><a href="cleaning.html#cb18-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">orig_itemname =</span> item) <span class="sc">%&gt;%</span></span>
+<span id="cb18-35"><a href="cleaning.html#cb18-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(ipcs_codebook <span class="sc">%&gt;%</span> <span class="fu">select</span>(category, trait, facet, itemname, orig_itemname, reverse_code))</span>
+<span id="cb18-36"><a href="cleaning.html#cb18-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-37"><a href="cleaning.html#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(bfi, emo, sit, ds8, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/esm_cleaned_combined_2021-04-07.RData&quot;</span>, res_path))</span>
+<span id="cb18-38"><a href="cleaning.html#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="cleaning.html#cb19-1" aria-hidden="true" tabindex="-1"></a>train_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb19-2"><a href="cleaning.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(<span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)]))<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb19-3"><a href="cleaning.html#cb19-3" aria-hidden="true" tabindex="-1"></a>    replace <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)[<span class="sc">!</span><span class="dv">0</span><span class="sc">:</span><span class="dv">1</span> <span class="sc">%in%</span> <span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])[<span class="dv">1</span>]]</span>
+<span id="cb19-4"><a href="cleaning.html#cb19-4" aria-hidden="true" tabindex="-1"></a>    x[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="dv">1</span>)] <span class="ot">&lt;-</span> replace</span>
+<span id="cb19-5"><a href="cleaning.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">any</span>(<span class="fu">table</span>(x) <span class="sc">==</span> <span class="dv">1</span>)){</span>
+<span id="cb19-6"><a href="cleaning.html#cb19-6" aria-hidden="true" tabindex="-1"></a>    replace <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)[<span class="fu">which</span>(<span class="fu">table</span>(x) <span class="sc">&lt;=</span> <span class="dv">1</span>)]</span>
+<span id="cb19-7"><a href="cleaning.html#cb19-7" aria-hidden="true" tabindex="-1"></a>    x[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="dv">1</span>)] <span class="ot">&lt;-</span> replace</span>
+<span id="cb19-8"><a href="cleaning.html#cb19-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-9"><a href="cleaning.html#cb19-9" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb19-10"><a href="cleaning.html#cb19-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-11"><a href="cleaning.html#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="cleaning.html#cb19-12" aria-hidden="true" tabindex="-1"></a>test_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb19-13"><a href="cleaning.html#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(<span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)]))<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb19-14"><a href="cleaning.html#cb19-14" aria-hidden="true" tabindex="-1"></a>    replace <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)[<span class="sc">!</span><span class="dv">0</span><span class="sc">:</span><span class="dv">1</span> <span class="sc">%in%</span> <span class="fu">unique</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])[<span class="dv">1</span>]]</span>
+<span id="cb19-15"><a href="cleaning.html#cb19-15" aria-hidden="true" tabindex="-1"></a>    x[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="dv">1</span>)] <span class="ot">&lt;-</span> replace</span>
+<span id="cb19-16"><a href="cleaning.html#cb19-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-17"><a href="cleaning.html#cb19-17" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb19-18"><a href="cleaning.html#cb19-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now, we’ll load in the cleaned and de-identified data.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="cleaning.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/01-raw-data/esm_cleaned_combined_2021-04-07.RData&quot;</span>, res_path)))</span></code></pre></div>
+</div>
+<div id="esm-data-setup" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> ESM Data Setup</h2>
+<p>Next, we need to make sure that all time information for IPCS is available. Specifically, this will allow us to control for overnight periods and unequal spacing between measurement occasions.</p>
+<div id="timing" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Timing</h3>
+<p>First, we need to create empty rows in the data where there are missing assessments from the four target surveys per day as well as for the overnight periods. The function below uses the time stamp to figure out which blocks are missing and add those empty rows by indexing the time stamp of collected surveys as well as participants chosen start times.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="cleaning.html#cb21-1" aria-hidden="true" tabindex="-1"></a>missing_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(d){</span>
+<span id="cb21-2"><a href="cleaning.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  first_day <span class="ot">&lt;-</span> <span class="fu">unique</span>(d<span class="sc">$</span>StartDate) <span class="co"># get first day</span></span>
+<span id="cb21-3"><a href="cleaning.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  hourBlock <span class="ot">&lt;-</span> <span class="fu">unique</span>(d<span class="sc">$</span><span class="st">`</span><span class="at">Hour Block 1</span><span class="st">`</span>) <span class="co"># get first hour block</span></span>
+<span id="cb21-4"><a href="cleaning.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  max_day <span class="ot">&lt;-</span> <span class="fu">max</span>(d<span class="sc">$</span>Day); max_day <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(max_day <span class="sc">&lt;</span> <span class="dv">14</span>, <span class="dv">14</span>, max_day) <span class="co"># get number of days</span></span>
+<span id="cb21-5"><a href="cleaning.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  d2 <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="co">#mutate(StartDate = ifelse(is.na(StartDate), min(Date, na.), StartDate))</span></span>
+<span id="cb21-6"><a href="cleaning.html#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(<span class="fu">crossing</span>(</span>
+<span id="cb21-7"><a href="cleaning.html#cb21-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">Day =</span> <span class="fu">seq</span>(<span class="dv">0</span>,max_day,<span class="dv">1</span>),</span>
+<span id="cb21-8"><a href="cleaning.html#cb21-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">HourBlock =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb21-9"><a href="cleaning.html#cb21-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">StartDate =</span> first_day,</span>
+<span id="cb21-10"><a href="cleaning.html#cb21-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Hour Block 1</span><span class="st">`</span> <span class="ot">=</span> hourBlock)) <span class="sc">%&gt;%</span> <span class="co"># cross existing data with &quot;perfect&quot; data</span></span>
+<span id="cb21-11"><a href="cleaning.html#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(Day, HourBlock) <span class="sc">%&gt;%</span></span>
+<span id="cb21-12"><a href="cleaning.html#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Date =</span> StartDate <span class="sc">+</span> Day,</span>
+<span id="cb21-13"><a href="cleaning.html#cb21-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">Hour =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Hour), <span class="st">`</span><span class="at">Hour Block 1</span><span class="st">`</span> <span class="sc">+</span> (HourBlock<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">4</span>, Hour),</span>
+<span id="cb21-14"><a href="cleaning.html#cb21-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">Minute =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Minute), <span class="st">&quot;00&quot;</span>, Minute))</span>
+<span id="cb21-15"><a href="cleaning.html#cb21-15" aria-hidden="true" tabindex="-1"></a>  d2<span class="sc">$</span>Date[d2<span class="sc">$</span>Hour <span class="sc">&gt;</span> <span class="dv">23</span>] <span class="ot">&lt;-</span> d2<span class="sc">$</span>Date[d2<span class="sc">$</span>Hour <span class="sc">&gt;</span> <span class="dv">23</span>] <span class="sc">+</span> <span class="dv">1</span> <span class="co"># some day blocks span days</span></span>
+<span id="cb21-16"><a href="cleaning.html#cb21-16" aria-hidden="true" tabindex="-1"></a>  d2<span class="sc">$</span>Hour[d2<span class="sc">$</span>Hour <span class="sc">&gt;</span> <span class="dv">23</span>] <span class="ot">&lt;-</span> d2<span class="sc">$</span>Hour[d2<span class="sc">$</span>Hour <span class="sc">&gt;</span> <span class="dv">23</span>] <span class="sc">-</span> <span class="dv">24</span> <span class="co"># some day blocks span days</span></span>
+<span id="cb21-17"><a href="cleaning.html#cb21-17" aria-hidden="true" tabindex="-1"></a>  d2 <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb21-18"><a href="cleaning.html#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Full_Date =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s %s:%s&quot;</span>, <span class="fu">as.character</span>(Date), Hour, Minute)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-19"><a href="cleaning.html#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="st">`</span><span class="at">Hour Block 1</span><span class="st">`</span>, <span class="sc">-</span>StartDate) </span>
+<span id="cb21-20"><a href="cleaning.html#cb21-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-21"><a href="cleaning.html#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="cleaning.html#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co"># create a data frame of timing info </span></span>
+<span id="cb21-23"><a href="cleaning.html#cb21-23" aria-hidden="true" tabindex="-1"></a>ipcs_times <span class="ot">&lt;-</span> emo <span class="sc">%&gt;%</span> </span>
+<span id="cb21-24"><a href="cleaning.html#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SID, StartDate, Date, Hour, Minute, Day, <span class="st">`</span><span class="at">Hour Block 1</span><span class="st">`</span>, HourBlock) <span class="sc">%&gt;%</span></span>
+<span id="cb21-25"><a href="cleaning.html#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-26"><a href="cleaning.html#cb21-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Minute =</span> <span class="fu">str_remove_all</span>(Minute, <span class="st">&quot;.csv&quot;</span>),</span>
+<span id="cb21-27"><a href="cleaning.html#cb21-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">Minute =</span> <span class="fu">ifelse</span>(<span class="fu">as.numeric</span>(Minute) <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">sprintf</span>(<span class="st">&quot;0%s&quot;</span>, Minute), Minute)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-28"><a href="cleaning.html#cb21-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(SID, Date) <span class="sc">%&gt;%</span></span>
+<span id="cb21-29"><a href="cleaning.html#cb21-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SID) <span class="sc">%&gt;%</span></span>
+<span id="cb21-30"><a href="cleaning.html#cb21-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-31"><a href="cleaning.html#cb21-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-32"><a href="cleaning.html#cb21-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">map</span>(data, missing_fun)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-33"><a href="cleaning.html#cb21-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(data) <span class="sc">%&gt;%</span></span>
+<span id="cb21-34"><a href="cleaning.html#cb21-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(SID, Date, Hour) <span class="sc">%&gt;%</span></span>
+<span id="cb21-35"><a href="cleaning.html#cb21-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SID) <span class="sc">%&gt;%</span></span>
+<span id="cb21-36"><a href="cleaning.html#cb21-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">all_beeps =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">n</span>(), <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-37"><a href="cleaning.html#cb21-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<p>Here’s the result</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="cleaning.html#cb22-1" aria-hidden="true" tabindex="-1"></a>ipcs_times</span></code></pre></div>
+<pre><code>## # A tibble: 23,615 x 8
+##    SID   Date        Hour Minute   Day HourBlock Full_Date        all_beeps
+##    &lt;chr&gt; &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;
+##  1 01    2018-10-22    15 23         0         1 2018-10-22 15:23         1
+##  2 01    2018-10-22    19 00         0         2 2018-10-22 19:00         2
+##  3 01    2018-10-22    23 23         0         3 2018-10-22 23:23         3
+##  4 01    2018-10-22    23 25         0         3 2018-10-22 23:25         4
+##  5 01    2018-10-23     3 00         0         4 2018-10-23 3:00          5
+##  6 01    2018-10-23     7 00         0         5 2018-10-23 7:00          6
+##  7 01    2018-10-23    11 00         0         6 2018-10-23 11:00         7
+##  8 01    2018-10-23    17 50         1         1 2018-10-23 17:50         8
+##  9 01    2018-10-23    19 39         1         2 2018-10-23 19:39         9
+## 10 01    2018-10-23    23 00         1         3 2018-10-23 23:00        10
+## # … with 23,605 more rows</code></pre>
+</div>
+<div id="personality-1" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Personality</h3>
+<p>Now it’s time to wrangle the personality data. As a reminder, personality was assessed using the full BFI-2 (Soto &amp; John, 2017). The scale was administered using a planned missing data design (Revelle et al., 2016). We have previously demonstrated both the between- and within-person construct validity of assessing personality using planned missing designs using the BFI-2 (<a href="https://osf.io/pj9sy/" class="uri">https://osf.io/pj9sy/</a>). The planned missingness was done within each Big Five trait separately, with three items from each trait included at each timepoint (75% missingness). Each item was answered relative to what a participant was just doing on a 5-point Likert-like scale from 1 “disagree strongly” to 5 “agree strongly.” Items for each person at each assessment were determined by pulling 3 numbers (1 to 12) from a uniform distribution. The order of the resulting 15 items were then randomized before being displayed to participants.</p>
+<div id="wrangle-raw-data" class="section level4" number="2.2.2.1">
+<h4><span class="header-section-number">2.2.2.1</span> Wrangle Raw Data</h4>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="cleaning.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join with codebook, reverse code, composite within facets and spread to wide format</span></span>
+<span id="cb24-2"><a href="cleaning.html#cb24-2" aria-hidden="true" tabindex="-1"></a>bfi_wide <span class="ot">&lt;-</span> bfi <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="cleaning.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SID, Date, Hour, Minute, trait, facet, <span class="at">value =</span> responses2, reverse_code) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="cleaning.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Minute =</span> <span class="fu">str_remove_all</span>(Minute, <span class="st">&quot;.csv&quot;</span>),</span>
+<span id="cb24-5"><a href="cleaning.html#cb24-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">Minute =</span> <span class="fu">ifelse</span>(<span class="fu">as.numeric</span>(Minute) <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">sprintf</span>(<span class="st">&quot;0%s&quot;</span>, Minute), Minute),</span>
+<span id="cb24-6"><a href="cleaning.html#cb24-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Full_Date =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s %s:%s&quot;</span>, <span class="fu">as.character</span>(Date), Hour, Minute)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-7"><a href="cleaning.html#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">as.numeric</span>(value),</span>
+<span id="cb24-8"><a href="cleaning.html#cb24-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">value =</span> <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(reverse_code) <span class="sc">&amp;</span> reverse_code <span class="sc">==</span> <span class="st">&quot;yes&quot;</span>, <span class="fu">reverse.code</span>(<span class="sc">-</span><span class="dv">1</span>, value, <span class="at">mini =</span> <span class="dv">1</span>, <span class="at">maxi =</span> <span class="dv">5</span>), value)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-9"><a href="cleaning.html#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>reverse_code) <span class="sc">%&gt;%</span></span>
+<span id="cb24-10"><a href="cleaning.html#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SID, trait, facet, Full_Date) <span class="sc">%&gt;%</span></span>
+<span id="cb24-11"><a href="cleaning.html#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-12"><a href="cleaning.html#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb24-13"><a href="cleaning.html#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(<span class="st">&quot;trait&quot;</span>, <span class="st">&quot;facet&quot;</span>)</span>
+<span id="cb24-14"><a href="cleaning.html#cb24-14" aria-hidden="true" tabindex="-1"></a>              , <span class="at">values_from =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb24-15"><a href="cleaning.html#cb24-15" aria-hidden="true" tabindex="-1"></a>              , <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-16"><a href="cleaning.html#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SID) <span class="sc">%&gt;%</span></span>
+<span id="cb24-17"><a href="cleaning.html#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(SID, lubridate<span class="sc">::</span><span class="fu">ymd_hm</span>(Full_Date)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-18"><a href="cleaning.html#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">all_beeps =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">n</span>(), <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-19"><a href="cleaning.html#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+</div>
+<div id="multiple-imputation" class="section level4" number="2.2.2.2">
+<h4><span class="header-section-number">2.2.2.2</span> Multiple Imputation</h4>
+<p>These data were collected using a planned missing design, so we need to impute data for the planned missing components.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="cleaning.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run MI</span></span>
+<span id="cb25-2"><a href="cleaning.html#cb25-2" aria-hidden="true" tabindex="-1"></a>bfi_mi <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">unclass</span>(bfi_wide <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Full_Date)))</span>
+<span id="cb25-3"><a href="cleaning.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
+<span id="cb25-4"><a href="cleaning.html#cb25-4" aria-hidden="true" tabindex="-1"></a>bfi_mi <span class="ot">&lt;-</span> <span class="fu">amelia</span>(bfi_mi, <span class="at">m =</span> <span class="dv">1</span>, <span class="at">ts =</span> <span class="st">&quot;all_beeps&quot;</span>, <span class="at">cs =</span> <span class="st">&quot;SID&quot;</span>)<span class="sc">$</span>imputations[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="cleaning.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="cleaning.html#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(bfi_wide <span class="sc">%&gt;%</span> <span class="fu">select</span>(SID, Full_Date, all_beeps)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="cleaning.html#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>all_beeps)</span></code></pre></div>
+<pre><code>## -- Imputation 1 --
+## 
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="cleaning.html#cb27-1" aria-hidden="true" tabindex="-1"></a>bfi_mi</span></code></pre></div>
+<pre><code>## # A tibble: 8,672 x 17
+##    SID   agreeableness_Co… agreeableness_Re… agreeableness_Tr… conscientiousnes… conscientiousnes… conscientiousne… extraversion_As… extraversion_En…
+##    &lt;chr&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 01                 1.45              1                 3                 4                 4                4.79             4                2   
+##  2 01                 2.43              3                 2                 1                 1                3.68             4                3   
+##  3 01                 2.86              1.5               1.70              1.14              3.03             3                2                2   
+##  4 01                 3.39              2                 4                 4.33              4                4                2                4   
+##  5 01                 5                 2                 3.85              3.04              3                3.04             4.36             3   
+##  6 01                 4                 4.59              4                 1.91              5                5                2.76             4   
+##  7 01                 2                 1                 3.88              2.18              3                1.61             2.75             2.5 
+##  8 01                 2                 6.30              2                 4                 2.96             5                4                5.05
+##  9 01                 3.26              2.80              3                 3.17              2                2                1.07             3   
+## 10 01                 4.5               3.23              2.39              3.5               1.63             3.09             2                2   
+## # … with 8,662 more rows, and 8 more variables: extraversion_Sociability &lt;dbl&gt;, neuroticism_Anxiety &lt;dbl&gt;, neuroticism_Depression &lt;dbl&gt;,
+## #   neuroticism_Emotional.Volatility &lt;dbl&gt;, openness_Aesthetic.Sensitivity &lt;dbl&gt;, openness_Creative.Imagination &lt;dbl&gt;,
+## #   openness_Intellectual.Curiosity &lt;dbl&gt;, Full_Date &lt;chr&gt;</code></pre>
+<p>Personality data:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="cleaning.html#cb29-1" aria-hidden="true" tabindex="-1"></a>bfi_mi</span></code></pre></div>
+<pre><code>## # A tibble: 8,672 x 17
+##    SID   agreeableness_Co… agreeableness_Re… agreeableness_Tr… conscientiousnes… conscientiousnes… conscientiousne… extraversion_As… extraversion_En…
+##    &lt;chr&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 01                 1.45              1                 3                 4                 4                4.79             4                2   
+##  2 01                 2.43              3                 2                 1                 1                3.68             4                3   
+##  3 01                 2.86              1.5               1.70              1.14              3.03             3                2                2   
+##  4 01                 3.39              2                 4                 4.33              4                4                2                4   
+##  5 01                 5                 2                 3.85              3.04              3                3.04             4.36             3   
+##  6 01                 4                 4.59              4                 1.91              5                5                2.76             4   
+##  7 01                 2                 1                 3.88              2.18              3                1.61             2.75             2.5 
+##  8 01                 2                 6.30              2                 4                 2.96             5                4                5.05
+##  9 01                 3.26              2.80              3                 3.17              2                2                1.07             3   
+## 10 01                 4.5               3.23              2.39              3.5               1.63             3.09             2                2   
+## # … with 8,662 more rows, and 8 more variables: extraversion_Sociability &lt;dbl&gt;, neuroticism_Anxiety &lt;dbl&gt;, neuroticism_Depression &lt;dbl&gt;,
+## #   neuroticism_Emotional.Volatility &lt;dbl&gt;, openness_Aesthetic.Sensitivity &lt;dbl&gt;, openness_Creative.Imagination &lt;dbl&gt;,
+## #   openness_Intellectual.Curiosity &lt;dbl&gt;, Full_Date &lt;chr&gt;</code></pre>
+<p>Now back to long format</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="cleaning.html#cb31-1" aria-hidden="true" tabindex="-1"></a>bfi_long <span class="ot">&lt;-</span> bfi_mi <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="cleaning.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>SID, <span class="sc">-</span>Full_Date)</span>
+<span id="cb31-3"><a href="cleaning.html#cb31-3" aria-hidden="true" tabindex="-1"></a>               , <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;trait&quot;</span>, <span class="st">&quot;facet&quot;</span>)</span>
+<span id="cb31-4"><a href="cleaning.html#cb31-4" aria-hidden="true" tabindex="-1"></a>               , <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb31-5"><a href="cleaning.html#cb31-5" aria-hidden="true" tabindex="-1"></a>               , <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="cleaning.html#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">category =</span> <span class="st">&quot;BFI-2&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="other-measured-features" class="section level3" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Other Measured Features</h3>
+<p>Emotion and Situation (Binary and DIAMONDS) Data (not planned missing, so no need to impute):</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="cleaning.html#cb32-1" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> emo <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="cleaning.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(sit) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="cleaning.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(ds8) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="cleaning.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SID, category, trait, facet, itemname, Date, Hour, Minute, Day, HourBlock, <span class="at">value =</span> responses2) <span class="sc">%&gt;%</span></span>
+<span id="cb32-5"><a href="cleaning.html#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Minute =</span> <span class="fu">str_remove_all</span>(Minute, <span class="st">&quot;.csv&quot;</span>),</span>
+<span id="cb32-6"><a href="cleaning.html#cb32-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Minute =</span> <span class="fu">ifelse</span>(<span class="fu">as.numeric</span>(Minute) <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">sprintf</span>(<span class="st">&quot;0%s&quot;</span>, Minute), Minute),</span>
+<span id="cb32-7"><a href="cleaning.html#cb32-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">Full_Date =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s %s:%s&quot;</span>, <span class="fu">as.character</span>(Date), Hour, Minute),</span>
+<span id="cb32-8"><a href="cleaning.html#cb32-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">value =</span> <span class="fu">as.numeric</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-9"><a href="cleaning.html#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SID, category, trait, facet, Full_Date) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-10"><a href="cleaning.html#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">value =</span> <span class="fu">max</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-11"><a href="cleaning.html#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="cleaning.html#cb33-1" aria-hidden="true" tabindex="-1"></a>features</span></code></pre></div>
+<pre><code>## # A tibble: 312,010 x 6
+##    SID   category trait  facet  Full_Date        value
+##    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;            &lt;dbl&gt;
+##  1 01    Affect   afraid afraid 2018-10-22 15:23     2
+##  2 01    Affect   afraid afraid 2018-10-22 23:23     3
+##  3 01    Affect   afraid afraid 2018-10-22 23:25     3
+##  4 01    Affect   afraid afraid 2018-10-23 17:50     4
+##  5 01    Affect   afraid afraid 2018-10-23 19:39     2
+##  6 01    Affect   afraid afraid 2018-10-24 0:00      2
+##  7 01    Affect   afraid afraid 2018-10-24 11:44     3
+##  8 01    Affect   afraid afraid 2018-10-24 15:37     2
+##  9 01    Affect   afraid afraid 2018-10-24 20:46     3
+## 10 01    Affect   afraid afraid 2018-10-25 21:07     4
+## # … with 312,000 more rows</code></pre>
+</div>
+<div id="timing-features-1" class="section level3" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Timing Features</h3>
+<p>Finally, we’ll create the timing features. These were created from the time stamps collected with each survey based on approaches used in other studies of idiographic prediction (e.g., Fisher &amp; Soyster, 2019). To create these, we created time of day (4; morning, midday, evening, night) and day of the week dummy codes (7). Next, we create a cumulative time variable (in hours) from first beep (not used in analyses) that we used to create linear, quadratic, and cubic time trends (3) as well as 1 and 2 period sine and cosine functions across each 24 period (e.g., 2 period sine =  {cumulative time}_t and 1 period sine =  {cumulative time}_t).</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="cleaning.html#cb35-1" aria-hidden="true" tabindex="-1"></a>time_features <span class="ot">&lt;-</span> ipcs_times <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="cleaning.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wkday =</span> <span class="fu">wday</span>(Full_Date, <span class="at">label =</span> T)</span>
+<span id="cb35-3"><a href="cleaning.html#cb35-3" aria-hidden="true" tabindex="-1"></a>         , <span class="at">Mon =</span>     <span class="fu">ifelse</span>(wkday <span class="sc">==</span> <span class="st">&quot;Mon&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-4"><a href="cleaning.html#cb35-4" aria-hidden="true" tabindex="-1"></a>         , <span class="at">Tue =</span>     <span class="fu">ifelse</span>(wkday <span class="sc">==</span> <span class="st">&quot;Tue&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-5"><a href="cleaning.html#cb35-5" aria-hidden="true" tabindex="-1"></a>         , <span class="at">Wed =</span>     <span class="fu">ifelse</span>(wkday <span class="sc">==</span> <span class="st">&quot;Wed&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-6"><a href="cleaning.html#cb35-6" aria-hidden="true" tabindex="-1"></a>         , <span class="at">Thu =</span>     <span class="fu">ifelse</span>(wkday <span class="sc">==</span> <span class="st">&quot;Thu&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-7"><a href="cleaning.html#cb35-7" aria-hidden="true" tabindex="-1"></a>         , <span class="at">Fri =</span>     <span class="fu">ifelse</span>(wkday <span class="sc">==</span> <span class="st">&quot;Fri&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-8"><a href="cleaning.html#cb35-8" aria-hidden="true" tabindex="-1"></a>         , <span class="at">Sat =</span>     <span class="fu">ifelse</span>(wkday <span class="sc">==</span> <span class="st">&quot;Sat&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-9"><a href="cleaning.html#cb35-9" aria-hidden="true" tabindex="-1"></a>         , <span class="at">Sun =</span>     <span class="fu">ifelse</span>(wkday <span class="sc">==</span> <span class="st">&quot;Sun&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-10"><a href="cleaning.html#cb35-10" aria-hidden="true" tabindex="-1"></a>         , <span class="at">morning =</span> <span class="fu">ifelse</span>(Hour  <span class="sc">&gt;=</span> <span class="dv">5</span>  <span class="sc">&amp;</span> Hour <span class="sc">&lt;</span> <span class="dv">11</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-11"><a href="cleaning.html#cb35-11" aria-hidden="true" tabindex="-1"></a>         , <span class="at">midday =</span>  <span class="fu">ifelse</span>(Hour  <span class="sc">&gt;=</span> <span class="dv">11</span> <span class="sc">&amp;</span> Hour <span class="sc">&lt;</span> <span class="dv">17</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-12"><a href="cleaning.html#cb35-12" aria-hidden="true" tabindex="-1"></a>         , <span class="at">evening =</span> <span class="fu">ifelse</span>(Hour  <span class="sc">&gt;=</span> <span class="dv">5</span>  <span class="sc">&amp;</span> Hour <span class="sc">&lt;</span> <span class="dv">22</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb35-13"><a href="cleaning.html#cb35-13" aria-hidden="true" tabindex="-1"></a>         , <span class="at">night =</span>   <span class="fu">ifelse</span>(Hour  <span class="sc">&gt;=</span> <span class="dv">22</span> <span class="sc">&amp;</span> Hour <span class="sc">&lt;</span> <span class="dv">5</span>,  <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-14"><a href="cleaning.html#cb35-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-15"><a href="cleaning.html#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">## sequential time differences for each persn</span></span>
+<span id="cb35-16"><a href="cleaning.html#cb35-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SID) <span class="sc">%&gt;%</span></span>
+<span id="cb35-17"><a href="cleaning.html#cb35-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tdif =</span>      <span class="fu">as.numeric</span>(<span class="fu">difftime</span>(<span class="fu">ymd_hm</span>(Full_Date), <span class="fu">lag</span>(<span class="fu">ymd_hm</span>(Full_Date)), <span class="at">units =</span> <span class="st">&quot;hours&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb35-18"><a href="cleaning.html#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(tdif) <span class="sc">|</span> tdif <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-19"><a href="cleaning.html#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tdif =</span>      <span class="fu">as.numeric</span>(<span class="fu">difftime</span>(<span class="fu">ymd_hm</span>(Full_Date), <span class="fu">lag</span>(<span class="fu">ymd_hm</span>(Full_Date)), <span class="at">units =</span> <span class="st">&quot;hours&quot;</span>))</span>
+<span id="cb35-20"><a href="cleaning.html#cb35-20" aria-hidden="true" tabindex="-1"></a>         , <span class="at">tdif =</span>    <span class="fu">ifelse</span>(<span class="fu">is.na</span>(tdif), <span class="dv">0</span>, tdif)</span>
+<span id="cb35-21"><a href="cleaning.html#cb35-21" aria-hidden="true" tabindex="-1"></a>         , <span class="at">cumsumT =</span> <span class="fu">cumsum</span>(tdif)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-22"><a href="cleaning.html#cb35-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-23"><a href="cleaning.html#cb35-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-24"><a href="cleaning.html#cb35-24" aria-hidden="true" tabindex="-1"></a>  <span class="do">## timing variables</span></span>
+<span id="cb35-25"><a href="cleaning.html#cb35-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">linear =</span>    <span class="fu">as.numeric</span>(<span class="fu">scale</span>(cumsumT))</span>
+<span id="cb35-26"><a href="cleaning.html#cb35-26" aria-hidden="true" tabindex="-1"></a>         , <span class="at">quad =</span>    linear<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb35-27"><a href="cleaning.html#cb35-27" aria-hidden="true" tabindex="-1"></a>         , <span class="at">cub =</span>     linear<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb35-28"><a href="cleaning.html#cb35-28" aria-hidden="true" tabindex="-1"></a>         , <span class="at">sin1p =</span>   <span class="fu">sin</span>(((<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">/</span><span class="dv">24</span>)<span class="sc">*</span>cumsumT)</span>
+<span id="cb35-29"><a href="cleaning.html#cb35-29" aria-hidden="true" tabindex="-1"></a>         , <span class="at">sin2p =</span>   <span class="fu">sin</span>(((<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">/</span><span class="dv">12</span>)<span class="sc">*</span>cumsumT)</span>
+<span id="cb35-30"><a href="cleaning.html#cb35-30" aria-hidden="true" tabindex="-1"></a>         , <span class="at">cos1p =</span>   <span class="fu">cos</span>(((<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">/</span><span class="dv">24</span>)<span class="sc">*</span>cumsumT)</span>
+<span id="cb35-31"><a href="cleaning.html#cb35-31" aria-hidden="true" tabindex="-1"></a>         , <span class="at">cos2p =</span>   <span class="fu">cos</span>(((<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">/</span><span class="dv">12</span>)<span class="sc">*</span>cumsumT)</span>
+<span id="cb35-32"><a href="cleaning.html#cb35-32" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb35-33"><a href="cleaning.html#cb35-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-34"><a href="cleaning.html#cb35-34" aria-hidden="true" tabindex="-1"></a>  <span class="do">## keep key variables and reshape</span></span>
+<span id="cb35-35"><a href="cleaning.html#cb35-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SID, Full_Date, Mon<span class="sc">:</span>night, linear<span class="sc">:</span>cos2p) <span class="sc">%&gt;%</span></span>
+<span id="cb35-36"><a href="cleaning.html#cb35-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>SID, <span class="sc">-</span>Full_Date)</span>
+<span id="cb35-37"><a href="cleaning.html#cb35-37" aria-hidden="true" tabindex="-1"></a>               , <span class="at">names_to =</span> <span class="st">&quot;trait&quot;</span></span>
+<span id="cb35-38"><a href="cleaning.html#cb35-38" aria-hidden="true" tabindex="-1"></a>               , <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-39"><a href="cleaning.html#cb35-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">category =</span> <span class="st">&quot;time&quot;</span></span>
+<span id="cb35-40"><a href="cleaning.html#cb35-40" aria-hidden="true" tabindex="-1"></a>         , <span class="at">facet =</span> trait)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="cleaning.html#cb36-1" aria-hidden="true" tabindex="-1"></a>time_features</span></code></pre></div>
+<pre><code>## # A tibble: 413,928 x 6
+##    SID   Full_Date        trait   value category facet  
+##    &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;  
+##  1 01    2018-10-22 15:23 Mon         1 time     Mon    
+##  2 01    2018-10-22 15:23 Tue         0 time     Tue    
+##  3 01    2018-10-22 15:23 Wed         0 time     Wed    
+##  4 01    2018-10-22 15:23 Thu         0 time     Thu    
+##  5 01    2018-10-22 15:23 Fri         0 time     Fri    
+##  6 01    2018-10-22 15:23 Sat         0 time     Sat    
+##  7 01    2018-10-22 15:23 Sun         0 time     Sun    
+##  8 01    2018-10-22 15:23 morning     0 time     morning
+##  9 01    2018-10-22 15:23 midday      1 time     midday 
+## 10 01    2018-10-22 15:23 evening     1 time     evening
+## # … with 413,918 more rows</code></pre>
+</div>
+<div id="combine-features" class="section level3" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> Combine Features</h3>
+<p>Now, let’s bring the personality, affect/situation/DIAMONDS, and timing features together.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="cleaning.html#cb38-1" aria-hidden="true" tabindex="-1"></a>all_features <span class="ot">&lt;-</span> bfi_long <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="cleaning.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(features) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="cleaning.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(ipcs_times <span class="sc">%&gt;%</span> <span class="fu">select</span>(SID, Full_Date)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="cleaning.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(time_features) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="cleaning.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(SID, category, trait, facet, Full_Date)</span>
+<span id="cb38-6"><a href="cleaning.html#cb38-6" aria-hidden="true" tabindex="-1"></a>all_features</span></code></pre></div>
+<pre><code>## # A tibble: 871,011 x 6
+##    SID   Full_Date        trait  facet  value category
+##    &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   
+##  1 01    2018-10-22 15:23 afraid afraid     2 Affect  
+##  2 01    2018-10-22 23:23 afraid afraid     3 Affect  
+##  3 01    2018-10-22 23:25 afraid afraid     3 Affect  
+##  4 01    2018-10-23 17:50 afraid afraid     4 Affect  
+##  5 01    2018-10-23 19:39 afraid afraid     2 Affect  
+##  6 01    2018-10-24 0:00  afraid afraid     2 Affect  
+##  7 01    2018-10-24 11:44 afraid afraid     3 Affect  
+##  8 01    2018-10-24 15:37 afraid afraid     2 Affect  
+##  9 01    2018-10-24 20:46 afraid afraid     3 Affect  
+## 10 01    2018-10-25 21:07 afraid afraid     4 Affect  
+## # … with 871,001 more rows</code></pre>
+</div>
+</div>
+<div id="setup-for-idiographic-machine-learning-models" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Setup for Idiographic Machine Learning Models</h2>
+<p>The last step is the most important. We need to:
+Separate the data for each outcome, participant, and feature set combination. In addition, the outcomes need to be lagged such that same time point features will be predicting “future” behavior. Moreover, the data must be split into training (first 75%) and test sets (last 25%). As we do this, we will also remove participants who have no variance in the outcome in either training or test sets as we can’t (statistically) predict things without variance (even if no variance suggests a good prediction!).</p>
+<p>The feature sets are as follows:</p>
+<ul>
+<li>Psychological: Big Five (BFI-2)<br />
+</li>
+<li>Psychological: Affect<br />
+</li>
+<li>Psychological: Big Five + Affect<br />
+</li>
+<li>Situations: Binary<br />
+</li>
+<li>Situations: DIAMONDS<br />
+</li>
+<li>Situations: Binary + DIAMONDS</li>
+<li>Full: Big Five + Affect + Binary + DIAMONDS</li>
+</ul>
+<p>Each of these will be tested with and without the timing features for a total number of 14 feature sets.</p>
+<p>For now, I’m not going to run the chunk below because it takes a long time. All the resulting files can be found in the online materials:</p>
+<ul>
+<li>04-data/02-raw-data: data before being split into training and test<br />
+</li>
+<li>04-data/03-train-data: training data for each participant x outcome x feature set combination (14)<br />
+</li>
+<li>04-data/04-test-data: test data for each participant x outcome x feature set combination (14)</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="cleaning.html#cb40-1" aria-hidden="true" tabindex="-1"></a>save_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(d, group, set, outcome, SID, time){</span>
+<span id="cb40-2"><a href="cleaning.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(SID, outcome, group, set, time))</span>
+<span id="cb40-3"><a href="cleaning.html#cb40-3" aria-hidden="true" tabindex="-1"></a>    d_split <span class="ot">&lt;-</span> <span class="fu">initial_time_split</span>(d, <span class="at">prop =</span> <span class="fl">0.75</span>)</span>
+<span id="cb40-4"><a href="cleaning.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    d_train <span class="ot">&lt;-</span> <span class="fu">training</span>(d_split)</span>
+<span id="cb40-5"><a href="cleaning.html#cb40-5" aria-hidden="true" tabindex="-1"></a>    d_test  <span class="ot">&lt;-</span> <span class="fu">testing</span>(d_split)</span>
+<span id="cb40-6"><a href="cleaning.html#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">table</span>(d_train<span class="sc">$</span>o_value) <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="sc">|</span> <span class="fu">sd</span>(d_train<span class="sc">$</span>o_value) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb40-7"><a href="cleaning.html#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NA</span>) <span class="co"># no variance == can&#39;t use that participant</span></span>
+<span id="cb40-8"><a href="cleaning.html#cb40-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb40-9"><a href="cleaning.html#cb40-9" aria-hidden="true" tabindex="-1"></a>    d_train <span class="ot">&lt;-</span> d_train <span class="sc">%&gt;%</span></span>
+<span id="cb40-10"><a href="cleaning.html#cb40-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">one_of</span>(dummy_vars)), train_fun) <span class="sc">%&gt;%</span></span>
+<span id="cb40-11"><a href="cleaning.html#cb40-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(dummy_vars, time_dummy))), factor)</span>
+<span id="cb40-12"><a href="cleaning.html#cb40-12" aria-hidden="true" tabindex="-1"></a>    ret <span class="ot">&lt;-</span> F <span class="co"># this is indexing if there were any other issues or concerns to be aware of</span></span>
+<span id="cb40-13"><a href="cleaning.html#cb40-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb40-14"><a href="cleaning.html#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">length</span>(<span class="fu">unique</span>(d_test<span class="sc">$</span>o_value[<span class="sc">!</span><span class="fu">is.na</span>(d_test<span class="sc">$</span>o_value)])) <span class="sc">==</span> <span class="dv">1</span>){</span>
+<span id="cb40-15"><a href="cleaning.html#cb40-15" aria-hidden="true" tabindex="-1"></a>    d_test <span class="ot">&lt;-</span> d_test <span class="sc">%&gt;%</span></span>
+<span id="cb40-16"><a href="cleaning.html#cb40-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">one_of</span>(dummy_vars)), test_fun) <span class="sc">%&gt;%</span></span>
+<span id="cb40-17"><a href="cleaning.html#cb40-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(dummy_vars, time_dummy))), factor)</span>
+<span id="cb40-18"><a href="cleaning.html#cb40-18" aria-hidden="true" tabindex="-1"></a>    ret <span class="ot">&lt;-</span> <span class="fu">c</span>(ret, T)</span>
+<span id="cb40-19"><a href="cleaning.html#cb40-19" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb40-20"><a href="cleaning.html#cb40-20" aria-hidden="true" tabindex="-1"></a>    d_test <span class="ot">&lt;-</span> d_test <span class="sc">%&gt;%</span></span>
+<span id="cb40-21"><a href="cleaning.html#cb40-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(dummy_vars, time_dummy))), factor)</span>
+<span id="cb40-22"><a href="cleaning.html#cb40-22" aria-hidden="true" tabindex="-1"></a>    ret <span class="ot">&lt;-</span> <span class="fu">c</span>(ret, F)</span>
+<span id="cb40-23"><a href="cleaning.html#cb40-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb40-24"><a href="cleaning.html#cb40-24" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> d_train <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(d_test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Full_Date)</span>
+<span id="cb40-25"><a href="cleaning.html#cb40-25" aria-hidden="true" tabindex="-1"></a>    d_split <span class="ot">&lt;-</span> <span class="fu">initial_time_split</span>(d, <span class="at">prop =</span> <span class="fl">0.75</span>)</span>
+<span id="cb40-26"><a href="cleaning.html#cb40-26" aria-hidden="true" tabindex="-1"></a>    d_train <span class="ot">&lt;-</span> <span class="fu">training</span>(d_split)</span>
+<span id="cb40-27"><a href="cleaning.html#cb40-27" aria-hidden="true" tabindex="-1"></a>    d_test  <span class="ot">&lt;-</span> <span class="fu">testing</span>(d_split)</span>
+<span id="cb40-28"><a href="cleaning.html#cb40-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">save</span>(d, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/02-model-data/%s_%s_%s_%s_%s.RData&quot;</span></span>
+<span id="cb40-29"><a href="cleaning.html#cb40-29" aria-hidden="true" tabindex="-1"></a>                         , res_path, SID, outcome, group, set, time))</span>
+<span id="cb40-30"><a href="cleaning.html#cb40-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">save</span>(d_train, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/03-train-data/%s_%s_%s_%s_%s.RData&quot;</span></span>
+<span id="cb40-31"><a href="cleaning.html#cb40-31" aria-hidden="true" tabindex="-1"></a>                         , res_path, SID, outcome, group, set, time))</span>
+<span id="cb40-32"><a href="cleaning.html#cb40-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">save</span>(d_test, d_split, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/04-test-data/%s_%s_%s_%s_%s.RData&quot;</span></span>
+<span id="cb40-33"><a href="cleaning.html#cb40-33" aria-hidden="true" tabindex="-1"></a>                         , res_path, SID, outcome, group, set, time))</span>
+<span id="cb40-34"><a href="cleaning.html#cb40-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># return(T)</span></span>
+<span id="cb40-35"><a href="cleaning.html#cb40-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">any</span>(ret <span class="sc">==</span> T)) ret <span class="ot">&lt;-</span> T <span class="cf">else</span> ret <span class="ot">&lt;-</span> F</span>
+<span id="cb40-36"><a href="cleaning.html#cb40-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(ret)</span>
+<span id="cb40-37"><a href="cleaning.html#cb40-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># }</span></span>
+<span id="cb40-38"><a href="cleaning.html#cb40-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-39"><a href="cleaning.html#cb40-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-40"><a href="cleaning.html#cb40-40" aria-hidden="true" tabindex="-1"></a>factor_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){<span class="cf">if</span>(<span class="fu">is.numeric</span>(x)){<span class="fu">diff</span>(<span class="fu">range</span>(x, <span class="at">na.rm =</span> T)) <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>} <span class="cf">else</span>{F}}</span>
+<span id="cb40-41"><a href="cleaning.html#cb40-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-42"><a href="cleaning.html#cb40-42" aria-hidden="true" tabindex="-1"></a>dummy_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;o_value&quot;</span>, <span class="st">&quot;argument&quot;</span>, <span class="st">&quot;interacted&quot;</span>, <span class="st">&quot;lostSmthng&quot;</span></span>
+<span id="cb40-43"><a href="cleaning.html#cb40-43" aria-hidden="true" tabindex="-1"></a>                , <span class="st">&quot;late&quot;</span>, <span class="st">&quot;frgtSmthng&quot;</span>, <span class="st">&quot;brdSWk&quot;</span>, <span class="st">&quot;excSWk&quot;</span>, <span class="st">&quot;AnxSWk&quot;</span></span>
+<span id="cb40-44"><a href="cleaning.html#cb40-44" aria-hidden="true" tabindex="-1"></a>                , <span class="st">&quot;tired&quot;</span>, <span class="st">&quot;sick&quot;</span>, <span class="st">&quot;sleeping&quot;</span>, <span class="st">&quot;class&quot;</span></span>
+<span id="cb40-45"><a href="cleaning.html#cb40-45" aria-hidden="true" tabindex="-1"></a>                , <span class="st">&quot;music&quot;</span>, <span class="st">&quot;internet&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;study&quot;</span>)</span>
+<span id="cb40-46"><a href="cleaning.html#cb40-46" aria-hidden="true" tabindex="-1"></a>time_dummy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span></span>
+<span id="cb40-47"><a href="cleaning.html#cb40-47" aria-hidden="true" tabindex="-1"></a>                , <span class="st">&quot;morning&quot;</span>, <span class="st">&quot;midday&quot;</span>, <span class="st">&quot;evening&quot;</span>, <span class="st">&quot;night&quot;</span>)</span>
+<span id="cb40-48"><a href="cleaning.html#cb40-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-49"><a href="cleaning.html#cb40-49" aria-hidden="true" tabindex="-1"></a>data_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(group, set, outcome, time){</span>
+<span id="cb40-50"><a href="cleaning.html#cb40-50" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(set <span class="sc">!=</span> <span class="st">&quot;all&quot;</span>) groups <span class="ot">&lt;-</span> set </span>
+<span id="cb40-51"><a href="cleaning.html#cb40-51" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(set <span class="sc">==</span> <span class="st">&quot;all&quot;</span>) {</span>
+<span id="cb40-52"><a href="cleaning.html#cb40-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(group <span class="sc">==</span> <span class="st">&quot;psychological&quot;</span>) groups <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;BFI-2&quot;</span>, <span class="st">&quot;Affect&quot;</span>)</span>
+<span id="cb40-53"><a href="cleaning.html#cb40-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span>(group <span class="sc">==</span> <span class="st">&quot;situations&quot;</span>) groups <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;S8-I&quot;</span>, <span class="st">&quot;sit&quot;</span>)</span>
+<span id="cb40-54"><a href="cleaning.html#cb40-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> groups <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;BFI-2&quot;</span>, <span class="st">&quot;Affect&quot;</span>, <span class="st">&quot;S8-I&quot;</span>, <span class="st">&quot;sit&quot;</span>)</span>
+<span id="cb40-55"><a href="cleaning.html#cb40-55" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb40-56"><a href="cleaning.html#cb40-56" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(time <span class="sc">==</span> <span class="st">&quot;time&quot;</span>) groups <span class="ot">&lt;-</span> <span class="fu">c</span>(groups, <span class="st">&quot;time&quot;</span>) </span>
+<span id="cb40-57"><a href="cleaning.html#cb40-57" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> all_features <span class="sc">%&gt;%</span> </span>
+<span id="cb40-58"><a href="cleaning.html#cb40-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(trait <span class="sc">==</span> outcome) <span class="sc">%&gt;%</span></span>
+<span id="cb40-59"><a href="cleaning.html#cb40-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(SID, Full_Date, value) <span class="sc">%&gt;%</span></span>
+<span id="cb40-60"><a href="cleaning.html#cb40-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(SID) <span class="sc">%&gt;%</span></span>
+<span id="cb40-61"><a href="cleaning.html#cb40-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">o_value =</span> <span class="fu">lead</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-62"><a href="cleaning.html#cb40-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-63"><a href="cleaning.html#cb40-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>value)</span>
+<span id="cb40-64"><a href="cleaning.html#cb40-64" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> all_features <span class="sc">%&gt;%</span> </span>
+<span id="cb40-65"><a href="cleaning.html#cb40-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(category <span class="sc">%in%</span> groups) <span class="sc">%&gt;%</span></span>
+<span id="cb40-66"><a href="cleaning.html#cb40-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">ifelse</span>(category <span class="sc">==</span> <span class="st">&quot;BFI-2&quot;</span>, <span class="fu">paste</span>(trait, facet, <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>), trait)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-67"><a href="cleaning.html#cb40-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(SID, Full_Date, name, value) <span class="sc">%&gt;%</span></span>
+<span id="cb40-68"><a href="cleaning.html#cb40-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-69"><a href="cleaning.html#cb40-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;name&quot;</span></span>
+<span id="cb40-70"><a href="cleaning.html#cb40-70" aria-hidden="true" tabindex="-1"></a>                , <span class="at">values_from =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-71"><a href="cleaning.html#cb40-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(out) <span class="sc">%&gt;%</span></span>
+<span id="cb40-72"><a href="cleaning.html#cb40-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.))</span>
+<span id="cb40-73"><a href="cleaning.html#cb40-73" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-74"><a href="cleaning.html#cb40-74" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">%&gt;%</span> </span>
+<span id="cb40-75"><a href="cleaning.html#cb40-75" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(SID) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-76"><a href="cleaning.html#cb40-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;=</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-77"><a href="cleaning.html#cb40-77" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb40-78"><a href="cleaning.html#cb40-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-79"><a href="cleaning.html#cb40-79" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(data, group, set, outcome, SID, time), <span class="fu">possibly</span>(save_fun, <span class="cn">NA_real_</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb40-80"><a href="cleaning.html#cb40-80" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(data)</span>
+<span id="cb40-81"><a href="cleaning.html#cb40-81" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-82"><a href="cleaning.html#cb40-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-83"><a href="cleaning.html#cb40-83" aria-hidden="true" tabindex="-1"></a>nested_data <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb40-84"><a href="cleaning.html#cb40-84" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>group, <span class="sc">~</span>set,</span>
+<span id="cb40-85"><a href="cleaning.html#cb40-85" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;psychological&quot;</span>, <span class="st">&quot;BFI-2&quot;</span> , </span>
+<span id="cb40-86"><a href="cleaning.html#cb40-86" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;psychological&quot;</span>, <span class="st">&quot;Affect&quot;</span>, </span>
+<span id="cb40-87"><a href="cleaning.html#cb40-87" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;psychological&quot;</span>, <span class="st">&quot;all&quot;</span>   , </span>
+<span id="cb40-88"><a href="cleaning.html#cb40-88" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;situations&quot;</span>   , <span class="st">&quot;sit&quot;</span>   , </span>
+<span id="cb40-89"><a href="cleaning.html#cb40-89" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;situations&quot;</span>   , <span class="st">&quot;S8-I&quot;</span>  , </span>
+<span id="cb40-90"><a href="cleaning.html#cb40-90" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;situations&quot;</span>   , <span class="st">&quot;all&quot;</span>   , </span>
+<span id="cb40-91"><a href="cleaning.html#cb40-91" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;full&quot;</span>         , <span class="st">&quot;all&quot;</span>   , </span>
+<span id="cb40-92"><a href="cleaning.html#cb40-92" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-93"><a href="cleaning.html#cb40-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(<span class="fu">crossing</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;psychological&quot;</span>, <span class="st">&quot;situations&quot;</span>, <span class="st">&quot;full&quot;</span>)</span>
+<span id="cb40-94"><a href="cleaning.html#cb40-94" aria-hidden="true" tabindex="-1"></a>                     , <span class="at">time =</span> <span class="fu">c</span>(<span class="st">&quot;no time&quot;</span>, <span class="st">&quot;time&quot;</span>)</span>
+<span id="cb40-95"><a href="cleaning.html#cb40-95" aria-hidden="true" tabindex="-1"></a>                     , <span class="at">outcome =</span> <span class="fu">c</span>(<span class="st">&quot;prcrst&quot;</span>, <span class="st">&quot;lonely&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb40-96"><a href="cleaning.html#cb40-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(group, set, outcome, time), <span class="fu">possibly</span>(data_fun, <span class="cn">NA_real_</span>)))</span></code></pre></div>
+</div>
+<div id="demographics-1" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Demographics</h2>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="cleaning.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/01-raw-data/cleaned_combined_2020-05-06.RData&quot;</span>, res_path)))</span>
+<span id="cb41-2"><a href="cleaning.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="cleaning.html#cb41-3" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">&lt;-</span> baseline <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="cleaning.html#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SID<span class="sc">:</span>race) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="cleaning.html#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">year</span>(<span class="fu">ymd_hms</span>(StartDate)) <span class="sc">-</span> <span class="fu">as.numeric</span>(YOB),</span>
+<span id="cb41-6"><a href="cleaning.html#cb41-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">StartDate =</span> <span class="fu">as.Date</span>(<span class="fu">ymd_hms</span>(StartDate)),</span>
+<span id="cb41-7"><a href="cleaning.html#cb41-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">race =</span> <span class="fu">factor</span>(race, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;White&quot;</span>, <span class="st">&quot;Black&quot;</span>, <span class="st">&quot;Asian&quot;</span>, <span class="st">&quot;Other&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb41-8"><a href="cleaning.html#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>YOB) </span>
+<span id="cb41-9"><a href="cleaning.html#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="cleaning.html#cb41-10" aria-hidden="true" tabindex="-1"></a> prelim_dem <span class="ot">&lt;-</span> all_features <span class="sc">%&gt;%</span></span>
+<span id="cb41-11"><a href="cleaning.html#cb41-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Affect&quot;</span>, <span class="st">&quot;BFI-2&quot;</span>, <span class="st">&quot;sit&quot;</span>, <span class="st">&quot;SI-8&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-12"><a href="cleaning.html#cb41-12" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(SID, Full_Date, trait, facet, category) <span class="sc">%&gt;%</span></span>
+<span id="cb41-13"><a href="cleaning.html#cb41-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(<span class="at">value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-14"><a href="cleaning.html#cb41-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb41-15"><a href="cleaning.html#cb41-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(<span class="st">&quot;category&quot;</span>, <span class="st">&quot;trait&quot;</span>, <span class="st">&quot;facet&quot;</span>)</span>
+<span id="cb41-16"><a href="cleaning.html#cb41-16" aria-hidden="true" tabindex="-1"></a>               , <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb41-17"><a href="cleaning.html#cb41-17" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.)) </span>
+<span id="cb41-18"><a href="cleaning.html#cb41-18" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb41-19"><a href="cleaning.html#cb41-19" aria-hidden="true" tabindex="-1"></a> prelim_dem <span class="sc">%&gt;%</span> </span>
+<span id="cb41-20"><a href="cleaning.html#cb41-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(SID) <span class="sc">%&gt;%</span></span>
+<span id="cb41-21"><a href="cleaning.html#cb41-21" aria-hidden="true" tabindex="-1"></a>   <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb41-22"><a href="cleaning.html#cb41-22" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb41-23"><a href="cleaning.html#cb41-23" aria-hidden="true" tabindex="-1"></a>   <span class="fu">left_join</span>(dem) <span class="sc">%&gt;%</span></span>
+<span id="cb41-24"><a href="cleaning.html#cb41-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">length</span>(<span class="fu">unique</span>(SID)),</span>
+<span id="cb41-25"><a href="cleaning.html#cb41-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.2f (%.2f; %i-%i&quot;</span>, <span class="fu">mean</span>(n), <span class="fu">sd</span>(n), <span class="fu">min</span>(n), <span class="fu">max</span>(n)),</span>
+<span id="cb41-26"><a href="cleaning.html#cb41-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">gender =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span>,<span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>, <span class="at">na.rm =</span> T), <span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb41-27"><a href="cleaning.html#cb41-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">age =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.2f (%.2f)&quot;</span>, <span class="fu">mean</span>(age, <span class="at">na.rm =</span> T), <span class="fu">sd</span>(age, <span class="at">na.rm =</span> T)),</span>
+<span id="cb41-28"><a href="cleaning.html#cb41-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">white =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span></span>
+<span id="cb41-29"><a href="cleaning.html#cb41-29" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;White&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb41-30"><a href="cleaning.html#cb41-30" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;White&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb41-31"><a href="cleaning.html#cb41-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">black =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span></span>
+<span id="cb41-32"><a href="cleaning.html#cb41-32" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Black&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb41-33"><a href="cleaning.html#cb41-33" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Black&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb41-34"><a href="cleaning.html#cb41-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">asian =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span></span>
+<span id="cb41-35"><a href="cleaning.html#cb41-35" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Asian&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb41-36"><a href="cleaning.html#cb41-36" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Asian&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb41-37"><a href="cleaning.html#cb41-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">other =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span></span>
+<span id="cb41-38"><a href="cleaning.html#cb41-38" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Other&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb41-39"><a href="cleaning.html#cb41-39" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Other&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb41-40"><a href="cleaning.html#cb41-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">StartDate =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s (%s - %s)&quot;</span>, <span class="fu">median</span>(StartDate), </span>
+<span id="cb41-41"><a href="cleaning.html#cb41-41" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">min</span>(StartDate), <span class="fu">max</span>(StartDate)))</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 9
+##       N n                   gender       age          white       black       asian       other       StartDate   
+##   &lt;int&gt; &lt;chr&gt;               &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       
+## 1   199 42.23 (24.01; 1-158 144 (70.59%) 19.52 (1.24) 65 (31.86%) 30 (14.71%) 60 (29.41%) 28 (13.73%) NA (NA - NA)</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="cleaning.html#cb43-1" aria-hidden="true" tabindex="-1"></a> final_dem <span class="ot">&lt;-</span> prelim_dem <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="cleaning.html#cb43-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(SID) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="cleaning.html#cb43-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;=</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="cleaning.html#cb43-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb43-5"><a href="cleaning.html#cb43-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb43-6"><a href="cleaning.html#cb43-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">left_join</span>(dem)</span>
+<span id="cb43-7"><a href="cleaning.html#cb43-7" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb43-8"><a href="cleaning.html#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(<span class="fu">ldply</span>(<span class="fu">str_split</span>(<span class="fu">list.files</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/01-glmnet/01-tuning-models&quot;</span>, res_path)), <span class="at">pattern =</span> <span class="st">&quot;_&quot;</span>), <span class="cf">function</span>(x) x[<span class="dv">1</span>]))<span class="sc">$</span>V1</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="cleaning.html#cb45-1" aria-hidden="true" tabindex="-1"></a>final_dem <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="cleaning.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SID <span class="sc">%in%</span> <span class="fu">unique</span>(<span class="fu">ldply</span>(<span class="fu">str_split</span>(<span class="fu">list.files</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/01-glmnet/01-tuning-models&quot;</span>, local_path)), <span class="at">pattern =</span> <span class="st">&quot;_&quot;</span>), <span class="cf">function</span>(x) x[<span class="dv">1</span>]))<span class="sc">$</span>V1) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="cleaning.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">length</span>(<span class="fu">unique</span>(SID)),</span>
+<span id="cb45-4"><a href="cleaning.html#cb45-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.2f (%.2f; %i-%i&quot;</span>, <span class="fu">mean</span>(n), <span class="fu">sd</span>(n), <span class="fu">min</span>(n), <span class="fu">max</span>(n)),</span>
+<span id="cb45-5"><a href="cleaning.html#cb45-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">gender =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span>,<span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>, <span class="at">na.rm =</span> T), <span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb45-6"><a href="cleaning.html#cb45-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">age =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.2f (%.2f)&quot;</span>, <span class="fu">mean</span>(age, <span class="at">na.rm =</span> T), <span class="fu">sd</span>(age, <span class="at">na.rm =</span> T)),</span>
+<span id="cb45-7"><a href="cleaning.html#cb45-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">white =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span></span>
+<span id="cb45-8"><a href="cleaning.html#cb45-8" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;White&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb45-9"><a href="cleaning.html#cb45-9" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;White&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb45-10"><a href="cleaning.html#cb45-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">black =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span></span>
+<span id="cb45-11"><a href="cleaning.html#cb45-11" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Black&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb45-12"><a href="cleaning.html#cb45-12" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Black&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb45-13"><a href="cleaning.html#cb45-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">asian =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span></span>
+<span id="cb45-14"><a href="cleaning.html#cb45-14" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Asian&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb45-15"><a href="cleaning.html#cb45-15" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Asian&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb45-16"><a href="cleaning.html#cb45-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">other =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%i (%.2f%%)&quot;</span></span>
+<span id="cb45-17"><a href="cleaning.html#cb45-17" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Other&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb45-18"><a href="cleaning.html#cb45-18" aria-hidden="true" tabindex="-1"></a>                            , <span class="fu">sum</span>(race <span class="sc">==</span> <span class="st">&quot;Other&quot;</span>, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">n</span>()<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb45-19"><a href="cleaning.html#cb45-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">StartDate =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s (%s - %s)&quot;</span>, <span class="fu">median</span>(StartDate), </span>
+<span id="cb45-20"><a href="cleaning.html#cb45-20" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">min</span>(StartDate), <span class="fu">max</span>(StartDate)))</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 9
+##       N n                    gender      age          white       black       asian       other       StartDate   
+##   &lt;int&gt; &lt;chr&gt;                &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       
+## 1    99 57.41 (16.33; 40-109 75 (72.82%) 19.49 (1.31) 32 (31.07%) 14 (13.59%) 33 (32.04%) 16 (15.53%) NA (NA - NA)</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="cleaning.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()[<span class="sc">!</span><span class="fu">ls</span>() <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;codebook&quot;</span>, <span class="st">&quot;ipcs_codebook&quot;</span>, <span class="st">&quot;res_path&quot;</span>, <span class="st">&quot;local_path&quot;</span>, <span class="st">&quot;sheets&quot;</span>, <span class="st">&quot;outcomes&quot;</span>, <span class="st">&quot;ftrs&quot;</span>)])</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="elastic-net.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

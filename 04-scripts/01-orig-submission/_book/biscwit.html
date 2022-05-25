@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 BISCWIT | Idiographic prediction of loneliness and procrastination</title>
+  <meta name="description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 BISCWIT | Idiographic prediction of loneliness and procrastination" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 BISCWIT | Idiographic prediction of loneliness and procrastination" />
+  
+  <meta name="twitter:description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  
+
+<meta name="author" content="Emorie D Beck" />
+
+
+<meta name="date" content="2021-06-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="elastic-net.html"/>
+<link rel="next" href="random-forest.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Workspace</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.1</b> Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#directory-path"><i class="fa fa-check"></i><b>1.2</b> Directory Path</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#codebook"><i class="fa fa-check"></i><b>1.3</b> Codebook</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#measures"><i class="fa fa-check"></i><b>1.3.1</b> Measures</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#procedure"><i class="fa fa-check"></i><b>1.3.2</b> Procedure</a></li>
+<li class="chapter" data-level="1.3.3" data-path="index.html"><a href="index.html#analytic-plan"><i class="fa fa-check"></i><b>1.3.3</b> Analytic Plan</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#demographics"><i class="fa fa-check"></i><b>1.4</b> Demographics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>2</b> Data Cleaning</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="cleaning.html"><a href="cleaning.html#pre-share-cleaning"><i class="fa fa-check"></i><b>2.1</b> Pre-Share Cleaning</a></li>
+<li class="chapter" data-level="2.2" data-path="cleaning.html"><a href="cleaning.html#esm-data-setup"><i class="fa fa-check"></i><b>2.2</b> ESM Data Setup</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="cleaning.html"><a href="cleaning.html#timing"><i class="fa fa-check"></i><b>2.2.1</b> Timing</a></li>
+<li class="chapter" data-level="2.2.2" data-path="cleaning.html"><a href="cleaning.html#personality-1"><i class="fa fa-check"></i><b>2.2.2</b> Personality</a></li>
+<li class="chapter" data-level="2.2.3" data-path="cleaning.html"><a href="cleaning.html#other-measured-features"><i class="fa fa-check"></i><b>2.2.3</b> Other Measured Features</a></li>
+<li class="chapter" data-level="2.2.4" data-path="cleaning.html"><a href="cleaning.html#timing-features-1"><i class="fa fa-check"></i><b>2.2.4</b> Timing Features</a></li>
+<li class="chapter" data-level="2.2.5" data-path="cleaning.html"><a href="cleaning.html#combine-features"><i class="fa fa-check"></i><b>2.2.5</b> Combine Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="cleaning.html"><a href="cleaning.html#setup-for-idiographic-machine-learning-models"><i class="fa fa-check"></i><b>2.3</b> Setup for Idiographic Machine Learning Models</a></li>
+<li class="chapter" data-level="2.4" data-path="cleaning.html"><a href="cleaning.html#demographics-1"><i class="fa fa-check"></i><b>2.4</b> Demographics</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elastic-net.html"><a href="elastic-net.html"><i class="fa fa-check"></i><b>3</b> Elastic Net</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="elastic-net.html"><a href="elastic-net.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a></li>
+<li class="chapter" data-level="3.2" data-path="elastic-net.html"><a href="elastic-net.html#run-models"><i class="fa fa-check"></i><b>3.2</b> Run Models</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="biscwit.html"><a href="biscwit.html"><i class="fa fa-check"></i><b>4</b> BISCWIT</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="biscwit.html"><a href="biscwit.html#functions-1"><i class="fa fa-check"></i><b>4.1</b> Functions</a></li>
+<li class="chapter" data-level="4.2" data-path="biscwit.html"><a href="biscwit.html#run-models-1"><i class="fa fa-check"></i><b>4.2</b> Run Models</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="random-forest.html"><a href="random-forest.html"><i class="fa fa-check"></i><b>5</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="random-forest.html"><a href="random-forest.html#set-up-data"><i class="fa fa-check"></i><b>5.1</b> Set Up Data</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="random-forest.html"><a href="random-forest.html#differencing-and-box-cox"><i class="fa fa-check"></i><b>5.1.1</b> Differencing and Box Cox</a></li>
+<li class="chapter" data-level="5.1.2" data-path="random-forest.html"><a href="random-forest.html#run-models-2"><i class="fa fa-check"></i><b>5.1.2</b> Run Models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarizing-models.html"><a href="summarizing-models.html"><i class="fa fa-check"></i><b>6</b> Summarizing Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="summarizing-models.html"><a href="summarizing-models.html#question-1-can-we-predict-procrastination-and-loneliness"><i class="fa fa-check"></i><b>6.1</b> Question 1: Can we predict procrastination and loneliness?</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="summarizing-models.html"><a href="summarizing-models.html#performance-metrics"><i class="fa fa-check"></i><b>6.1.1</b> Performance Metrics</a></li>
+<li class="chapter" data-level="6.1.2" data-path="summarizing-models.html"><a href="summarizing-models.html#classification-accuracy-and-auc-for-all-models"><i class="fa fa-check"></i><b>6.1.2</b> Classification Accuracy and AUC for all Models</a></li>
+<li class="chapter" data-level="6.1.3" data-path="summarizing-models.html"><a href="summarizing-models.html#best-models"><i class="fa fa-check"></i><b>6.1.3</b> Best Models</a></li>
+<li class="chapter" data-level="6.1.4" data-path="summarizing-models.html"><a href="summarizing-models.html#tuning-parameters-table"><i class="fa fa-check"></i><b>6.1.4</b> Tuning Parameters (Table)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="summarizing-models.html"><a href="summarizing-models.html#question-2-are-there-individual-differences-in-the-idiographic-range-of-prediction-across-people"><i class="fa fa-check"></i><b>6.2</b> Question 2: Are there individual differences in the idiographic range of prediction across people?</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="summarizing-models.html"><a href="summarizing-models.html#the-range-of-prediction"><i class="fa fa-check"></i><b>6.2.1</b> The Range of Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="summarizing-models.html"><a href="summarizing-models.html#question-3-do-psychological-situational-or-full-feature-sets-perform-best"><i class="fa fa-check"></i><b>6.3</b> Question 3: Do Psychological, Situational, or Full Feature Sets Perform Best?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="summarizing-models.html"><a href="summarizing-models.html#psychological-features-situations-or-time"><i class="fa fa-check"></i><b>6.3.1</b> Psychological Features, Situations, or Time?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="summarizing-models.html"><a href="summarizing-models.html#question-4-which-features-are-most-associated-with-procrastination-and-loneliness"><i class="fa fa-check"></i><b>6.4</b> Question 4: Which features are most associated with Procrastination and Loneliness?</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="summarizing-models.html"><a href="summarizing-models.html#feature-frequency-psychological-features-situations-or-time"><i class="fa fa-check"></i><b>6.4.1</b> Feature Frequency: Psychological Features, Situations, or Time?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="summarizing-models.html"><a href="summarizing-models.html#question-5-do-people-vary-in-the-which-features-are-most-important"><i class="fa fa-check"></i><b>6.5</b> Question 5: Do people vary in the which features are most important?</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="summarizing-models.html"><a href="summarizing-models.html#participant-coefficients"><i class="fa fa-check"></i><b>6.5.1</b> Participant Coefficients</a></li>
+<li class="chapter" data-level="6.5.2" data-path="summarizing-models.html"><a href="summarizing-models.html#profile-similarity"><i class="fa fa-check"></i><b>6.5.2</b> Profile Similarity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="extended-discussion.html"><a href="extended-discussion.html"><i class="fa fa-check"></i><b>7</b> Extended Discussion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="extended-discussion.html"><a href="extended-discussion.html#on-predicting-more-behaviors-more-of-the-time"><i class="fa fa-check"></i><b>7.1</b> On predicting more behaviors more of the time</a></li>
+<li class="chapter" data-level="7.2" data-path="extended-discussion.html"><a href="extended-discussion.html#the-person-situation-debate-revisited"><i class="fa fa-check"></i><b>7.2</b> The person situation debate revisited</a></li>
+<li class="chapter" data-level="7.3" data-path="extended-discussion.html"><a href="extended-discussion.html#limitations-and-conclusion"><i class="fa fa-check"></i><b>7.3</b> Limitations and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Idiographic prediction of loneliness and procrastination</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="biscwit" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> BISCWIT</h1>
+<p>The Best Items Scale that is Cross-validated, Correlation-weighted, Informative and Transparent (BISCWIT) is a correlation-based machine learning technique. The technique, which we modified to be compatible with rolling origin validation rather than k-fold cross validation as implemented in the <code>best.scales()</code> function in the <code>psych</code> package in <code>R</code>, proceeds as follows. First, pairwise correlations between predictors and outcome(s) are calculated using rolling origin forecast validation where the number of best items is varied. Second, the number of items in the final model is determined by finding the average correlation across the rolling origin training sets with the validation sets for each number of items and choosing the one with the highest average correlation. Third, the final training model is constructed by running the procedure on the full training set with the number of items determined by the validation procedure. Fourth, weighted sum scores of the features for both the training and test sets are extracted.</p>
+<p>Finally, accuracy and AUC are calculated. Accuracy was estimated by (1) scaling the scores in the test set by the mean and standard deviation of scores in the final training model, (2) multiplying the scaled scores by the correlation between the training scores and the training outcome and the standard deviation of the training outcome and adding the mean of the training data outcome to this. This resulted in predicted outcomes for the test set. As in other classification models, values of .5 and above were considered to predict a “1” while values less than .5 were considered to predict a “0.” Accuracy was determined by comparing the predicted value with the actual test value and averaging the number correct. AUC was calculated using the predicted values and the test set values for the outcome.</p>
+<p>In the present study, we will use the <code>bestScales()</code> function from the psych package to create the models. Weighted scores were calculated by extracting the correlations from the best scales object and using it in the <code>scoreWtd()</code> function to create the correlation weighted scores. AUC was calculated using the <code>vi()</code> function in the vip package. Variable importance was determined by the items with the highest correlation with the outcome in the final training model.</p>
+<div id="functions-1" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Functions</h2>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="biscwit.html#cb50-1" aria-hidden="true" tabindex="-1"></a>biscwit_call <span class="ot">&lt;-</span> <span class="cf">function</span>(x, nitem){</span>
+<span id="cb50-2"><a href="biscwit.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## format the ro training set</span></span>
+<span id="cb50-3"><a href="biscwit.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  x_train <span class="ot">&lt;-</span> <span class="fu">training</span>(x) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-4"><a href="biscwit.html#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(o_value, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb50-5"><a href="biscwit.html#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.factor, <span class="sc">~</span><span class="fu">as.numeric</span>(<span class="fu">as.character</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-6"><a href="biscwit.html#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unclass</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb50-7"><a href="biscwit.html#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>()</span>
+<span id="cb50-8"><a href="biscwit.html#cb50-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-9"><a href="biscwit.html#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## call the best scales function with nitem set from outer loop</span></span>
+<span id="cb50-10"><a href="biscwit.html#cb50-10" aria-hidden="true" tabindex="-1"></a>  bs <span class="ot">&lt;-</span> <span class="fu">bestScales</span>(</span>
+<span id="cb50-11"><a href="biscwit.html#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> x_train</span>
+<span id="cb50-12"><a href="biscwit.html#cb50-12" aria-hidden="true" tabindex="-1"></a>    , <span class="at">criteria =</span> <span class="st">&quot;o_value&quot;</span></span>
+<span id="cb50-13"><a href="biscwit.html#cb50-13" aria-hidden="true" tabindex="-1"></a>    , <span class="at">n.item =</span> nitem</span>
+<span id="cb50-14"><a href="biscwit.html#cb50-14" aria-hidden="true" tabindex="-1"></a>    , <span class="at">n.iter =</span> <span class="dv">1</span></span>
+<span id="cb50-15"><a href="biscwit.html#cb50-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-16"><a href="biscwit.html#cb50-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-17"><a href="biscwit.html#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="do">## get the multiple R&#39;s (weights for biscwit v biscuit)</span></span>
+<span id="cb50-18"><a href="biscwit.html#cb50-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the second line sets the items not found by biscuit to be &quot;best&quot; </span></span>
+<span id="cb50-19"><a href="biscwit.html#cb50-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to be 0</span></span>
+<span id="cb50-20"><a href="biscwit.html#cb50-20" aria-hidden="true" tabindex="-1"></a>  mR <span class="ot">&lt;-</span> bs<span class="sc">$</span>R</span>
+<span id="cb50-21"><a href="biscwit.html#cb50-21" aria-hidden="true" tabindex="-1"></a>  mR[<span class="sc">!</span><span class="fu">names</span>(mR) <span class="sc">%in%</span> <span class="fu">str_remove</span>(bs<span class="sc">$</span>best.keys<span class="sc">$</span>o_value, <span class="st">&quot;-&quot;</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb50-22"><a href="biscwit.html#cb50-22" aria-hidden="true" tabindex="-1"></a>  mR <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(mR); <span class="fu">colnames</span>(mR) <span class="ot">&lt;-</span> <span class="st">&quot;o_value&quot;</span></span>
+<span id="cb50-23"><a href="biscwit.html#cb50-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-24"><a href="biscwit.html#cb50-24" aria-hidden="true" tabindex="-1"></a>  <span class="do">## format the test set</span></span>
+<span id="cb50-25"><a href="biscwit.html#cb50-25" aria-hidden="true" tabindex="-1"></a>  x_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(x) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-26"><a href="biscwit.html#cb50-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(o_value, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb50-27"><a href="biscwit.html#cb50-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.factor, <span class="sc">~</span><span class="fu">as.numeric</span>(<span class="fu">as.character</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-28"><a href="biscwit.html#cb50-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select(one_of(names(mR))) %&gt;%</span></span>
+<span id="cb50-29"><a href="biscwit.html#cb50-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unclass</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb50-30"><a href="biscwit.html#cb50-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>()</span>
+<span id="cb50-31"><a href="biscwit.html#cb50-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-32"><a href="biscwit.html#cb50-32" aria-hidden="true" tabindex="-1"></a>  <span class="do">## score the test set using the correlations as weights</span></span>
+<span id="cb50-33"><a href="biscwit.html#cb50-33" aria-hidden="true" tabindex="-1"></a>  scores <span class="ot">&lt;-</span> <span class="fu">scoreWtd</span>(mR, x_test)</span>
+<span id="cb50-34"><a href="biscwit.html#cb50-34" aria-hidden="true" tabindex="-1"></a>  <span class="do">## calculate the correlation between the weighted score and the test y</span></span>
+<span id="cb50-35"><a href="biscwit.html#cb50-35" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">cor</span>(scores, <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(<span class="fu">testing</span>(x)<span class="sc">$</span>o_value)))</span>
+<span id="cb50-36"><a href="biscwit.html#cb50-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-37"><a href="biscwit.html#cb50-37" aria-hidden="true" tabindex="-1"></a>  <span class="do">## return the biscuit object and the test correlations (criterion)</span></span>
+<span id="cb50-38"><a href="biscwit.html#cb50-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">bs =</span> bs, <span class="at">r =</span> r))</span>
+<span id="cb50-39"><a href="biscwit.html#cb50-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-40"><a href="biscwit.html#cb50-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-41"><a href="biscwit.html#cb50-41" aria-hidden="true" tabindex="-1"></a>biscwit_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(sid, outcome, group, set, time){</span>
+<span id="cb50-42"><a href="biscwit.html#cb50-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load the data</span></span>
+<span id="cb50-43"><a href="biscwit.html#cb50-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/03-train-data/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb50-44"><a href="biscwit.html#cb50-44" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time))</span>
+<span id="cb50-45"><a href="biscwit.html#cb50-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-46"><a href="biscwit.html#cb50-46" aria-hidden="true" tabindex="-1"></a>  <span class="do">## format the training data</span></span>
+<span id="cb50-47"><a href="biscwit.html#cb50-47" aria-hidden="true" tabindex="-1"></a>  x_train <span class="ot">&lt;-</span> d_train <span class="sc">%&gt;%</span> </span>
+<span id="cb50-48"><a href="biscwit.html#cb50-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(Full_Date) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-49"><a href="biscwit.html#cb50-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>Full_Date) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-50"><a href="biscwit.html#cb50-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(o_value, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb50-51"><a href="biscwit.html#cb50-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.factor, <span class="sc">~</span><span class="fu">as.numeric</span>(<span class="fu">as.character</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-52"><a href="biscwit.html#cb50-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unclass</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb50-53"><a href="biscwit.html#cb50-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>()</span>
+<span id="cb50-54"><a href="biscwit.html#cb50-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-55"><a href="biscwit.html#cb50-55" aria-hidden="true" tabindex="-1"></a>  <span class="do">## create the rolling_origin training and validation sets</span></span>
+<span id="cb50-56"><a href="biscwit.html#cb50-56" aria-hidden="true" tabindex="-1"></a>  init <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">nrow</span>(d_train)<span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb50-57"><a href="biscwit.html#cb50-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-58"><a href="biscwit.html#cb50-58" aria-hidden="true" tabindex="-1"></a>  d_train_cv <span class="ot">&lt;-</span> <span class="fu">rolling_origin</span>(</span>
+<span id="cb50-59"><a href="biscwit.html#cb50-59" aria-hidden="true" tabindex="-1"></a>    x_train, </span>
+<span id="cb50-60"><a href="biscwit.html#cb50-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">initial =</span> init, </span>
+<span id="cb50-61"><a href="biscwit.html#cb50-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">assess =</span> <span class="dv">5</span>,</span>
+<span id="cb50-62"><a href="biscwit.html#cb50-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">skip =</span> <span class="dv">1</span>,</span>
+<span id="cb50-63"><a href="biscwit.html#cb50-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">cumulative =</span> <span class="cn">TRUE</span></span>
+<span id="cb50-64"><a href="biscwit.html#cb50-64" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-65"><a href="biscwit.html#cb50-65" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-66"><a href="biscwit.html#cb50-66" aria-hidden="true" tabindex="-1"></a>  <span class="do">## run biscwit on the ro</span></span>
+<span id="cb50-67"><a href="biscwit.html#cb50-67" aria-hidden="true" tabindex="-1"></a>  <span class="do">## run for nitem = 3 to the number of x training columns in increments of 3</span></span>
+<span id="cb50-68"><a href="biscwit.html#cb50-68" aria-hidden="true" tabindex="-1"></a>  tune_res <span class="ot">&lt;-</span> d_train_cv <span class="sc">%&gt;%</span></span>
+<span id="cb50-69"><a href="biscwit.html#cb50-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">nitem =</span> <span class="fu">map</span>(splits, <span class="sc">~</span><span class="fu">seq</span>(<span class="dv">3</span>, <span class="fu">ncol</span>(<span class="fu">training</span>(.)) <span class="sc">-</span> <span class="dv">1</span>, <span class="dv">3</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-70"><a href="biscwit.html#cb50-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(nitem) <span class="sc">%&gt;%</span></span>
+<span id="cb50-71"><a href="biscwit.html#cb50-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cv =</span> <span class="fu">map2</span>(splits, nitem, <span class="fu">possibly</span>(biscwit_call, <span class="cn">NA_real_</span>))) <span class="sc">%&gt;%</span> <span class="do">## run the biscuit procedure</span></span>
+<span id="cb50-72"><a href="biscwit.html#cb50-72" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mutate(cv = map2(splits, nitem, biscwit_call)) %&gt;% ## run the biscuit procedure</span></span>
+<span id="cb50-73"><a href="biscwit.html#cb50-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(cv)) <span class="sc">%&gt;%</span></span>
+<span id="cb50-74"><a href="biscwit.html#cb50-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">error =</span> <span class="fu">map_dbl</span>(cv, <span class="sc">~</span>(.)<span class="sc">$</span>r)) <span class="do">## correlation is the training &quot;error&quot; (higher = lower error)</span></span>
+<span id="cb50-75"><a href="biscwit.html#cb50-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(tune_res, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/02-biscwit/01-tuning-models/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb50-76"><a href="biscwit.html#cb50-76" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time))</span>
+<span id="cb50-77"><a href="biscwit.html#cb50-77" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-78"><a href="biscwit.html#cb50-78" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the metrics across tuning parameters</span></span>
+<span id="cb50-79"><a href="biscwit.html#cb50-79" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-80"><a href="biscwit.html#cb50-80" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> tune_res <span class="sc">%&gt;%</span></span>
+<span id="cb50-81"><a href="biscwit.html#cb50-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(nitem) <span class="sc">%&gt;%</span></span>
+<span id="cb50-82"><a href="biscwit.html#cb50-82" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">merror =</span> <span class="fu">fisherz2r</span>(<span class="fu">mean</span>(<span class="fu">fisherz</span>(error), <span class="at">na.rm =</span> T))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-83"><a href="biscwit.html#cb50-83" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(merror))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-84"><a href="biscwit.html#cb50-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> nitem, <span class="at">y =</span> merror)) <span class="sc">+</span></span>
+<span id="cb50-85"><a href="biscwit.html#cb50-85" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_alpha_continuous</span>(<span class="at">range=</span><span class="fu">c</span>(.<span class="dv">4</span>,<span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb50-86"><a href="biscwit.html#cb50-86" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> <span class="fu">abs</span>(merror)), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb50-87"><a href="biscwit.html#cb50-87" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;n items&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Correlation&quot;</span>, <span class="st">&quot;Correlation Strength (absolute value)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb50-88"><a href="biscwit.html#cb50-88" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>()</span>
+<span id="cb50-89"><a href="biscwit.html#cb50-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(p, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/02-biscwit/02-tuning-figures/%s_%s_%s_%s_%s.png&quot;</span>,</span>
+<span id="cb50-90"><a href="biscwit.html#cb50-90" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time)</span>
+<span id="cb50-91"><a href="biscwit.html#cb50-91" aria-hidden="true" tabindex="-1"></a>         , <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb50-92"><a href="biscwit.html#cb50-92" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-93"><a href="biscwit.html#cb50-93" aria-hidden="true" tabindex="-1"></a>  <span class="co"># find the best model by averaging correlations across ro sets </span></span>
+<span id="cb50-94"><a href="biscwit.html#cb50-94" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and choosing the one with the highest average correlation</span></span>
+<span id="cb50-95"><a href="biscwit.html#cb50-95" aria-hidden="true" tabindex="-1"></a>  best_biscwit <span class="ot">&lt;-</span> tune_res <span class="sc">%&gt;%</span></span>
+<span id="cb50-96"><a href="biscwit.html#cb50-96" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(nitem) <span class="sc">%&gt;%</span></span>
+<span id="cb50-97"><a href="biscwit.html#cb50-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">merror =</span> <span class="fu">fisherz2r</span>(<span class="fu">mean</span>(<span class="fu">fisherz</span>(error), <span class="at">na.rm =</span> T))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-98"><a href="biscwit.html#cb50-98" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(merror))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-99"><a href="biscwit.html#cb50-99" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb50-100"><a href="biscwit.html#cb50-100" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-101"><a href="biscwit.html#cb50-101" aria-hidden="true" tabindex="-1"></a>  <span class="do">## rerun biscuit on the full training set with the best nitem</span></span>
+<span id="cb50-102"><a href="biscwit.html#cb50-102" aria-hidden="true" tabindex="-1"></a>  final_biscwit <span class="ot">&lt;-</span> <span class="fu">bestScales</span>(</span>
+<span id="cb50-103"><a href="biscwit.html#cb50-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> x_train</span>
+<span id="cb50-104"><a href="biscwit.html#cb50-104" aria-hidden="true" tabindex="-1"></a>    , <span class="at">criteria =</span> <span class="st">&quot;o_value&quot;</span></span>
+<span id="cb50-105"><a href="biscwit.html#cb50-105" aria-hidden="true" tabindex="-1"></a>    , <span class="at">n.item =</span> best_biscwit<span class="sc">$</span>nitem</span>
+<span id="cb50-106"><a href="biscwit.html#cb50-106" aria-hidden="true" tabindex="-1"></a>    , <span class="at">n.iter =</span> <span class="dv">1</span></span>
+<span id="cb50-107"><a href="biscwit.html#cb50-107" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-108"><a href="biscwit.html#cb50-108" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-109"><a href="biscwit.html#cb50-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(final_biscwit</span>
+<span id="cb50-110"><a href="biscwit.html#cb50-110" aria-hidden="true" tabindex="-1"></a>       , <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/02-biscwit/03-final-training-models/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb50-111"><a href="biscwit.html#cb50-111" aria-hidden="true" tabindex="-1"></a>                        res_path, sid, outcome, group, set, time))</span>
+<span id="cb50-112"><a href="biscwit.html#cb50-112" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-113"><a href="biscwit.html#cb50-113" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get the correlations for weighting</span></span>
+<span id="cb50-114"><a href="biscwit.html#cb50-114" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the second line sets the items not found by biscuit to be &quot;best&quot; </span></span>
+<span id="cb50-115"><a href="biscwit.html#cb50-115" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to be 0</span></span>
+<span id="cb50-116"><a href="biscwit.html#cb50-116" aria-hidden="true" tabindex="-1"></a>  mR <span class="ot">&lt;-</span> final_biscwit<span class="sc">$</span>R; mR <span class="ot">&lt;-</span> mR[<span class="sc">!</span><span class="fu">names</span>(mR) <span class="sc">==</span> <span class="st">&quot;o_value&quot;</span>]</span>
+<span id="cb50-117"><a href="biscwit.html#cb50-117" aria-hidden="true" tabindex="-1"></a>  mR[<span class="sc">!</span><span class="fu">names</span>(mR) <span class="sc">%in%</span> <span class="fu">str_remove</span>(final_biscwit<span class="sc">$</span>best.keys<span class="sc">$</span>o_value, <span class="st">&quot;-&quot;</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb50-118"><a href="biscwit.html#cb50-118" aria-hidden="true" tabindex="-1"></a>  mR <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(mR); <span class="fu">colnames</span>(mR) <span class="ot">&lt;-</span> <span class="st">&quot;o_value&quot;</span></span>
+<span id="cb50-119"><a href="biscwit.html#cb50-119" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-120"><a href="biscwit.html#cb50-120" aria-hidden="true" tabindex="-1"></a>  final_m <span class="ot">&lt;-</span> final_biscwit</span>
+<span id="cb50-121"><a href="biscwit.html#cb50-121" aria-hidden="true" tabindex="-1"></a>  final_coefs <span class="ot">&lt;-</span> mR</span>
+<span id="cb50-122"><a href="biscwit.html#cb50-122" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-123"><a href="biscwit.html#cb50-123" aria-hidden="true" tabindex="-1"></a>  best_biscwit <span class="ot">&lt;-</span> best_biscwit <span class="sc">%&gt;%</span></span>
+<span id="cb50-124"><a href="biscwit.html#cb50-124" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">nvars =</span> <span class="fu">length</span>(mR[mR <span class="sc">!=</span> <span class="dv">0</span>]))</span>
+<span id="cb50-125"><a href="biscwit.html#cb50-125" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-126"><a href="biscwit.html#cb50-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(final_coefs, best_biscwit,</span>
+<span id="cb50-127"><a href="biscwit.html#cb50-127" aria-hidden="true" tabindex="-1"></a>       <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/02-biscwit/07-final-model-param/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb50-128"><a href="biscwit.html#cb50-128" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time))</span>
+<span id="cb50-129"><a href="biscwit.html#cb50-129" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-130"><a href="biscwit.html#cb50-130" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load the test data</span></span>
+<span id="cb50-131"><a href="biscwit.html#cb50-131" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/04-test-data/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb50-132"><a href="biscwit.html#cb50-132" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time))</span>
+<span id="cb50-133"><a href="biscwit.html#cb50-133" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-134"><a href="biscwit.html#cb50-134" aria-hidden="true" tabindex="-1"></a>  <span class="do">## format the test set</span></span>
+<span id="cb50-135"><a href="biscwit.html#cb50-135" aria-hidden="true" tabindex="-1"></a>  x_test <span class="ot">&lt;-</span> d_test <span class="sc">%&gt;%</span> </span>
+<span id="cb50-136"><a href="biscwit.html#cb50-136" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(Full_Date) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-137"><a href="biscwit.html#cb50-137" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(o_value, <span class="fu">everything</span>(), <span class="sc">-</span>Full_Date) <span class="sc">%&gt;%</span></span>
+<span id="cb50-138"><a href="biscwit.html#cb50-138" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.factor, <span class="sc">~</span><span class="fu">as.numeric</span>(<span class="fu">as.character</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-139"><a href="biscwit.html#cb50-139" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unclass</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb50-140"><a href="biscwit.html#cb50-140" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>()</span>
+<span id="cb50-141"><a href="biscwit.html#cb50-141" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-142"><a href="biscwit.html#cb50-142" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adapted from Elleman, McDougald, Condon, &amp; Revelle (2020)</span></span>
+<span id="cb50-143"><a href="biscwit.html#cb50-143" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 1. Score the train X.</span></span>
+<span id="cb50-144"><a href="biscwit.html#cb50-144" aria-hidden="true" tabindex="-1"></a>  scores_best <span class="ot">&lt;-</span> <span class="fu">scoreWtd</span>(mR, x_train)</span>
+<span id="cb50-145"><a href="biscwit.html#cb50-145" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-146"><a href="biscwit.html#cb50-146" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 2. Score the test X.</span></span>
+<span id="cb50-147"><a href="biscwit.html#cb50-147" aria-hidden="true" tabindex="-1"></a>  scores_best_test <span class="ot">&lt;-</span> <span class="fu">scoreWtd</span>(mR, x_test)</span>
+<span id="cb50-148"><a href="biscwit.html#cb50-148" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-149"><a href="biscwit.html#cb50-149" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 3. Get the diagnostic info from the train y&#39;s scoring.</span></span>
+<span id="cb50-150"><a href="biscwit.html#cb50-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(scores_best, x_train<span class="sc">$</span>o_value, <span class="at">use =</span> <span class="st">&quot;pairwise&quot;</span>)</span>
+<span id="cb50-151"><a href="biscwit.html#cb50-151" aria-hidden="true" tabindex="-1"></a>  <span class="do">## mean and sd of training scores for observations 1 to t.</span></span>
+<span id="cb50-152"><a href="biscwit.html#cb50-152" aria-hidden="true" tabindex="-1"></a>  mean_biscuit <span class="ot">&lt;-</span> <span class="fu">mean</span>(scores_best, <span class="at">na.rm =</span> T)</span>
+<span id="cb50-153"><a href="biscwit.html#cb50-153" aria-hidden="true" tabindex="-1"></a>  sd_biscuit   <span class="ot">&lt;-</span> <span class="fu">sd</span>(  scores_best, <span class="at">na.rm =</span> T)</span>
+<span id="cb50-154"><a href="biscwit.html#cb50-154" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-155"><a href="biscwit.html#cb50-155" aria-hidden="true" tabindex="-1"></a>  <span class="co"># performance in training set</span></span>
+<span id="cb50-156"><a href="biscwit.html#cb50-156" aria-hidden="true" tabindex="-1"></a>  multiple_R <span class="ot">&lt;-</span> <span class="fu">cor</span>(scores_best, x_train<span class="sc">$</span>o_value, <span class="at">use =</span> <span class="st">&quot;pairwise&quot;</span>) </span>
+<span id="cb50-157"><a href="biscwit.html#cb50-157" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-158"><a href="biscwit.html#cb50-158" aria-hidden="true" tabindex="-1"></a>  <span class="co"># descriptives of the outcome variable in the training set</span></span>
+<span id="cb50-159"><a href="biscwit.html#cb50-159" aria-hidden="true" tabindex="-1"></a>  mean_data <span class="ot">&lt;-</span> <span class="fu">mean</span>(x_train<span class="sc">$</span>o_value, <span class="at">na.rm =</span> T)</span>
+<span id="cb50-160"><a href="biscwit.html#cb50-160" aria-hidden="true" tabindex="-1"></a>  sd_data   <span class="ot">&lt;-</span> <span class="fu">sd</span>(  x_train<span class="sc">$</span>o_value, <span class="at">na.rm =</span> T)</span>
+<span id="cb50-161"><a href="biscwit.html#cb50-161" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-162"><a href="biscwit.html#cb50-162" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 4. Apply the diagnostic info to the test y&#39;s scoring.</span></span>
+<span id="cb50-163"><a href="biscwit.html#cb50-163" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Standardardize scores in the test set using the training set</span></span>
+<span id="cb50-164"><a href="biscwit.html#cb50-164" aria-hidden="true" tabindex="-1"></a>  <span class="co"># subtract average training score from each score in the test set and divide by SD</span></span>
+<span id="cb50-165"><a href="biscwit.html#cb50-165" aria-hidden="true" tabindex="-1"></a>  scores_best.z_test <span class="ot">&lt;-</span> <span class="fu">c</span>((scores_best_test <span class="sc">-</span> mean_biscuit) <span class="sc">/</span> sd_biscuit)</span>
+<span id="cb50-166"><a href="biscwit.html#cb50-166" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scores_best.z_test_vector &lt;- c(scores_best.z_test)</span></span>
+<span id="cb50-167"><a href="biscwit.html#cb50-167" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-168"><a href="biscwit.html#cb50-168" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reverse transform using mean and SD of outcome in the training set</span></span>
+<span id="cb50-169"><a href="biscwit.html#cb50-169" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and the correlation between scores and outcome in the training set</span></span>
+<span id="cb50-170"><a href="biscwit.html#cb50-170" aria-hidden="true" tabindex="-1"></a>  value_test <span class="ot">&lt;-</span> ( <span class="fu">c</span>(multiple_R) <span class="sc">*</span> scores_best.z_test <span class="sc">*</span> sd_data ) <span class="sc">+</span> mean_data</span>
+<span id="cb50-171"><a href="biscwit.html#cb50-171" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb50-172"><a href="biscwit.html#cb50-172" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 5. You have your predicted test values. Look at them to make sure they make sense!!</span></span>
+<span id="cb50-173"><a href="biscwit.html#cb50-173" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">crit_actual =</span> x_test<span class="sc">$</span>o_value, <span class="at">crit_predicted =</span> value_test)</span>
+<span id="cb50-174"><a href="biscwit.html#cb50-174" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-175"><a href="biscwit.html#cb50-175" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the accuracy. Since the reverse standardization should make these raw, </span></span>
+<span id="cb50-176"><a href="biscwit.html#cb50-176" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we&#39;ll just essentially round these values to 0 or 1 (whichever is closer)</span></span>
+<span id="cb50-177"><a href="biscwit.html#cb50-177" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to determine accuracy</span></span>
+<span id="cb50-178"><a href="biscwit.html#cb50-178" aria-hidden="true" tabindex="-1"></a>  temp_diagnostics <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(temp) <span class="sc">%&gt;%</span></span>
+<span id="cb50-179"><a href="biscwit.html#cb50-179" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb50-180"><a href="biscwit.html#cb50-180" aria-hidden="true" tabindex="-1"></a>      <span class="at">accuracy =</span> <span class="fu">ifelse</span>((crit_predicted <span class="sc">&gt;=</span> .<span class="dv">5</span> <span class="sc">&amp;</span> crit_actual <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|</span>  </span>
+<span id="cb50-181"><a href="biscwit.html#cb50-181" aria-hidden="true" tabindex="-1"></a>                        (crit_predicted <span class="sc">&lt;</span> .<span class="dv">5</span> <span class="sc">&amp;</span> crit_actual <span class="sc">==</span> <span class="dv">0</span>), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb50-182"><a href="biscwit.html#cb50-182" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb50-183"><a href="biscwit.html#cb50-183" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-184"><a href="biscwit.html#cb50-184" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Best model results, testing data</span></span>
+<span id="cb50-185"><a href="biscwit.html#cb50-185" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Getting and saving final metrics</span></span>
+<span id="cb50-186"><a href="biscwit.html#cb50-186" aria-hidden="true" tabindex="-1"></a>  <span class="do">## First get average accuracy in the test set</span></span>
+<span id="cb50-187"><a href="biscwit.html#cb50-187" aria-hidden="true" tabindex="-1"></a>  value_accuracy <span class="ot">&lt;-</span> <span class="fu">mean</span>(temp_diagnostics<span class="sc">$</span>accuracy, <span class="at">na.rm =</span> T)</span>
+<span id="cb50-188"><a href="biscwit.html#cb50-188" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Next get AUC&#39;s. Building in a failsafe in case in the case of no variance </span></span>
+<span id="cb50-189"><a href="biscwit.html#cb50-189" aria-hidden="true" tabindex="-1"></a>  <span class="do">## in the test set, which would result in an error and break the code</span></span>
+<span id="cb50-190"><a href="biscwit.html#cb50-190" aria-hidden="true" tabindex="-1"></a>  <span class="do">## formatted to match output from tidymodels collect_metrics() for consistency</span></span>
+<span id="cb50-191"><a href="biscwit.html#cb50-191" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">sd</span>(temp<span class="sc">$</span>crit_actual) <span class="sc">!=</span> <span class="dv">0</span>){</span>
+<span id="cb50-192"><a href="biscwit.html#cb50-192" aria-hidden="true" tabindex="-1"></a>    roc <span class="ot">&lt;-</span> <span class="fu">roc_auc</span>(temp <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">crit_actual =</span> <span class="fu">as.factor</span>(crit_actual))</span>
+<span id="cb50-193"><a href="biscwit.html#cb50-193" aria-hidden="true" tabindex="-1"></a>                   , <span class="at">truth =</span> crit_actual</span>
+<span id="cb50-194"><a href="biscwit.html#cb50-194" aria-hidden="true" tabindex="-1"></a>                   , crit_predicted)</span>
+<span id="cb50-195"><a href="biscwit.html#cb50-195" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb50-196"><a href="biscwit.html#cb50-196" aria-hidden="true" tabindex="-1"></a>    roc <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb50-197"><a href="biscwit.html#cb50-197" aria-hidden="true" tabindex="-1"></a>      <span class="at">.metric =</span> <span class="st">&quot;roc_auc&quot;</span></span>
+<span id="cb50-198"><a href="biscwit.html#cb50-198" aria-hidden="true" tabindex="-1"></a>      , <span class="at">.estimator =</span> <span class="st">&quot;binary&quot;</span></span>
+<span id="cb50-199"><a href="biscwit.html#cb50-199" aria-hidden="true" tabindex="-1"></a>      , <span class="at">.estimate =</span> <span class="cn">NA_real_</span></span>
+<span id="cb50-200"><a href="biscwit.html#cb50-200" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb50-201"><a href="biscwit.html#cb50-201" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb50-202"><a href="biscwit.html#cb50-202" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-203"><a href="biscwit.html#cb50-203" aria-hidden="true" tabindex="-1"></a>  <span class="do">## reformat accuracy and join with AUC</span></span>
+<span id="cb50-204"><a href="biscwit.html#cb50-204" aria-hidden="true" tabindex="-1"></a>  final_metrics <span class="ot">&lt;-</span> roc <span class="sc">%&gt;%</span></span>
+<span id="cb50-205"><a href="biscwit.html#cb50-205" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(</span>
+<span id="cb50-206"><a href="biscwit.html#cb50-206" aria-hidden="true" tabindex="-1"></a>      <span class="at">.metric =</span> <span class="st">&quot;accuracy&quot;</span></span>
+<span id="cb50-207"><a href="biscwit.html#cb50-207" aria-hidden="true" tabindex="-1"></a>      , <span class="at">.estimator =</span> <span class="st">&quot;binary&quot;</span></span>
+<span id="cb50-208"><a href="biscwit.html#cb50-208" aria-hidden="true" tabindex="-1"></a>      , <span class="at">.estimate =</span> value_accuracy))</span>
+<span id="cb50-209"><a href="biscwit.html#cb50-209" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-210"><a href="biscwit.html#cb50-210" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(final_metrics</span>
+<span id="cb50-211"><a href="biscwit.html#cb50-211" aria-hidden="true" tabindex="-1"></a>       , <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/02-biscwit/06-final-model-performance/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb50-212"><a href="biscwit.html#cb50-212" aria-hidden="true" tabindex="-1"></a>                        res_path, sid, outcome, group, set, time))</span>
+<span id="cb50-213"><a href="biscwit.html#cb50-213" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-214"><a href="biscwit.html#cb50-214" aria-hidden="true" tabindex="-1"></a>  <span class="do">## variable importance</span></span>
+<span id="cb50-215"><a href="biscwit.html#cb50-215" aria-hidden="true" tabindex="-1"></a>  <span class="do">## reformatted to match the output of the vi() function in the vip package</span></span>
+<span id="cb50-216"><a href="biscwit.html#cb50-216" aria-hidden="true" tabindex="-1"></a>  final_var_imp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Importance =</span> final_biscwit<span class="sc">$</span>R) <span class="sc">%&gt;%</span></span>
+<span id="cb50-217"><a href="biscwit.html#cb50-217" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="st">&quot;Variable&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb50-218"><a href="biscwit.html#cb50-218" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Sign =</span> <span class="fu">ifelse</span>(<span class="fu">sign</span>(Importance) <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;POS&quot;</span>, <span class="st">&quot;NEG&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb50-219"><a href="biscwit.html#cb50-219" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb50-220"><a href="biscwit.html#cb50-220" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(Importance))) <span class="sc">%&gt;%</span></span>
+<span id="cb50-221"><a href="biscwit.html#cb50-221" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(<span class="fu">abs</span>(Importance), <span class="at">n =</span> <span class="dv">10</span>) </span>
+<span id="cb50-222"><a href="biscwit.html#cb50-222" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(final_var_imp</span>
+<span id="cb50-223"><a href="biscwit.html#cb50-223" aria-hidden="true" tabindex="-1"></a>       , <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/02-biscwit/05-variable-importance/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb50-224"><a href="biscwit.html#cb50-224" aria-hidden="true" tabindex="-1"></a>                        res_path, sid, outcome, group, set, time))</span>
+<span id="cb50-225"><a href="biscwit.html#cb50-225" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-226"><a href="biscwit.html#cb50-226" aria-hidden="true" tabindex="-1"></a>  <span class="do">## roc curve of test data</span></span>
+<span id="cb50-227"><a href="biscwit.html#cb50-227" aria-hidden="true" tabindex="-1"></a>  p_roc <span class="ot">&lt;-</span> <span class="fu">roc_curve</span>(</span>
+<span id="cb50-228"><a href="biscwit.html#cb50-228" aria-hidden="true" tabindex="-1"></a>    temp <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">crit_actual =</span> <span class="fu">as.factor</span>(crit_actual))</span>
+<span id="cb50-229"><a href="biscwit.html#cb50-229" aria-hidden="true" tabindex="-1"></a>    , <span class="at">truth =</span> crit_actual</span>
+<span id="cb50-230"><a href="biscwit.html#cb50-230" aria-hidden="true" tabindex="-1"></a>    , crit_predicted</span>
+<span id="cb50-231"><a href="biscwit.html#cb50-231" aria-hidden="true" tabindex="-1"></a>    )  <span class="sc">%&gt;%</span></span>
+<span id="cb50-232"><a href="biscwit.html#cb50-232" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>() <span class="sc">+</span></span>
+<span id="cb50-233"><a href="biscwit.html#cb50-233" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">sprintf</span>(<span class="st">&quot;Participant %s: %s, %s, %s, %s&quot;</span></span>
+<span id="cb50-234"><a href="biscwit.html#cb50-234" aria-hidden="true" tabindex="-1"></a>                         , sid, outcome, group, set, time)) </span>
+<span id="cb50-235"><a href="biscwit.html#cb50-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(p_roc, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/02-biscwit/04-roc-curves/%s_%s_%s_%s_%s.png&quot;</span>,</span>
+<span id="cb50-236"><a href="biscwit.html#cb50-236" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time)</span>
+<span id="cb50-237"><a href="biscwit.html#cb50-237" aria-hidden="true" tabindex="-1"></a>         , <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb50-238"><a href="biscwit.html#cb50-238" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb50-239"><a href="biscwit.html#cb50-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb50-240"><a href="biscwit.html#cb50-240" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gc</span>()</span>
+<span id="cb50-241"><a href="biscwit.html#cb50-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(T)</span>
+<span id="cb50-242"><a href="biscwit.html#cb50-242" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="run-models-1" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Run Models</h2>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="biscwit.html#cb51-1" aria-hidden="true" tabindex="-1"></a>done <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">file =</span> <span class="fu">list.files</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/02-biscwit/06-final-model-performance&quot;</span>, res_path)), <span class="at">done =</span> <span class="st">&quot;done&quot;</span>)</span>
+<span id="cb51-2"><a href="biscwit.html#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="biscwit.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb51-4"><a href="biscwit.html#cb51-4" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb51-5"><a href="biscwit.html#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/02-model-data&quot;</span>, res_path) <span class="sc">%&gt;%</span> <span class="fu">list.files</span>()</span>
+<span id="cb51-6"><a href="biscwit.html#cb51-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-7"><a href="biscwit.html#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(file, <span class="fu">c</span>(<span class="st">&quot;SID&quot;</span>, <span class="st">&quot;outcome&quot;</span>, <span class="st">&quot;group&quot;</span>, <span class="st">&quot;set&quot;</span>, <span class="st">&quot;time&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-8"><a href="biscwit.html#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">str_remove_all</span>(time, <span class="st">&quot;.RData&quot;</span>)</span>
+<span id="cb51-9"><a href="biscwit.html#cb51-9" aria-hidden="true" tabindex="-1"></a>         , <span class="at">mod =</span> <span class="fu">future_pmap</span>(</span>
+<span id="cb51-10"><a href="biscwit.html#cb51-10" aria-hidden="true" tabindex="-1"></a>           <span class="fu">list</span>(SID, outcome, group, set, time)</span>
+<span id="cb51-11"><a href="biscwit.html#cb51-11" aria-hidden="true" tabindex="-1"></a>           , <span class="fu">possibly</span>(biscwit_fun, <span class="cn">NA_real_</span>)</span>
+<span id="cb51-12"><a href="biscwit.html#cb51-12" aria-hidden="true" tabindex="-1"></a>           , <span class="at">.progress =</span> T</span>
+<span id="cb51-13"><a href="biscwit.html#cb51-13" aria-hidden="true" tabindex="-1"></a>           , <span class="at">.options =</span> <span class="fu">future_options</span>(</span>
+<span id="cb51-14"><a href="biscwit.html#cb51-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;res_path&quot;</span>, <span class="st">&quot;biscwit_call&quot;</span>)</span>
+<span id="cb51-15"><a href="biscwit.html#cb51-15" aria-hidden="true" tabindex="-1"></a>             , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;psych&quot;</span>, <span class="st">&quot;tidymodels&quot;</span>, <span class="st">&quot;vip&quot;</span>)</span>
+<span id="cb51-16"><a href="biscwit.html#cb51-16" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb51-17"><a href="biscwit.html#cb51-17" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb51-18"><a href="biscwit.html#cb51-18" aria-hidden="true" tabindex="-1"></a>         ) </span>
+<span id="cb51-19"><a href="biscwit.html#cb51-19" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="elastic-net.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="random-forest.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

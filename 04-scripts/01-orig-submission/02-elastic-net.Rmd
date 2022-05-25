@@ -1,0 +1,225 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Elastic Net  
+Elastic Net Regression proceeds from the observation that typical OLS-based regression minimizes bias but may have great variance. Using L1 (Ridge) and L2 (LASSO) approaches, which apply penalties to model estimates, elastic net attempts to balance the trade-off between bias and variance by choosing the best penalties that minimize an information criterion or prediction error. Together, these both shrink coefficients and help with feature selection by forcing some of the coefficients to be zero. Because there are a large number of values the regularization parameter $\lambda$ can take on, the typical solution is to use a method like k-fold cross-validation to test a number of $\lambda$ values and choose the one with the one that matches a criterion like minimizing prediction error.  
+
+In the present study, we will use root mean squared error to tune parameters using rolling origin validation and the `glmnet` package through the `tidymodels` and `parsnip` packages.  
+
+## Functions  
+```{r}
+dummy_vars <- c("caregiving", "chores", "exercise", "internet", "mentalAct", "nothing", "otherAct"
+                , "selfcare", "socialOnline", "TV", "volunteer", "reclining", "sitting", "standing"
+                , "acquaintance", "alone", "family", "friend", "kids", "neighbor","otherPerson"
+                , "partner", "pet", "stranger", "socialPerson", "media", "activity", "social")
+time_dummy <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
+                , "morning", "midday", "evening", "night")
+time_vars <- c("cos1p", "cos2p", "cub", "linear", "quad", "sin1p", "sin2p")
+
+c_fun <- function(m){
+  # final model characteristics
+  lambda <- min(m$fit$lambda)
+  coefs <- stats::coef(m$fit, s = lambda)
+  coefs <- coefs[, 1L, drop = TRUE]
+  coefs <- coefs[setdiff(x = names(coefs), y = "(Intercept)")]
+  return(coefs)
+}
+
+elnet_fun <- function(sid, outcome, group, time){
+  # load the data
+  load(sprintf("%s/02-data/03-train-data/%s_%s_%s_%s.RData",
+               res_path, sid, outcome, group, time))
+  d_train <- d_train %>% arrange(Full_Date) %>% select(-Full_Date)
+  
+  d_train_cv <- rolling_origin(
+    d_train, 
+    initial = 15, 
+    skip = 1,
+    assess = 3,
+    cumulative = F
+  )
+  
+  # set up the cross-valiation folds
+  # set.seed(234)
+  # d_train_cv <- vfold_cv(d_train, v = 10)
+  
+  # set up the data and formula
+  mod_recipe <- recipe(
+    o_value ~ .
+    , data = d_train
+    ) %>%
+    step_zv(all_numeric()) %>%
+    step_normalize(all_numeric(), -one_of(time_vars), -o_value) %>%
+    step_nzv(one_of(dummy_vars, time_dummy), -all_outcomes(), unique_cut = 35) %>%
+    step_dummy(one_of(dummy_vars, time_dummy), -all_outcomes()) #%>%
+    # estimate the means and standard deviations
+    # prep(training = d_train, retain = TRUE)
+  
+  # set up the model specifications 
+  tune_spec <- 
+    linear_reg(
+      penalty = tune()
+      , mixture = tune()
+    ) %>% 
+    set_engine("glmnet") %>% 
+    set_mode("regression")
+  
+  # set up the ranges for the tuning functions 
+  elnet_grid <- 
+    grid_regular(
+      penalty()
+      , mixture()
+      , levels = 10
+      )
+  
+  # set up the workflow: combine modeling spec with modeling recipe
+  set.seed(345)
+  elnet_wf <- workflow() %>%
+    add_model(tune_spec) %>%
+    add_recipe(mod_recipe)
+  
+  # combine the workflow, and grid to a final tuning model
+  elnet_res <- 
+    elnet_wf %>% 
+    tune_grid(
+      resamples = d_train_cv
+      , grid = elnet_grid
+      , control = control_resamples(save_pred = T)
+      )
+  save(elnet_res, file = sprintf("%s/05-results/01-glmnet/01-tuning-models/%s_%s_%s_%s.RData",
+               res_path, sid, outcome, group, time))
+  
+  # plot the metrics across tuning parameters
+  p <- elnet_res %>%
+    collect_metrics() %>%
+      ggplot(aes(penalty, mean, color = mixture)) +
+      geom_point(size = 2) +
+      facet_wrap(~ .metric, scales = "free", nrow = 2) +
+      scale_x_log10(labels = scales::label_number()) +
+      scale_color_gradient(low = "gray90", high = "red") +
+      theme_classic()
+  ggsave(p, file = sprintf("%s/05-results/01-glmnet/02-tuning-figures/%s_%s_%s_%s.png",
+               res_path, sid, outcome, group, time)
+         , width = 5, height = 8)
+  
+  # select the best model based on AUC
+  best_elnet <- elnet_res %>%
+    # select_best("roc_auc")
+    select_best("rmse")
+  
+  # set up the workflow for the best model
+  final_wf <- 
+    elnet_wf %>% 
+    finalize_workflow(best_elnet)
+  
+  # run the final best model on the training data and save
+  final_elnet <- 
+    final_wf %>%
+    fit(data = d_train) 
+  
+  final_m <- final_elnet %>% 
+    pull_workflow_fit() 
+  final_coefs <- c_fun(final_m)
+  
+  best_elnet <- best_elnet %>%
+    mutate(nvars = length(final_coefs[final_coefs != 0]))
+  
+  save(final_coefs, best_elnet,
+       file = sprintf("%s/05-results/01-glmnet/07-final-model-param/%s_%s_%s_%s.RData",
+                     res_path, sid, outcome, group, time))
+  
+  # load the split data
+  load(sprintf("%s/02-data/04-test-data/%s_%s_%s_%s.RData",
+               res_path, sid, outcome, group, time))
+  # d_split$data$o_value <- factor(d_split$data$o_value)
+  
+  # run the final fit workflow of the training and test data together
+  final_fit <- 
+    final_wf %>%
+    last_fit(d_split) 
+  save(final_elnet, final_fit
+       , file = sprintf("%s/05-results/01-glmnet/03-final-training-models/%s_%s_%s_%s.RData",
+                        res_path, sid, outcome, group, time))
+  
+  # final metrics (accuracy and roc)
+  final_metrics <- final_fit %>%
+    collect_metrics(summarize = T)
+  save(final_metrics
+       , file = sprintf("%s/05-results/01-glmnet/06-final-model-performance/%s_%s_%s_%s.RData",
+                        res_path, sid, outcome, group, time))
+  
+  # variable importance
+  final_var_imp <- final_elnet %>% 
+    extract_fit_parsnip() %>% 
+    vi() %>%
+    slice_max(Importance, n = 10)
+  save(final_var_imp
+       , file = sprintf("%s/05-results/01-glmnet/05-variable-importance/%s_%s_%s_%s.RData",
+                        res_path, sid, outcome, group, time))
+  
+  # # roc plot
+  # p_roc <- final_fit %>%
+  #   collect_predictions() %>% 
+  #   roc_curve(.pred, truth = o_value) %>% 
+  #   autoplot() + 
+  #   labs(title = sprintf("Participant %s: %s, %s, %s, %s"
+  #                        , sid, outcome, group, set, time)) 
+  # ggsave(p_roc, file = sprintf("%s/05-results/01-glmnet/04-roc-curves/%s_%s_%s_%s_%s.png",
+  #              res_path, sid, outcome, group, set, time)
+  #        , width = 5, height = 5)
+  
+  rm(list = c("final_var_imp", "final_metrics", "final_wf", "final_elnet", "final_fit"
+              , "best_elnet", "elnet_res", "elnet_wf", "elnet_grid", "tune_spec", "mod_recipe"
+              , "p", "p_roc", "d_split", "d_test", "d_train", "d_train_cv"))
+  gc()
+  return(T)
+}
+```
+
+## Run Models  
+```{r}
+done <- tibble(file = list.files(sprintf("%s/05-results/01-glmnet/06-final-model-performance", res_path))) %>%
+  mutate(done = "done")
+
+# plan(multisession(workers = 12L))
+tibble(
+  file = sprintf("%s/02-data/02-model-data", res_path) %>% list.files() 
+) %>%
+  # full_join(done) %>% filter(is.na(done)) %>% select(-done) %>%
+  separate(file, c("SID", "outcome", "group", "time"), sep = "_") %>%
+  filter(group == "full" & time == "no time") %>%
+  mutate(time = str_remove_all(time, ".RData")
+         # , mod = future_pmap(
+         , mod = pmap(
+           list(SID, outcome, group, time)
+           # , possibly(elnet_fun, NA_real_)
+           , elnet_fun
+           # , .progress = T
+           # , .options = future_options(
+           #   globals = c("res_path", "dummy_vars")
+           #   , packages = c("plyr", "tidyverse", "glmnet", "tidymodels", "vip")
+           # )
+           )
+         ) 
+closeAllConnections()
+```
+
+```{r}
+done <- tibble(file = list.files(sprintf("%s/05-results/01-glmnet/06-final-model-performance", res_path))) %>%
+  mutate(done = "done")
+
+tibble(
+  file = sprintf("%s/02-data/02-model-data", res_path) %>% list.files() 
+) %>%
+  # full_join(done) %>% filter(is.na(done)) %>% select(-done) %>%
+  separate(file, c("SID", "outcome", "group", "time"), sep = "_") %>%
+  mutate(time = str_remove_all(time, ".RData")) %>%
+  filter(group == "full") %>%
+  write_csv(., file = sprintf("%s/04-scripts/99-cluster/args/glmnet.csv", local_path))
+```
+
+
+
+

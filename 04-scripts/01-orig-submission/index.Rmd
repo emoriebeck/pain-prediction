@@ -1,0 +1,231 @@
+--- 
+title: "Idiographic prediction of physical pain and loneliness"
+author: "Emorie D Beck"
+institution: "Northwestern University Feinberg School of Medicine"
+date: "`r Sys.Date()`"
+site: 
+  bookdown::bookdown_site:
+    theme: united
+    highlight: tango
+    df_print: paged
+    code_folding: show
+    numbering: false
+    number_sections: false
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "[add desc here]"
+---
+
+
+# Workspace  
+## Packages  
+
+```{r, echo = F}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F, error = F)
+options(knitr.kable.NA = '')
+```
+
+
+```{r packages}
+library(knitr)              # creating tables
+library(kableExtra)         # formatting and exporting tables
+library(rio)                # importing html
+library(readxl)             # read excel codebooks and documentation
+library(psych)              # biscuit / biscwit
+library(glmnet)             # elastic net regression
+library(glmnetUtils)        # extension of basic elastic net with CV
+library(caret)              # train and test for random forest
+library(vip)                # variable importance
+library(Amelia)             # multiple imputation (of time series)
+library(lubridate)          # date wrangling
+library(gtable)             # ggplot friendly tables
+library(grid)               # ggplot friendly table rendering 
+library(gridExtra)          # more helpful ggplot friendly table updates
+library(plyr)               # data wranging
+library(tidyverse)          # data wrangling
+library(ggdist)             # distributional plots 
+library(ggridges)           # more distributional plots 
+library(cowplot)            # flexibly arrange multiple ggplot objects
+library(tidymodels)         # tidy model workflow and selection
+library(furrr)              # mapping many models in parallel 
+```
+
+
+## Directory Path  
+```{r path}
+# res_path <- "https://github.com/emoriebeck/pain-prediction/raw/main"
+res_path <- "/Volumes/Emorie/projects/eas ambulatory data/pain-prediction"
+local_path <- "/Volumes/Emorie/projects/eas ambulatory data/pain-prediction"
+```
+
+## Codebook  
+Each study has a separate codebook indexing matching, covariate, personality, and outcome variables. Moreover, these codebooks contain information about the original scale of the variable, any recoding of the variable (including binarizing outcomes, changing the scale, and removing missing data), reverse coding of scale variables, categories, etc.  
+```{r codebook}
+# list of all codebook sheets
+# ipcs_codebook <- import(file = sprintf("%s/01-codebooks/codebook.xlsx", res_path), which = 2) %>%
+#   as_tibble()
+eas_codebook <- sprintf("%s/01-codebooks/2022-02-18-master-codebook.xlsx", res_path) %>%
+  readxl::read_xlsx(., sheet = "codebook")
+eas_codebook
+
+outcomes <- eas_codebook %>% filter(category == "outcome") %>% select(name, long_name)
+
+# ftrs <- import(file = sprintf("%s/01-codebooks/codebook.xlsx", res_path), which = 3) %>%
+#   as_tibble()
+ftrs <- sprintf("%s/01-codebooks/2022-02-18-master-codebook.xlsx", res_path) %>%
+  readxl::read_xlsx(., sheet = "names")
+```
+
+### Measures  
+
+[[[UPDATE]]]
+
+Participants responded to a large battery of trait and ESM measures as part of the larger study. The present study focuses on ESM measures whose use we preregistered. A full list of the collected measures for the study can be found in supplementary codebooks in the online materials on the OSF and GitHub. The measures collected at each wave were identical. ESM measures were used to estimate idiographic personality prediction models.  
+
+#### ESM Measures  
+##### Personality  
+
+[[[UPDATE]]]
+
+Personality was assessed using the full BFI-2 (Soto & John, 2017). The scale was administered using a planned missing data design (Revelle et al., 2016). We have previously demonstrated both the between- and within-person construct validity of assessing personality using planned missing designs using the BFI-2 (https://osf.io/pj9sy/). The planned missingness was done within each Big Five trait separately, with three items from each trait included at each timepoint (75% missingness). Each item was answered relative to what a participant was just doing on a 5-point Likert-like scale from 1 "disagree strongly" to 5 "agree strongly." Items for each person at each assessment were determined by pulling 3 numbers (1 to 12) from a uniform distribution. The order of the resulting 15 items were then randomized before being displayed to participants.  
+```{r}
+eas_codebook %>% filter(category == "BFI-2")
+```
+
+
+##### Affect  
+
+[[[UPDATE]]]
+
+Items capturing affect were initially pulled from the PANAS-X (Watson & Clark, 1994). In order to reduce redundancy, these were cross-referenced with the BFI-2 and duplicated items (e.g., "excited" were only asked once. Because we were not interested in scale score but in items, we further had research participants examine remaining items and asked them to indicate items that were not relevant to their experience. Finally, we added two "neutral" affect-related terms – goal-directed and purposeful. Each of these were rated on a 1 "disagree strongly" to 5 "agree strongly."  
+
+```{r}
+ipcs_codebook %>% filter(category == "Affect")
+```
+
+##### Binary Situations  
+
+[[[UPDATE]]]
+
+Binary situation indicators were derived by asking undergraduate research assistants to provide list of the common social, academic, and personal situations in which they tended to find themselves. From these, we derived a list of 19 unique situations. Separate items for arguing with or interacting with friends or relatives were composited in overall argument and interaction items. Participants checked a box for each event that occurred in the last hour (1 = occurred, 0 = did not occur).  
+
+```{r}
+ipcs_codebook %>% filter(category == "sit")
+```
+
+##### DIAMONDS Situation Features  
+
+[[[UPDATE]]]
+
+
+Psychological features of situations were measured using the ultra brief version of the "Situational Eight" DIAMONDS (Duty, Intellect, Adversity, Mating, pOsitivity, Negativity, Deception, and Sociality) scale (S8-I; Rauthmann  & Sherman, 2015). Items were measured on a 3-point scale from 1 "not at all" to 3 "totally."  
+
+```{r}
+ipcs_codebook %>% filter(category == "S8-I")
+```
+
+##### Timing Features  
+The final set of features were created from the time stamps collected with each survey based on approaches used in other studies of idiographic prediction (Fisher & Soyster, 2019; . To create these, we created time of day (4; morning, midday, evening, night) and day of the week dummy codes (7). Next, we create a cumulative time variable (in hours) from first beep (not used in analyses) that we used to create linear, quadratic, and cubic time trends (3) as well as 1 and 2 period sine and cosine functions across each 24 period (e.g., 2 period sine = \sin{\frac{2\pi}{12}}\ast\ {cumulative\ time}_t and 1 period sine = \sin{\frac{2\pi}{24}}\ast\ {cumulative\ time}_t).  
+
+### Procedure  
+Participants in this study were drawn from a larger personality study. All responded to two types of surveys: trait and state (Experience Sampling Method; ESM) measures, for which they were paid separately. Participants completed three waves of trait measures and two waves of state measures. For the first two waves, trait surveys were collected immediately before beginning the ESM protocol.  
+
+#### Main Sample  
+The present study is a sub-project of the broader Einstein Aging Study, which is an ongoing longitudinal study of the aging brain. The EAS began in 1980 and has enrolled more than 2,600 participants since then. Data are available through application at http://www.einstein.yu.edu/departments/neurology/clinical-research-program/eas/data-sharing.aspx.  
+
+A total of 14,137 potential participants were contacted via phone. From these calls, 597 participants completed successful phone screens, 517 of which were deemed eligible for participation and had in-home visits scheduled. Of these, 52 participants dropped out of the study before meeting, leaving 465. Of these 465, 150 were EAS participants and 315 were newly recruited participants. Among these, 66 EAS participants and 258 new participants were included in the final sample of the study for a total of 324 participants.  
+
+The sub-project uses a subset of EAS participants as well as newly recruited participants. In addition to regular EAS follow-ups, these participants completed additional trait and ESM measures of personality and cognition using a measurement burst design. Essentially, this means that although participants are continuously recruited, follow-ups occur approximately one year after each completion.  At each burst, participants complete 14 days of ESM surveys, with 6 beeps a day (i.e. max assessments = 84).  
+
+### Analytic Plan  
+
+The present study tested three methods of machine learning classification models, some of which have been used for idiographic prediction in other studies (Beck & Jackson, 2022; Fisher & Soyster, 2019; Kaiser & Butter, 2020): (1) Elastic Net Regression (Friedman, Hastie, & Tibshirani, 2010), (2) The Best Items Scale that is Cross-validated, Correlation-weighted, Informative and Transparent (BISCWIT; Elleman, McDougald, Condon, & Revelle, 2020), and (3) Random Forest Models (Kim et al., 2019).  
+
+Because we have a large number of indicators to test, each of the methods used have variable selection features and, in some instances, other methods for reducing overfitting, as detailed below. To both reduce the number of indicators used in each test and to test which group of indicators are the most predictive of procrastination and loneliness, we will also test these in several sets: 
+
+[[[UPDATE]]]
+
+(1) Personality indicators (15), (2) Affective indicators (10), (3) Binary situation indicators (16), (4) DIAMONDS situation indicators (8), (5) Psychological indicators (personality + affect) (25), (6), Situation indicators (binary + DIAMONDS) (24), and (7) Full set (personality + affect + binary situations + DIAMONDS) (49). We will additionally test each of these with and without the 18 timing indicators, for a total set of 14 combinations of the 67 features.  
+
+In each of these methods, we used cumulative rolling origin forecast validation, which was comprised of the first 75% of the time series, and held out the remaining 25% of the data set for the test set. In the rolling origin forecast validation, we used the first one-third of the time series as the initial set, five observations as the validation set, and set skip to one, which roughly resulted in 10-15 rolling origin “folds.”  
+
+Out of sample prediction will tested based on root mean squared error (RMSE) and adjusted $R^2$. RMSE is a measurement of the difference between predicted and observed values. Unlike measures of absolute error and mean square error, root mean square error penalizes larger errors by squaring differences between predicted and observed values but brings it back to the same metric as the outcome by square rooting the result, which often results in better model out of sample performance97. Adjusted $R^2$ is an indicator of the total amount of variance in the outcome that can be predicted by model features. Unlike traditional $R^2$ measures, adjusted $R^2$ penalizes the value as a function of both the sample size and number of predictors. Neither performance metric has established cut-offs. However, for ease of interpretation, we follow existing suggestions that “good” RMSE values are 1/10 of total variability in the outcome and that “good” adjusted $R^2$ are above 50%.  
+
+## Demographics  
+
+#### Trait  
+
+[[[UPDATE]]]
+
+```{r trait data combine, eval = F}
+participants <- googlesheets4::sheets_read("https://docs.google.com/spreadsheets/d/1r808gQ-LWfG98J9rvt_CRMHtmCFgtdcfThl0XA0HHbM/edit?usp=sharing", sheet = "ESM") %>%
+  select(SID, Name, Email) %>%
+  mutate(new = seq(1, n(), 1),
+         new = ifelse(new < 10, paste("0", new, sep = ""), new))
+1
+
+old_names <- trait_codebook$`New #`
+
+# wave 1 trait
+baseline <- sprintf("%s/04-data/01-raw-data/baseline_05.07.20.csv", res_path) %>% 
+  read_csv() %>%
+  filter(!row_number() %in% c(1,2) & !is.na(SID) & SID %in% participants$SID) %>% 
+  select(SID, StartDate, gender, YOB, race, ethnicity) %>%
+  mutate(SID = mapvalues(SID, participants$SID, participants$new)) %>%
+  mutate(wave = 1,
+         gender = factor(gender, c(1,2), c("Male", "Female")),
+         YOB = substr(YOB, nchar(YOB)-4+1, nchar(YOB)),
+         race = mapvalues(race, 1:7, c(0,1,3,2,3,3,3)),
+         ethnicity = ifelse(!is.na(ethnicity), 3, NA),
+         race = ifelse(is.na(ethnicity), race, ifelse(ethnicity == 3, ethnicity)))  %>%
+  select(-ethnicity)
+
+save(baseline, 
+     file = sprintf("%s/04-data/01-raw-data/cleaned_combined_2020-05-06.RData", res_path))
+```
+
+```{r}
+load(url(sprintf("%s/04-data/01-raw-data/cleaned_combined_2020-05-06.RData", res_path)))
+dem <- baseline %>%
+  select(SID:race) %>%
+  mutate(age = year(ymd_hms(StartDate)) - as.numeric(YOB),
+         StartDate = as.Date(ymd_hms(StartDate)),
+         race = factor(race, 0:3, c("White", "Black", "Asian", "Other"))) %>%
+  select(-YOB) 
+
+dem %>% 
+  summarize(n = length(unique(SID)),
+            gender = sprintf("%i (%.2f%%)",sum(gender == "Female"), sum(gender == "Female")/n()*100),
+            age = sprintf("%.2f (%.2f)", mean(age, na.rm = T), sd(age, na.rm = T)),
+            white = sprintf("%i (%.2f%%)"
+                            , sum(race == "White", na.rm = T)
+                            , sum(race == "White", na.rm = T)/n()*100),
+            black = sprintf("%i (%.2f%%)"
+                            , sum(race == "Black", na.rm = T)
+                            , sum(race == "Black", na.rm = T)/n()*100),
+            asian = sprintf("%i (%.2f%%)"
+                            , sum(race == "Asian", na.rm = T)
+                            , sum(race == "Asian", na.rm = T)/n()*100),
+            other = sprintf("%i (%.2f%%)"
+                            , sum(race == "Other", na.rm = T)
+                            , sum(race == "Other", na.rm = T)/n()*100),
+            StartDate = sprintf("%s (%s - %s)", median(StartDate), 
+                                min(StartDate), max(StartDate)))
+
+dem %>%
+  kable(., "html"
+        , col.names = c("ID", "Start Date", "Gender", "Race/Ethnicity", "Age")
+        , align = rep("c", 5)
+        , caption = "<strong>Table S1</strong><br><em>Descriptive Statistics of Participants at Baseline<em>") %>%
+  kable_styling(full_width = F) %>%
+    scroll_box(height = "900px")
+```
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

@@ -1,0 +1,265 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# BISCWIT{#biscwit}  
+
+The Best Items Scale that is Cross-validated, Correlation-weighted, Informative and Transparent (BISCWIT) is a correlation-based machine learning technique. The technique, which we modified to be compatible with rolling origin validation rather than k-fold cross validation as implemented in the `best.scales()` function in the `psych` package in `R`, proceeds as follows. First, pairwise correlations between predictors and outcome(s) are calculated using rolling origin forecast validation where the number of best items is varied. Second, the number of items in the final model is determined by finding the average correlation across the rolling origin training sets with the validation sets for each number of items and choosing the one with the highest average correlation. Third, the final training model is constructed by running the procedure on the full training set with the number of items determined by the validation procedure. Fourth, weighted sum scores of the features for both the training and test sets are extracted.  
+
+Finally, accuracy and AUC are calculated. Accuracy was estimated by (1) scaling the scores in the test set by the mean and standard deviation of scores in the final training model, (2) multiplying the scaled scores by the correlation between the training scores and the training outcome and the standard deviation of the training outcome and adding the mean of the training data outcome to this. This resulted in predicted outcomes for the test set. As in other classification models, values of .5 and above were considered to predict a “1” while values less than .5 were considered to predict a “0.” Accuracy was determined by comparing the predicted value with the actual test value and averaging the number correct. AUC was calculated using the predicted values and the test set values for the outcome.  
+
+In the present study, we will use the `bestScales()` function from the psych package to create the models. Weighted scores were calculated by extracting the correlations from the best scales object and using it in the `scoreWtd()` function to create the correlation weighted scores. AUC was calculated using the `vi()` function in the vip package. Variable importance was determined by the items with the highest correlation with the outcome in the final training model.
+
+
+## Functions  
+```{r, eval = F}
+biscwit_call <- function(x, nitem){
+  ## format the ro training set
+  x_train <- training(x) %>% 
+    select(o_value, everything()) %>%
+    mutate_if(is.factor, ~as.numeric(as.character(.))) %>%
+    unclass() %>%
+    data.frame()
+  
+  ## call the best scales function with nitem set from outer loop
+  bs <- bestScales(
+    x = x_train
+    , criteria = "o_value"
+    , n.item = nitem
+    , n.iter = 1
+  )
+  
+  ## get the multiple R's (weights for biscwit v biscuit)
+  # the second line sets the items not found by biscuit to be "best" 
+  # to be 0
+  mR <- bs$R
+  mR[!names(mR) %in% str_remove(bs$best.keys$o_value, "-")] <- 0
+  mR <- as.matrix(mR); colnames(mR) <- "o_value"
+  
+  ## format the test set
+  x_test <- testing(x) %>% 
+    select(o_value, everything()) %>%
+    mutate_if(is.factor, ~as.numeric(as.character(.))) %>% 
+    # select(one_of(names(mR))) %>%
+    unclass() %>%
+    data.frame()
+  
+  ## score the test set using the correlations as weights
+  scores <- scoreWtd(mR, x_test)
+  ## calculate the correlation between the weighted score and the test y
+  r <- cor(scores, testing(x)$o_value)
+  
+  ## return the biscuit object and the test correlations (criterion)
+  return(list(bs = bs, r = r))
+}
+
+biscwit_fun <- function(sid, outcome, group, time){
+  # load the data
+  load(sprintf("%s/02-data/03-train-data/%s_%s_%s_%s.RData",
+               res_path, sid, outcome, group, time))
+  
+  ## format the training data
+  x_train <- d_train %>% 
+    arrange(Full_Date) %>% 
+    select(-Full_Date) %>% 
+    select(o_value, everything()) %>%
+    mutate_if(is.factor, ~as.numeric(as.character(.))) %>%
+    unclass() %>%
+    data.frame()
+  
+  ## create the rolling_origin training and validation sets
+  # init <- ceiling(nrow(d_train)/3)
+  
+  d_train_cv <- rolling_origin(
+    x_train, 
+    initial = 15, 
+    skip = 1,
+    assess = 5,
+    cumulative = F
+  )
+  
+  ## run biscwit on the ro
+  ## run for nitem = 3 to the number of x training columns in increments of 3
+  tune_res <- d_train_cv %>%
+    mutate(nitem = map(splits, ~seq(3, ncol(training(.)) - 1, 3))) %>%
+    unnest(nitem) %>%
+    mutate(cv = map2(splits, nitem, possibly(biscwit_call, NA_real_))) %>% ## run the biscuit procedure
+    # mutate(cv = map2(splits, nitem, biscwit_call)) %>% ## run the biscuit procedure
+    filter(!is.na(cv)) %>%
+    mutate(error = map_dbl(cv, ~(.)$r)) ## correlation is the training "error" (higher = lower error)
+  save(tune_res, file = sprintf("%s/05-results/02-biscwit/01-tuning-models/%s_%s_%s_%s.RData",
+               res_path, sid, outcome, group, time))
+  
+  # plot the metrics across tuning parameters
+  
+  p <- tune_res %>%
+    group_by(nitem) %>%
+    summarize(merror = fisherz2r(mean(fisherz(error), na.rm = T))) %>%
+    arrange(desc(abs(merror))) %>%
+    ggplot(aes(x = nitem, y = merror)) +
+      scale_alpha_continuous(range=c(.4,1))+
+      geom_point(aes(alpha = abs(merror)), color = "red") +
+      labs(x = "n items", y = "Correlation", "Correlation Strength (absolute value)") +
+      theme_classic()
+  ggsave(p, file = sprintf("%s/05-results/02-biscwit/02-tuning-figures/%s_%s_%s_%s.png",
+               res_path, sid, outcome, group, time)
+         , width = 5, height = 5)
+  
+  # find the best model by averaging correlations across ro sets 
+  # and choosing the one with the highest average correlation
+  best_biscwit <- tune_res %>%
+    group_by(nitem) %>%
+    summarize(merror = fisherz2r(mean(fisherz(error), na.rm = T))) %>%
+    arrange(desc(abs(merror))) %>%
+    slice_head(n = 1)
+  
+  ## rerun biscuit on the full training set with the best nitem
+  final_biscwit <- bestScales(
+    x = x_train
+    , criteria = "o_value"
+    , n.item = best_biscwit$nitem
+    , n.iter = 1
+  )
+  
+  save(final_biscwit
+       , file = sprintf("%s/05-results/02-biscwit/03-final-training-models/%s_%s_%s_%s.RData",
+                        res_path, sid, outcome, group, time))
+  
+  # get the correlations for weighting
+  # the second line sets the items not found by biscuit to be "best" 
+  # to be 0
+  mR <- final_biscwit$R; mR <- mR[!names(mR) == "o_value"]
+  mR[!names(mR) %in% str_remove(final_biscwit$best.keys$o_value, "-")] <- 0
+  mR <- as.matrix(mR); colnames(mR) <- "o_value"
+  
+  final_m <- final_biscwit
+  final_coefs <- mR
+  
+  best_biscwit <- best_biscwit %>%
+    mutate(nvars = length(mR[mR != 0]))
+  
+  save(final_coefs, best_biscwit,
+       file = sprintf("%s/05-results/02-biscwit/07-final-model-param/%s_%s_%s_%s.RData",
+               res_path, sid, outcome, group, time))
+  
+  # load the test data
+  load(sprintf("%s/02-data/04-test-data/%s_%s_%s_%s.RData",
+               res_path, sid, outcome, group, time))
+  
+  ## format the test set
+  x_test <- d_test %>% 
+    arrange(Full_Date) %>% 
+    select(o_value, everything(), -Full_Date) %>%
+    mutate_if(is.factor, ~as.numeric(as.character(.))) %>%
+    unclass() %>%
+    data.frame()
+  
+  # adapted from Elleman, McDougald, Condon, & Revelle (2020)
+  # Step 1. Score the train X.
+  scores_best <- scoreWtd(mR, x_train)
+  
+  # Step 2. Score the test X.
+  scores_best_test <- scoreWtd(mR, x_test)
+  
+  # Step 3. Get the diagnostic info from the train y's scoring.
+  cor(scores_best, x_train$o_value, use = "pairwise")
+  ## mean and sd of training scores for observations 1 to t.
+  mean_biscuit <- mean(scores_best, na.rm = T)
+  sd_biscuit   <- sd(  scores_best, na.rm = T)
+  
+  # performance in training set
+  multiple_R <- cor(scores_best, x_train$o_value, use = "pairwise") 
+  
+  # descriptives of the outcome variable in the training set
+  mean_data <- mean(x_train$o_value, na.rm = T)
+  sd_data   <- sd(  x_train$o_value, na.rm = T)
+  
+  # Step 4. Apply the diagnostic info to the test y's scoring.
+  # Standardardize scores in the test set using the training set
+  # subtract average training score from each score in the test set and divide by SD
+  scores_best.z_test <- c((scores_best_test - mean_biscuit) / sd_biscuit)
+  # scores_best.z_test_vector <- c(scores_best.z_test)
+  
+  # reverse transform using mean and SD of outcome in the training set
+  # and the correlation between scores and outcome in the training set
+  value_test <- ( c(multiple_R) * scores_best.z_test * sd_data ) + mean_data
+        
+  # Step 5. You have your predicted test values. Look at them to make sure they make sense!!
+  temp <- data.frame(crit_actual = x_test$o_value, crit_predicted = value_test)
+  
+  # Get the rmse and rsq. 
+  final_metrics <- bind_rows(
+    rmse(temp, crit_actual, crit_predicted),
+    rsq(temp, crit_actual, crit_predicted)
+  )
+  
+  save(final_metrics
+       , file = sprintf("%s/05-results/02-biscwit/06-final-model-performance/%s_%s_%s_%s.RData",
+                        res_path, sid, outcome, group, time))
+  
+  ## variable importance
+  ## reformatted to match the output of the vi() function in the vip package
+  final_var_imp <- data.frame(Importance = final_biscwit$R) %>%
+    rownames_to_column("Variable") %>%
+    mutate(Sign = ifelse(sign(Importance) == 1, "POS", "NEG")) %>%
+    as_tibble() %>%
+    arrange(desc(abs(Importance))) %>%
+    slice_max(abs(Importance), n = 10) 
+  save(final_var_imp
+       , file = sprintf("%s/05-results/02-biscwit/05-variable-importance/%s_%s_%s_%s.RData",
+                        res_path, sid, outcome, group, time))
+  
+  ## roc curve of test data
+  # p_roc <- roc_curve(
+  #   temp %>% mutate(crit_actual = as.factor(crit_actual))
+  #   , truth = crit_actual
+  #   , crit_predicted
+  #   )  %>%
+  #   autoplot() +
+  #   labs(title = sprintf("Participant %s: %s, %s, %s"
+  #                        , sid, outcome, group, time)) 
+  # ggsave(p_roc, file = sprintf("%s/05-results/02-biscwit/04-roc-curves/%s_%s_%s_%s.png",
+  #              res_path, sid, outcome, group, time)
+  #        , width = 5, height = 5)
+  
+  rm(list = ls())
+  gc()
+  return(T)
+}
+```
+
+## Run Models  
+```{r, eval = F}
+# done <- tibble(file = list.files(sprintf("%s/05-results/02-biscwit/06-final-model-performance", res_path)), done = "done")
+
+plan(multisession(workers = 12L))
+res <- tibble(
+  file = sprintf("%s/02-data/02-model-data", res_path) %>% list.files()
+) %>%
+  # full_join(done) %>% filter(is.na(done)) %>% select(-done) %>%
+  separate(file, c("SID", "outcome", "group", "time"), sep = "_") %>%
+  filter(group == "full") %>%
+  mutate(time = str_remove_all(time, ".RData")
+         , mod = future_pmap(
+           list(SID, outcome, group, time)
+           , possibly(biscwit_fun, NA_real_)
+           , .progress = T
+           , .options = furrr_options(
+             globals = c("res_path", "biscwit_call")
+             , packages = c("plyr", "tidyverse", "psych", "tidymodels", "vip")
+           )
+           )
+         ) 
+closeAllConnections()
+```
+
+```{r}
+ tibble(
+  file = sprintf("%s/02-data/02-model-data", res_path) %>% list.files()
+) %>%
+  separate(file, c("SID", "outcome", "group", "time"), sep = "_") %>%
+  mutate(time = str_remove_all(time, ".RData")) %>%
+  write_csv(., file = sprintf("%s/04-scripts/99-cluster/args/biscwit.csv", local_path))
+```
+

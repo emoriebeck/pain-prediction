@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Random Forest | Idiographic prediction of loneliness and procrastination</title>
+  <meta name="description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Random Forest | Idiographic prediction of loneliness and procrastination" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Random Forest | Idiographic prediction of loneliness and procrastination" />
+  
+  <meta name="twitter:description" content="A longstanding goal of psychology is to predict the things people do, but tools to predict accurately future behaviors remain elusive. In the present study, we used intensive longitudinal data (N = 104; total assessments = 5,971) and three machine learning approaches to investigate the degree to which two behaviors – loneliness and procrastination – could be predicted from psychological (i.e. personality and affective states), situational (i.e. objective situations and psychological situation cues), and time (i.e. trends, diurnal cycles, time of day, and day of the week) phenomena from an idiographic, person-centered perspective. Rather than pitting persons against situations, such an approach allows psychological phenomena, situations, and time to jointly inform prediction. We find (1) a striking degree of accuracy across participants, (2) that a majority of participants models are best informed by both person and situation features, and (3) that the most important features vary greatly across people." />
+  
+
+<meta name="author" content="Emorie D Beck" />
+
+
+<meta name="date" content="2021-06-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="biscwit.html"/>
+<link rel="next" href="summarizing-models.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Workspace</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.1</b> Packages</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#directory-path"><i class="fa fa-check"></i><b>1.2</b> Directory Path</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#codebook"><i class="fa fa-check"></i><b>1.3</b> Codebook</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#measures"><i class="fa fa-check"></i><b>1.3.1</b> Measures</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#procedure"><i class="fa fa-check"></i><b>1.3.2</b> Procedure</a></li>
+<li class="chapter" data-level="1.3.3" data-path="index.html"><a href="index.html#analytic-plan"><i class="fa fa-check"></i><b>1.3.3</b> Analytic Plan</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#demographics"><i class="fa fa-check"></i><b>1.4</b> Demographics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>2</b> Data Cleaning</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="cleaning.html"><a href="cleaning.html#pre-share-cleaning"><i class="fa fa-check"></i><b>2.1</b> Pre-Share Cleaning</a></li>
+<li class="chapter" data-level="2.2" data-path="cleaning.html"><a href="cleaning.html#esm-data-setup"><i class="fa fa-check"></i><b>2.2</b> ESM Data Setup</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="cleaning.html"><a href="cleaning.html#timing"><i class="fa fa-check"></i><b>2.2.1</b> Timing</a></li>
+<li class="chapter" data-level="2.2.2" data-path="cleaning.html"><a href="cleaning.html#personality-1"><i class="fa fa-check"></i><b>2.2.2</b> Personality</a></li>
+<li class="chapter" data-level="2.2.3" data-path="cleaning.html"><a href="cleaning.html#other-measured-features"><i class="fa fa-check"></i><b>2.2.3</b> Other Measured Features</a></li>
+<li class="chapter" data-level="2.2.4" data-path="cleaning.html"><a href="cleaning.html#timing-features-1"><i class="fa fa-check"></i><b>2.2.4</b> Timing Features</a></li>
+<li class="chapter" data-level="2.2.5" data-path="cleaning.html"><a href="cleaning.html#combine-features"><i class="fa fa-check"></i><b>2.2.5</b> Combine Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="cleaning.html"><a href="cleaning.html#setup-for-idiographic-machine-learning-models"><i class="fa fa-check"></i><b>2.3</b> Setup for Idiographic Machine Learning Models</a></li>
+<li class="chapter" data-level="2.4" data-path="cleaning.html"><a href="cleaning.html#demographics-1"><i class="fa fa-check"></i><b>2.4</b> Demographics</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elastic-net.html"><a href="elastic-net.html"><i class="fa fa-check"></i><b>3</b> Elastic Net</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="elastic-net.html"><a href="elastic-net.html#functions"><i class="fa fa-check"></i><b>3.1</b> Functions</a></li>
+<li class="chapter" data-level="3.2" data-path="elastic-net.html"><a href="elastic-net.html#run-models"><i class="fa fa-check"></i><b>3.2</b> Run Models</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="biscwit.html"><a href="biscwit.html"><i class="fa fa-check"></i><b>4</b> BISCWIT</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="biscwit.html"><a href="biscwit.html#functions-1"><i class="fa fa-check"></i><b>4.1</b> Functions</a></li>
+<li class="chapter" data-level="4.2" data-path="biscwit.html"><a href="biscwit.html#run-models-1"><i class="fa fa-check"></i><b>4.2</b> Run Models</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="random-forest.html"><a href="random-forest.html"><i class="fa fa-check"></i><b>5</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="random-forest.html"><a href="random-forest.html#set-up-data"><i class="fa fa-check"></i><b>5.1</b> Set Up Data</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="random-forest.html"><a href="random-forest.html#differencing-and-box-cox"><i class="fa fa-check"></i><b>5.1.1</b> Differencing and Box Cox</a></li>
+<li class="chapter" data-level="5.1.2" data-path="random-forest.html"><a href="random-forest.html#run-models-2"><i class="fa fa-check"></i><b>5.1.2</b> Run Models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarizing-models.html"><a href="summarizing-models.html"><i class="fa fa-check"></i><b>6</b> Summarizing Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="summarizing-models.html"><a href="summarizing-models.html#question-1-can-we-predict-procrastination-and-loneliness"><i class="fa fa-check"></i><b>6.1</b> Question 1: Can we predict procrastination and loneliness?</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="summarizing-models.html"><a href="summarizing-models.html#performance-metrics"><i class="fa fa-check"></i><b>6.1.1</b> Performance Metrics</a></li>
+<li class="chapter" data-level="6.1.2" data-path="summarizing-models.html"><a href="summarizing-models.html#classification-accuracy-and-auc-for-all-models"><i class="fa fa-check"></i><b>6.1.2</b> Classification Accuracy and AUC for all Models</a></li>
+<li class="chapter" data-level="6.1.3" data-path="summarizing-models.html"><a href="summarizing-models.html#best-models"><i class="fa fa-check"></i><b>6.1.3</b> Best Models</a></li>
+<li class="chapter" data-level="6.1.4" data-path="summarizing-models.html"><a href="summarizing-models.html#tuning-parameters-table"><i class="fa fa-check"></i><b>6.1.4</b> Tuning Parameters (Table)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="summarizing-models.html"><a href="summarizing-models.html#question-2-are-there-individual-differences-in-the-idiographic-range-of-prediction-across-people"><i class="fa fa-check"></i><b>6.2</b> Question 2: Are there individual differences in the idiographic range of prediction across people?</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="summarizing-models.html"><a href="summarizing-models.html#the-range-of-prediction"><i class="fa fa-check"></i><b>6.2.1</b> The Range of Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="summarizing-models.html"><a href="summarizing-models.html#question-3-do-psychological-situational-or-full-feature-sets-perform-best"><i class="fa fa-check"></i><b>6.3</b> Question 3: Do Psychological, Situational, or Full Feature Sets Perform Best?</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="summarizing-models.html"><a href="summarizing-models.html#psychological-features-situations-or-time"><i class="fa fa-check"></i><b>6.3.1</b> Psychological Features, Situations, or Time?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="summarizing-models.html"><a href="summarizing-models.html#question-4-which-features-are-most-associated-with-procrastination-and-loneliness"><i class="fa fa-check"></i><b>6.4</b> Question 4: Which features are most associated with Procrastination and Loneliness?</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="summarizing-models.html"><a href="summarizing-models.html#feature-frequency-psychological-features-situations-or-time"><i class="fa fa-check"></i><b>6.4.1</b> Feature Frequency: Psychological Features, Situations, or Time?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="summarizing-models.html"><a href="summarizing-models.html#question-5-do-people-vary-in-the-which-features-are-most-important"><i class="fa fa-check"></i><b>6.5</b> Question 5: Do people vary in the which features are most important?</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="summarizing-models.html"><a href="summarizing-models.html#participant-coefficients"><i class="fa fa-check"></i><b>6.5.1</b> Participant Coefficients</a></li>
+<li class="chapter" data-level="6.5.2" data-path="summarizing-models.html"><a href="summarizing-models.html#profile-similarity"><i class="fa fa-check"></i><b>6.5.2</b> Profile Similarity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="extended-discussion.html"><a href="extended-discussion.html"><i class="fa fa-check"></i><b>7</b> Extended Discussion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="extended-discussion.html"><a href="extended-discussion.html#on-predicting-more-behaviors-more-of-the-time"><i class="fa fa-check"></i><b>7.1</b> On predicting more behaviors more of the time</a></li>
+<li class="chapter" data-level="7.2" data-path="extended-discussion.html"><a href="extended-discussion.html#the-person-situation-debate-revisited"><i class="fa fa-check"></i><b>7.2</b> The person situation debate revisited</a></li>
+<li class="chapter" data-level="7.3" data-path="extended-discussion.html"><a href="extended-discussion.html#limitations-and-conclusion"><i class="fa fa-check"></i><b>7.3</b> Limitations and Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Idiographic prediction of loneliness and procrastination</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="random-forest" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Random Forest</h1>
+<p>Random forest models are a variant of decision tree classification algorithms that additionally draw on bagging (i.e. ensemble methods; bootstrapping with aggregation) methods. The name itself hints at how it different from classic decision trees; we have a forest instead of a tree. In so doing, random forest models draw upon a large number of decision trees of varying depth that are then aggregated. The random part comes from two sources. First, each tree in the forest in trained on a data set drawn with replacement from the training dataset (i.e. bootstrapped) as part of the bagging procedure. Observations left out of each model are termed out-of-bag observations (and collectively, the out-of-bag dataset). These are used to evaluate the performance of the tree. Second, the features used in each tree are also randomly drawn from the full of features. Each of these trees, based on their data generates a prediction given new data. The final prediction is based off the ensemble of trees – that is, the decision made by a majority of the trees (i.e. aggregation). Importantly, because of the random feature selection part of the procedure, random forest can also provide estimates of variable importance, indicating which features are critical to making a less error-prone classification.</p>
+<p>Because random forest using bagging (i.e. bootstrapping with aggregation), we will have to perform a series of steps that make bootstrapping appropriate with time series data: differencing, Box-Cox transformations, and time-delay embedding. Essentially, differencing and Box-Cox transformations stabilize the mean and variance, respectively, to make the time series stationary (Priestley, 1988), and time-delay embedding quite literally embeds the sequence of the time series into predictor variables, which in effect preserves the order of the times series (Von Oertzen &amp; Boker, 2010). We can easily back transform forecasts to their original scale.</p>
+<p>In the present study, we used the <code>tidymodels</code> package in R to estimate the random forest models by calling the <code>rand_forest()</code>, setting the engine as <code>“ranger”</code>, with <code>importance = “permutation”</code> in order to extract variable importance, and the mode as <code>“classification”</code>. The parameters tuned via rolling origin forecast validation were <code>mtry</code> (i.e. the number of predictors that will be randomly sampled at each split when creating tree models) and <code>min_n</code> (i.e. the minimum number of data points in a node that is required for the node to be split further), which were each set to 10 values. Next, we used the <code>select_best()</code> function with the <code>method</code> set to <code>“accuracy”</code> to allow the algorithm to automatically pick the best combination of <code>mtry</code> and <code>min_n</code> that maximized classification accuracy. Next, we fit the final training model using the full training set and the best combination of <code>mtry</code> and <code>min_n</code> and tested the model using the training set. To evaluate the efficacy of the model, we extracted the classification accuracy rate (0-1) and the AUC using the <code>collect_metrics()</code> function.</p>
+<div id="set-up-data" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Set Up Data</h2>
+<div id="differencing-and-box-cox" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Differencing and Box Cox</h3>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="random-forest.html#cb52-1" aria-hidden="true" tabindex="-1"></a>dummy_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;o_value&quot;</span>, <span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span></span>
+<span id="cb52-2"><a href="random-forest.html#cb52-2" aria-hidden="true" tabindex="-1"></a>                , <span class="st">&quot;morning&quot;</span>, <span class="st">&quot;midday&quot;</span>, <span class="st">&quot;evening&quot;</span>, <span class="st">&quot;night&quot;</span>, <span class="st">&quot;argument&quot;</span></span>
+<span id="cb52-3"><a href="random-forest.html#cb52-3" aria-hidden="true" tabindex="-1"></a>                , <span class="st">&quot;interacted&quot;</span>, <span class="st">&quot;lostSmthng&quot;</span>, <span class="st">&quot;late&quot;</span>, <span class="st">&quot;frgtSmthng&quot;</span>, <span class="st">&quot;brdSWk&quot;</span></span>
+<span id="cb52-4"><a href="random-forest.html#cb52-4" aria-hidden="true" tabindex="-1"></a>                , <span class="st">&quot;excSWk&quot;</span>, <span class="st">&quot;AnxSWk&quot;</span>, <span class="st">&quot;tired&quot;</span>, <span class="st">&quot;sick&quot;</span>, <span class="st">&quot;sleeping&quot;</span>, <span class="st">&quot;class&quot;</span></span>
+<span id="cb52-5"><a href="random-forest.html#cb52-5" aria-hidden="true" tabindex="-1"></a>                , <span class="st">&quot;music&quot;</span>, <span class="st">&quot;internet&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;study&quot;</span>)</span>
+<span id="cb52-6"><a href="random-forest.html#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="random-forest.html#cb52-7" aria-hidden="true" tabindex="-1"></a>time_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span></span>
+<span id="cb52-8"><a href="random-forest.html#cb52-8" aria-hidden="true" tabindex="-1"></a>               , <span class="st">&quot;morning&quot;</span>, <span class="st">&quot;midday&quot;</span>, <span class="st">&quot;evening&quot;</span>, <span class="st">&quot;night&quot;</span></span>
+<span id="cb52-9"><a href="random-forest.html#cb52-9" aria-hidden="true" tabindex="-1"></a>               , <span class="st">&quot;sin2p&quot;</span>, <span class="st">&quot;sin1p&quot;</span>, <span class="st">&quot;cos2p&quot;</span>, <span class="st">&quot;cos1p&quot;</span></span>
+<span id="cb52-10"><a href="random-forest.html#cb52-10" aria-hidden="true" tabindex="-1"></a>               , <span class="st">&quot;cub&quot;</span>, <span class="st">&quot;linear&quot;</span>, <span class="st">&quot;quad&quot;</span>)</span>
+<span id="cb52-11"><a href="random-forest.html#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-12"><a href="random-forest.html#cb52-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-13"><a href="random-forest.html#cb52-13" aria-hidden="true" tabindex="-1"></a>rf_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(sid, outcome, group, set, time){</span>
+<span id="cb52-14"><a href="random-forest.html#cb52-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/02-model-data/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb52-15"><a href="random-forest.html#cb52-15" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time))</span>
+<span id="cb52-16"><a href="random-forest.html#cb52-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># differencing and box-cox</span></span>
+<span id="cb52-17"><a href="random-forest.html#cb52-17" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb52-18"><a href="random-forest.html#cb52-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.factor, <span class="sc">~</span><span class="fu">as.numeric</span>(<span class="fu">as.character</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb52-19"><a href="random-forest.html#cb52-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="sc">-</span><span class="fu">one_of</span>(<span class="fu">c</span>(dummy_vars, time_vars)), <span class="sc">-</span>Full_Date), log) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-20"><a href="random-forest.html#cb52-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="sc">-</span><span class="fu">one_of</span>(<span class="fu">c</span>(dummy_vars, time_vars)), <span class="sc">-</span>Full_Date), <span class="sc">~</span>. <span class="sc">-</span> <span class="fu">lag</span>(.))</span>
+<span id="cb52-21"><a href="random-forest.html#cb52-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># time delay embedding</span></span>
+<span id="cb52-22"><a href="random-forest.html#cb52-22" aria-hidden="true" tabindex="-1"></a>  d_mbd <span class="ot">&lt;-</span> <span class="fu">map</span>(d <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Full_Date, <span class="sc">-</span><span class="fu">one_of</span>(time_vars)), <span class="sc">~</span><span class="fu">embed</span>(., <span class="dv">2</span>)) <span class="sc">%&gt;%</span> <span class="fu">ldply</span>(.) <span class="sc">%&gt;%</span></span>
+<span id="cb52-23"><a href="random-forest.html#cb52-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(.id) <span class="sc">%&gt;%</span></span>
+<span id="cb52-24"><a href="random-forest.html#cb52-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">beep =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb52-25"><a href="random-forest.html#cb52-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb52-26"><a href="random-forest.html#cb52-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;.id&quot;</span></span>
+<span id="cb52-27"><a href="random-forest.html#cb52-27" aria-hidden="true" tabindex="-1"></a>                , <span class="at">names_glue =</span> <span class="st">&quot;{.id}_{.value}&quot;</span></span>
+<span id="cb52-28"><a href="random-forest.html#cb52-28" aria-hidden="true" tabindex="-1"></a>                , <span class="at">values_from =</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-29"><a href="random-forest.html#cb52-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(d[<span class="sc">-</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> <span class="fu">select</span>(Full_Date)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-30"><a href="random-forest.html#cb52-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>beep)</span>
+<span id="cb52-31"><a href="random-forest.html#cb52-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-32"><a href="random-forest.html#cb52-32" aria-hidden="true" tabindex="-1"></a>  d_mbd <span class="ot">&lt;-</span> d_mbd <span class="sc">%&gt;%</span> </span>
+<span id="cb52-33"><a href="random-forest.html#cb52-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(d <span class="sc">%&gt;%</span> <span class="fu">select</span>(Full_Date, <span class="fu">one_of</span>(time_vars))) <span class="sc">%&gt;%</span></span>
+<span id="cb52-34"><a href="random-forest.html#cb52-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">contains</span>(dummy_vars)), factor) <span class="sc">%&gt;%</span></span>
+<span id="cb52-35"><a href="random-forest.html#cb52-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mutate(o_value_1 = factor(o_value_1)) %&gt;%</span></span>
+<span id="cb52-36"><a href="random-forest.html#cb52-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span>
+<span id="cb52-37"><a href="random-forest.html#cb52-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-38"><a href="random-forest.html#cb52-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># training and test sets</span></span>
+<span id="cb52-39"><a href="random-forest.html#cb52-39" aria-hidden="true" tabindex="-1"></a>  d_split <span class="ot">&lt;-</span> <span class="fu">initial_time_split</span>(d_mbd, <span class="at">prop =</span> <span class="fl">0.75</span>)</span>
+<span id="cb52-40"><a href="random-forest.html#cb52-40" aria-hidden="true" tabindex="-1"></a>  d_train <span class="ot">&lt;-</span> <span class="fu">training</span>(d_split)</span>
+<span id="cb52-41"><a href="random-forest.html#cb52-41" aria-hidden="true" tabindex="-1"></a>  d_test  <span class="ot">&lt;-</span> <span class="fu">testing</span>(d_split)</span>
+<span id="cb52-42"><a href="random-forest.html#cb52-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-43"><a href="random-forest.html#cb52-43" aria-hidden="true" tabindex="-1"></a>  d_train <span class="ot">&lt;-</span> d_train <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(lubridate<span class="sc">::</span><span class="fu">ymd_hm</span>(Full_Date)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Full_Date)</span>
+<span id="cb52-44"><a href="random-forest.html#cb52-44" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-45"><a href="random-forest.html#cb52-45" aria-hidden="true" tabindex="-1"></a>  <span class="do">## create the rolling_origin training and validation sets</span></span>
+<span id="cb52-46"><a href="random-forest.html#cb52-46" aria-hidden="true" tabindex="-1"></a>  init <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">nrow</span>(d_train)<span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb52-47"><a href="random-forest.html#cb52-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-48"><a href="random-forest.html#cb52-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set up the cross-valiation folds</span></span>
+<span id="cb52-49"><a href="random-forest.html#cb52-49" aria-hidden="true" tabindex="-1"></a>  d_train_cv <span class="ot">&lt;-</span> <span class="fu">rolling_origin</span>(</span>
+<span id="cb52-50"><a href="random-forest.html#cb52-50" aria-hidden="true" tabindex="-1"></a>    d_train, </span>
+<span id="cb52-51"><a href="random-forest.html#cb52-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">initial =</span> init, </span>
+<span id="cb52-52"><a href="random-forest.html#cb52-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">assess =</span> <span class="dv">5</span>,</span>
+<span id="cb52-53"><a href="random-forest.html#cb52-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">skip =</span> <span class="dv">1</span>,</span>
+<span id="cb52-54"><a href="random-forest.html#cb52-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">cumulative =</span> <span class="cn">TRUE</span></span>
+<span id="cb52-55"><a href="random-forest.html#cb52-55" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb52-56"><a href="random-forest.html#cb52-56" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-57"><a href="random-forest.html#cb52-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set up the data and formula</span></span>
+<span id="cb52-58"><a href="random-forest.html#cb52-58" aria-hidden="true" tabindex="-1"></a>  mod_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(</span>
+<span id="cb52-59"><a href="random-forest.html#cb52-59" aria-hidden="true" tabindex="-1"></a>    o_value_1 <span class="sc">~</span> .</span>
+<span id="cb52-60"><a href="random-forest.html#cb52-60" aria-hidden="true" tabindex="-1"></a>    , <span class="at">data =</span> d_train</span>
+<span id="cb52-61"><a href="random-forest.html#cb52-61" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb52-62"><a href="random-forest.html#cb52-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_zv</span>(<span class="fu">all_numeric</span>(), <span class="fu">contains</span>(dummy_vars), <span class="fu">contains</span>(time_vars)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-63"><a href="random-forest.html#cb52-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_dummy</span>(<span class="fu">all_nominal</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb52-64"><a href="random-forest.html#cb52-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_nzv</span>(<span class="fu">all_predictors</span>(), <span class="at">unique_cut =</span> <span class="dv">35</span>) <span class="co">#%&gt;%</span></span>
+<span id="cb52-65"><a href="random-forest.html#cb52-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># estimate the means and standard deviations</span></span>
+<span id="cb52-66"><a href="random-forest.html#cb52-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># prep(training = d_train, retain = TRUE)</span></span>
+<span id="cb52-67"><a href="random-forest.html#cb52-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-68"><a href="random-forest.html#cb52-68" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set up the model specifications </span></span>
+<span id="cb52-69"><a href="random-forest.html#cb52-69" aria-hidden="true" tabindex="-1"></a>  tune_spec <span class="ot">&lt;-</span> </span>
+<span id="cb52-70"><a href="random-forest.html#cb52-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rand_forest</span>(</span>
+<span id="cb52-71"><a href="random-forest.html#cb52-71" aria-hidden="true" tabindex="-1"></a>      <span class="at">mtry =</span> <span class="fu">tune</span>()</span>
+<span id="cb52-72"><a href="random-forest.html#cb52-72" aria-hidden="true" tabindex="-1"></a>      , <span class="at">trees =</span> <span class="dv">1000</span></span>
+<span id="cb52-73"><a href="random-forest.html#cb52-73" aria-hidden="true" tabindex="-1"></a>      , <span class="at">min_n =</span> <span class="fu">tune</span>()</span>
+<span id="cb52-74"><a href="random-forest.html#cb52-74" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-75"><a href="random-forest.html#cb52-75" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;ranger&quot;</span>, <span class="at">importance =</span> <span class="st">&quot;permutation&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-76"><a href="random-forest.html#cb52-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
+<span id="cb52-77"><a href="random-forest.html#cb52-77" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-78"><a href="random-forest.html#cb52-78" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set up the workflow: combine modeling spec with modeling recipe</span></span>
+<span id="cb52-79"><a href="random-forest.html#cb52-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb52-80"><a href="random-forest.html#cb52-80" aria-hidden="true" tabindex="-1"></a>  rf_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb52-81"><a href="random-forest.html#cb52-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(tune_spec) <span class="sc">%&gt;%</span></span>
+<span id="cb52-82"><a href="random-forest.html#cb52-82" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(mod_recipe)</span>
+<span id="cb52-83"><a href="random-forest.html#cb52-83" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-84"><a href="random-forest.html#cb52-84" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set up the ranges for the tuning functions </span></span>
+<span id="cb52-85"><a href="random-forest.html#cb52-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb52-86"><a href="random-forest.html#cb52-86" aria-hidden="true" tabindex="-1"></a>  tune_res <span class="ot">&lt;-</span> <span class="fu">tune_grid</span>(</span>
+<span id="cb52-87"><a href="random-forest.html#cb52-87" aria-hidden="true" tabindex="-1"></a>    rf_wf</span>
+<span id="cb52-88"><a href="random-forest.html#cb52-88" aria-hidden="true" tabindex="-1"></a>    , <span class="at">resamples =</span> d_train_cv</span>
+<span id="cb52-89"><a href="random-forest.html#cb52-89" aria-hidden="true" tabindex="-1"></a>    , <span class="at">grid =</span> <span class="dv">20</span></span>
+<span id="cb52-90"><a href="random-forest.html#cb52-90" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb52-91"><a href="random-forest.html#cb52-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(tune_res, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/03-rf/01-tuning-models/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb52-92"><a href="random-forest.html#cb52-92" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time))</span>
+<span id="cb52-93"><a href="random-forest.html#cb52-93" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-94"><a href="random-forest.html#cb52-94" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load(sprintf(&quot;%s/05-results/03-rf/01-tuning-models/%s_%s_%s_%s_%s.RData&quot;,</span></span>
+<span id="cb52-95"><a href="random-forest.html#cb52-95" aria-hidden="true" tabindex="-1"></a>  <span class="co">#              res_path, sid, outcome, group, set, time))</span></span>
+<span id="cb52-96"><a href="random-forest.html#cb52-96" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-97"><a href="random-forest.html#cb52-97" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the metrics across tuning parameters</span></span>
+<span id="cb52-98"><a href="random-forest.html#cb52-98" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> tune_res <span class="sc">%&gt;%</span></span>
+<span id="cb52-99"><a href="random-forest.html#cb52-99" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb52-100"><a href="random-forest.html#cb52-100" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(mtry, mean, <span class="at">color =</span> min_n)) <span class="sc">+</span></span>
+<span id="cb52-101"><a href="random-forest.html#cb52-101" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb52-102"><a href="random-forest.html#cb52-102" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span> .metric, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb52-103"><a href="random-forest.html#cb52-103" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>()) <span class="sc">+</span></span>
+<span id="cb52-104"><a href="random-forest.html#cb52-104" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">&quot;gray90&quot;</span>, <span class="at">high =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-105"><a href="random-forest.html#cb52-105" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>()</span>
+<span id="cb52-106"><a href="random-forest.html#cb52-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(p, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/03-rf/02-tuning-figures/%s_%s_%s_%s_%s.png&quot;</span>,</span>
+<span id="cb52-107"><a href="random-forest.html#cb52-107" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time)</span>
+<span id="cb52-108"><a href="random-forest.html#cb52-108" aria-hidden="true" tabindex="-1"></a>         , <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">8</span>)</span>
+<span id="cb52-109"><a href="random-forest.html#cb52-109" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-110"><a href="random-forest.html#cb52-110" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select the best model based on AUC</span></span>
+<span id="cb52-111"><a href="random-forest.html#cb52-111" aria-hidden="true" tabindex="-1"></a>  best_rf <span class="ot">&lt;-</span> tune_res <span class="sc">%&gt;%</span></span>
+<span id="cb52-112"><a href="random-forest.html#cb52-112" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select_best(&quot;roc_auc&quot;)</span></span>
+<span id="cb52-113"><a href="random-forest.html#cb52-113" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select_best</span>(<span class="st">&quot;accuracy&quot;</span>)</span>
+<span id="cb52-114"><a href="random-forest.html#cb52-114" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-115"><a href="random-forest.html#cb52-115" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set up the workflow for the best model</span></span>
+<span id="cb52-116"><a href="random-forest.html#cb52-116" aria-hidden="true" tabindex="-1"></a>  final_wf <span class="ot">&lt;-</span> </span>
+<span id="cb52-117"><a href="random-forest.html#cb52-117" aria-hidden="true" tabindex="-1"></a>    rf_wf <span class="sc">%&gt;%</span> </span>
+<span id="cb52-118"><a href="random-forest.html#cb52-118" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalize_workflow</span>(best_rf)</span>
+<span id="cb52-119"><a href="random-forest.html#cb52-119" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-120"><a href="random-forest.html#cb52-120" aria-hidden="true" tabindex="-1"></a>  <span class="co"># run the final best model on the training data and save</span></span>
+<span id="cb52-121"><a href="random-forest.html#cb52-121" aria-hidden="true" tabindex="-1"></a>  final_rf <span class="ot">&lt;-</span> </span>
+<span id="cb52-122"><a href="random-forest.html#cb52-122" aria-hidden="true" tabindex="-1"></a>    final_wf <span class="sc">%&gt;%</span></span>
+<span id="cb52-123"><a href="random-forest.html#cb52-123" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="at">data =</span> d_train) </span>
+<span id="cb52-124"><a href="random-forest.html#cb52-124" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-125"><a href="random-forest.html#cb52-125" aria-hidden="true" tabindex="-1"></a>  final_m <span class="ot">&lt;-</span> final_rf <span class="sc">%&gt;%</span> </span>
+<span id="cb52-126"><a href="random-forest.html#cb52-126" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull_workflow_fit</span>() </span>
+<span id="cb52-127"><a href="random-forest.html#cb52-127" aria-hidden="true" tabindex="-1"></a>  final_coefs <span class="ot">&lt;-</span> final_m<span class="sc">$</span>fit<span class="sc">$</span>variable.importance</span>
+<span id="cb52-128"><a href="random-forest.html#cb52-128" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-129"><a href="random-forest.html#cb52-129" aria-hidden="true" tabindex="-1"></a>  best_rf <span class="ot">&lt;-</span> best_rf <span class="sc">%&gt;%</span></span>
+<span id="cb52-130"><a href="random-forest.html#cb52-130" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">nvars =</span> <span class="fu">length</span>(final_coefs[final_coefs <span class="sc">!=</span> <span class="dv">0</span>]))</span>
+<span id="cb52-131"><a href="random-forest.html#cb52-131" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-132"><a href="random-forest.html#cb52-132" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(final_coefs, best_rf,</span>
+<span id="cb52-133"><a href="random-forest.html#cb52-133" aria-hidden="true" tabindex="-1"></a>       <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/03-rf/07-final-model-param/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb52-134"><a href="random-forest.html#cb52-134" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time))</span>
+<span id="cb52-135"><a href="random-forest.html#cb52-135" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-136"><a href="random-forest.html#cb52-136" aria-hidden="true" tabindex="-1"></a>  <span class="co"># run the final fit workflow of the training and test data together</span></span>
+<span id="cb52-137"><a href="random-forest.html#cb52-137" aria-hidden="true" tabindex="-1"></a>  final_fit <span class="ot">&lt;-</span> </span>
+<span id="cb52-138"><a href="random-forest.html#cb52-138" aria-hidden="true" tabindex="-1"></a>    final_wf <span class="sc">%&gt;%</span></span>
+<span id="cb52-139"><a href="random-forest.html#cb52-139" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(d_split) </span>
+<span id="cb52-140"><a href="random-forest.html#cb52-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(final_rf, final_fit</span>
+<span id="cb52-141"><a href="random-forest.html#cb52-141" aria-hidden="true" tabindex="-1"></a>       , <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/03-rf/03-final-training-models/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb52-142"><a href="random-forest.html#cb52-142" aria-hidden="true" tabindex="-1"></a>                        res_path, sid, outcome, group, set, time))</span>
+<span id="cb52-143"><a href="random-forest.html#cb52-143" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-144"><a href="random-forest.html#cb52-144" aria-hidden="true" tabindex="-1"></a>  <span class="co"># final metrics (accuracy and roc)</span></span>
+<span id="cb52-145"><a href="random-forest.html#cb52-145" aria-hidden="true" tabindex="-1"></a>  final_metrics <span class="ot">&lt;-</span> final_fit <span class="sc">%&gt;%</span></span>
+<span id="cb52-146"><a href="random-forest.html#cb52-146" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>(<span class="at">summarize =</span> T)</span>
+<span id="cb52-147"><a href="random-forest.html#cb52-147" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(final_metrics</span>
+<span id="cb52-148"><a href="random-forest.html#cb52-148" aria-hidden="true" tabindex="-1"></a>       , <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/03-rf/06-final-model-performance/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb52-149"><a href="random-forest.html#cb52-149" aria-hidden="true" tabindex="-1"></a>                        res_path, sid, outcome, group, set, time))</span>
+<span id="cb52-150"><a href="random-forest.html#cb52-150" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-151"><a href="random-forest.html#cb52-151" aria-hidden="true" tabindex="-1"></a>  <span class="co"># variable importance</span></span>
+<span id="cb52-152"><a href="random-forest.html#cb52-152" aria-hidden="true" tabindex="-1"></a>  final_var_imp <span class="ot">&lt;-</span> final_rf <span class="sc">%&gt;%</span> </span>
+<span id="cb52-153"><a href="random-forest.html#cb52-153" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull_workflow_fit</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb52-154"><a href="random-forest.html#cb52-154" aria-hidden="true" tabindex="-1"></a>    <span class="fu">vi</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb52-155"><a href="random-forest.html#cb52-155" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(Importance, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb52-156"><a href="random-forest.html#cb52-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save</span>(final_var_imp</span>
+<span id="cb52-157"><a href="random-forest.html#cb52-157" aria-hidden="true" tabindex="-1"></a>       , <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/03-rf/05-variable-importance/%s_%s_%s_%s_%s.RData&quot;</span>,</span>
+<span id="cb52-158"><a href="random-forest.html#cb52-158" aria-hidden="true" tabindex="-1"></a>                        res_path, sid, outcome, group, set, time))</span>
+<span id="cb52-159"><a href="random-forest.html#cb52-159" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-160"><a href="random-forest.html#cb52-160" aria-hidden="true" tabindex="-1"></a>  <span class="co"># roc plot</span></span>
+<span id="cb52-161"><a href="random-forest.html#cb52-161" aria-hidden="true" tabindex="-1"></a>  p_roc <span class="ot">&lt;-</span> final_fit <span class="sc">%&gt;%</span></span>
+<span id="cb52-162"><a href="random-forest.html#cb52-162" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb52-163"><a href="random-forest.html#cb52-163" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(.pred_0, <span class="at">truth =</span> o_value_1) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-164"><a href="random-forest.html#cb52-164" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>() <span class="sc">+</span> </span>
+<span id="cb52-165"><a href="random-forest.html#cb52-165" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">sprintf</span>(<span class="st">&quot;Participant %s: %s, %s, %s, %s&quot;</span></span>
+<span id="cb52-166"><a href="random-forest.html#cb52-166" aria-hidden="true" tabindex="-1"></a>                         , sid, outcome, group, set, time)) </span>
+<span id="cb52-167"><a href="random-forest.html#cb52-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(p_roc, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/05-results/03-rf/04-roc-curves/%s_%s_%s_%s_%s.png&quot;</span>,</span>
+<span id="cb52-168"><a href="random-forest.html#cb52-168" aria-hidden="true" tabindex="-1"></a>               res_path, sid, outcome, group, set, time)</span>
+<span id="cb52-169"><a href="random-forest.html#cb52-169" aria-hidden="true" tabindex="-1"></a>         , <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb52-170"><a href="random-forest.html#cb52-170" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-171"><a href="random-forest.html#cb52-171" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">c</span>(<span class="st">&quot;final_var_imp&quot;</span>, <span class="st">&quot;final_metrics&quot;</span>, <span class="st">&quot;final_wf&quot;</span>, <span class="st">&quot;final_rf&quot;</span>, <span class="st">&quot;final_fit&quot;</span></span>
+<span id="cb52-172"><a href="random-forest.html#cb52-172" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&quot;best_rf&quot;</span>, <span class="st">&quot;tune_res&quot;</span>, <span class="st">&quot;rf_wf&quot;</span>, <span class="st">&quot;tune_spec&quot;</span>, <span class="st">&quot;mod_recipe&quot;</span></span>
+<span id="cb52-173"><a href="random-forest.html#cb52-173" aria-hidden="true" tabindex="-1"></a>              , <span class="st">&quot;p&quot;</span>, <span class="st">&quot;p_roc&quot;</span>, <span class="st">&quot;d_split&quot;</span>, <span class="st">&quot;d_test&quot;</span>, <span class="st">&quot;d_train&quot;</span>, <span class="st">&quot;d_train_cv&quot;</span>))</span>
+<span id="cb52-174"><a href="random-forest.html#cb52-174" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gc</span>()</span>
+<span id="cb52-175"><a href="random-forest.html#cb52-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(T)</span>
+<span id="cb52-176"><a href="random-forest.html#cb52-176" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-177"><a href="random-forest.html#cb52-177" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="run-models-2" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Run Models</h3>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="random-forest.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb53-2"><a href="random-forest.html#cb53-2" aria-hidden="true" tabindex="-1"></a>rf_res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb53-3"><a href="random-forest.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s/04-data/02-model-data&quot;</span>, res_path) <span class="sc">%&gt;%</span> <span class="fu">list.files</span>()</span>
+<span id="cb53-4"><a href="random-forest.html#cb53-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-5"><a href="random-forest.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(file, <span class="fu">c</span>(<span class="st">&quot;SID&quot;</span>, <span class="st">&quot;outcome&quot;</span>, <span class="st">&quot;group&quot;</span>, <span class="st">&quot;set&quot;</span>, <span class="st">&quot;time&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-6"><a href="random-forest.html#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">str_remove_all</span>(time, <span class="st">&quot;.RData&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb53-7"><a href="random-forest.html#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb53-8"><a href="random-forest.html#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mod =</span> <span class="fu">future_pmap</span>(</span>
+<span id="cb53-9"><a href="random-forest.html#cb53-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">list</span>(SID, outcome, group, set, time)</span>
+<span id="cb53-10"><a href="random-forest.html#cb53-10" aria-hidden="true" tabindex="-1"></a>           , <span class="fu">safely</span>(rf_fun, <span class="cn">NA_real_</span>)</span>
+<span id="cb53-11"><a href="random-forest.html#cb53-11" aria-hidden="true" tabindex="-1"></a>           , <span class="at">.progress =</span> T</span>
+<span id="cb53-12"><a href="random-forest.html#cb53-12" aria-hidden="true" tabindex="-1"></a>           , <span class="at">.options =</span> <span class="fu">future_options</span>(</span>
+<span id="cb53-13"><a href="random-forest.html#cb53-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;res_path&quot;</span>, <span class="st">&quot;dummy_vars&quot;</span>, <span class="st">&quot;time_vars&quot;</span>)</span>
+<span id="cb53-14"><a href="random-forest.html#cb53-14" aria-hidden="true" tabindex="-1"></a>             , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;glmnet&quot;</span>, <span class="st">&quot;tidymodels&quot;</span>, <span class="st">&quot;vip&quot;</span>)</span>
+<span id="cb53-15"><a href="random-forest.html#cb53-15" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb53-16"><a href="random-forest.html#cb53-16" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb53-17"><a href="random-forest.html#cb53-17" aria-hidden="true" tabindex="-1"></a>         ) </span>
+<span id="cb53-18"><a href="random-forest.html#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="biscwit.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summarizing-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
